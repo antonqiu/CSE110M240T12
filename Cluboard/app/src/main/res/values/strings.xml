@@ -1,7 +1,15 @@
 <resources>
     <string name="app_name">Cluboard</string>
-    <string name="action_settings">Settings</string>
+    <string name="APPLICATION_ID">VYpP0R73xQjEWBuozA9M51I9wCkeFOBldy7rdAsX</string>
+    <string name="CLIENT_KEY">BSWKCSr3dq4zuZZCKVrNTruGSOwsO3Phz7Kbqhr7</string>
+    <string name="facebook_app_id">1678390239087400</string>
     <string name="welcome_text">Welcome</string>
     <string name="username_text">Username:</string>
     <string name="password_text">Password:</string>
+    <string name="login">Log in</string>
+    <string name="fb_login">Login Via Facebook</string>
+    <string name="register">Register</string>
+    <string name="welcome">Welcome!</string>
+    <string name="logoutBtn">Log out</string>
+
 </resources>
