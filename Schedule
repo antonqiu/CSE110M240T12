@@ -1,10 +1,14 @@
 Week 4- 
    Go over andriod studio tutorial, understand how to create activity, interact (everyone)
    http://developer.android.com/training/index.html 
+   Read over the android development tutorial (everyone)
+   http://www.tutorialspoint.com/android/android_architecture.htm
+   Parse Database tutorial (everyone)
+   https://parse.com/docs/android/guide#fbusers
    
    Basic UI layout design for the index page and individual group page (Hanchao Liu, Yimeng Gu)
    UI feature implement in andriod studio (Zhiye Zhang, Xingda Jiang)
-   Design the overflow of each activity (CSM, ZXY, QCT)
+   Design the overflow of each activity, login function (CSM, ZXY, QCT)
 Week 5/6 - 
   Access Permission Design （GYM, LHC)
    Database Design (CSM, ZXY, QCT)
