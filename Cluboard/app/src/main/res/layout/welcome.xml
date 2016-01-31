@@ -1,27 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".Welcome">
     <TextView
         android:id="@+id/txtwelcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:text="@string/welcome"
         android:paddingTop="50dp"
-        android:textSize="25sp" />
+        android:textSize="25sp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:id="@+id/txtuser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txtwelcome"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignBottom="@+id/txtwelcome"
+        android:layout_toEndOf="@+id/txtwelcome"
+        android:layout_toStartOf="@+id/logout" />
 
     <Button
         android:id="@+id/logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="@string/logoutBtn" />
+        android:text="@string/logoutBtn"
+        android:layout_alignBottom="@+id/txtuser"
+        android:layout_alignParentEnd="true" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/club_list_view"
+        android:layout_below="@+id/logout"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp" />
+
 </RelativeLayout>
