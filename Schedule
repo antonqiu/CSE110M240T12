@@ -9,8 +9,14 @@ Week 4-
    Basic UI layout design for the index page and individual group page (Hanchao Liu, Yimeng Gu)
    UI feature implement in andriod studio (Zhiye Zhang, Xingda Jiang)
    Design the overflow of each activity, login function (CSM, ZXY, QCT)
-Week 5/6 - 
-  Access Permission Design （GYM, LHC)
+   
+Week5 -
+   Finish the homepage design, link the homepage club list to the database. (CSM, ZXY, QCT)
+   Design sidebar ui, design create club page and create event page. (Hanchao Liu, Yimeng Gu,Zhiye Zhang, Xingda Jiang)
+   Allow user to create club and post events in the club page. (CSM, ZXY, QCT)
+   
+Week 6 - 
+   Access Permission Design （GYM, LHC)
    Database Design (CSM, ZXY, QCT)
    User interaction function implement. (ZZY, JXD）
    
