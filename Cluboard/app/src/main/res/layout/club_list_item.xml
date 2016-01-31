@@ -8,11 +8,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/club_name_demo"
-        android:id="@+id/textView" />
+        android:textSize="@dimen/club_name_size"
+        android:textStyle="bold"
+        android:id="@+id/club_name" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/club_detail_demo"
-        android:id="@+id/textView2" />
+        android:text="@string/club_desc_demo"
+        android:textSize="@dimen/club_detail_size"
+        android:id="@+id/club_detail" />
 </LinearLayout>

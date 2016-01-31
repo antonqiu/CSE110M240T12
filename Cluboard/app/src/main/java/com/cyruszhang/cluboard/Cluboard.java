@@ -7,6 +7,7 @@ import com.parse.Parse;
 import com.parse.ParseACL;
 
 import com.parse.ParseFacebookUtils;
+import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 import android.app.Application;
@@ -19,6 +20,7 @@ public class Cluboard extends Application {
         super.onCreate();
 
         // Add your initialization code here
+        ParseObject.registerSubclass(Club.class);
         Parse.initialize(this, YOUR_APPLICATION_ID, YOUR_CLIENT_KEY);
         ParseFacebookUtils.initialize(this);
         ParseUser.enableAutomaticUser();

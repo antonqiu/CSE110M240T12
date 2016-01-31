@@ -12,17 +12,18 @@ import java.util.List;
  */
 @ParseClassName("Clubs")
 public class Club extends ParseObject{
-    protected String clubID;
-    protected String clubName;
-    protected String clubDesc;
-    protected ParseUser owner;
+    //protected String clubID;
+    //protected String clubName;
+    //protected String clubDesc;
+    //protected String clubDetail;
+    //protected ParseUser owner;
 
     public String getClubName() {
         return getString("name");
     }
 
     public void setClubName(String clubName) {
-        this.clubName = clubName;
+        //this.clubName = clubName;
         put("name", clubName);
     }
 
@@ -31,7 +32,7 @@ public class Club extends ParseObject{
     }
 
     public void setClubDesc(String clubDesc) {
-        this.clubDesc = clubDesc;
+        //this.clubDesc = clubDesc;
         put("desc", clubDesc);
     }
 
@@ -39,12 +40,20 @@ public class Club extends ParseObject{
         return getString("clubID");
     }
 
+    public void setClubDetail(String clubDetail) {
+        put("detail", clubDetail);
+    }
+
+    public String getclubDetail() {
+        return getString("detail");
+    }
+
     public ParseUser getOwner() {
         return getParseUser("owner");
     }
 
     public void setOwner(ParseUser owner) {
-        this.owner = owner;
+        //this.owner = owner;
         put("owner", owner);
     }
 
