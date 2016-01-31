@@ -44,7 +44,7 @@ public class Club extends ParseObject{
         put("detail", clubDetail);
     }
 
-    public String getclubDetail() {
+    public String getClubDetail() {
         return getString("detail");
     }
 
