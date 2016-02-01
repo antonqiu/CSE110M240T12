@@ -1,25 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Welcome">
-    <TextView
-        android:id="@+id/txtwelcome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/welcome"
-        android:paddingTop="50dp"
-        android:textSize="25sp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.cyruszhang.cluboard.Welcome"
+    tools:showIn="@layout/activity_welcome">
 
     <TextView
         android:id="@+id/txtuser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/txtwelcome"
-        android:layout_toEndOf="@+id/txtwelcome"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
         android:layout_toStartOf="@+id/logout" />
 
     <Button
@@ -27,18 +25,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/logoutBtn"
-        android:layout_alignBottom="@+id/txtuser"
+        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true" />
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/club_list_view"
-        android:layout_below="@+id/logout"
+        android:layout_below="@id/logout"
         android:layout_alignParentStart="true"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp" />
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp" />
 
     <Button
         android:layout_width="wrap_content"

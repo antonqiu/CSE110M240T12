@@ -26,6 +26,7 @@
     <string name="club_desc">Club Description</string>
     <string name="club_detail">Club Detail</string>
     <string name="title_activity_new_club">New Club</string>
+    <string name="title_activity_welcome">Clubs</string>
 
 
 </resources>

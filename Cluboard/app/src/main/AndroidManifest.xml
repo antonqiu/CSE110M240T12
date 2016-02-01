@@ -37,7 +37,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".Login" />
-        <activity android:name=".Welcome" />
+        <activity
+            android:name=".Welcome"
+            android:label="@string/title_activity_welcome"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
         <activity
             android:name=".ClubDetail"
             android:label="@string/title_activity_club_detail"
