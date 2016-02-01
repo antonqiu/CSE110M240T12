@@ -28,6 +28,8 @@
     <string name="title_activity_new_club">New Club</string>
     <string name="title_activity_welcome">Clubs</string>
     <string name="action_about">About</string>
+    <string name="new_club_create_button">CREATE</string>
+    <string name="action_create_club">CREATE CLUB</string>
 
 
 </resources>

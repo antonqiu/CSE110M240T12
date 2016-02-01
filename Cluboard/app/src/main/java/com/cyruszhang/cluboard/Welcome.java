@@ -60,18 +60,6 @@ public class Welcome extends AppCompatActivity {
         TextView txtuser = (TextView) findViewById(R.id.txtuser);
         // Set the currentUser String into TextView
         txtuser.setText(getString(R.string.logged_in_as) + struser);
-        // Locate Button in welcome.xml
-        logout = (Button) findViewById(R.id.logout);
-        // Logout Button Click Listener
-        logout.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View arg0) {
-                // Logout current user
-                ParseUser.logOut();
-                Intent intent = new Intent(Welcome.this, Login.class);
-                startActivity(intent);
-            }
-        });
 
         // Locate Button in welcome.xml
         createNewClub = (Button) findViewById(R.id.newClubBtn);
@@ -123,7 +111,6 @@ public class Welcome extends AppCompatActivity {
                 Snackbar.make(coordinatorLayout,
                         "You are logged out", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-                return true;
         }
         return true;
     }
