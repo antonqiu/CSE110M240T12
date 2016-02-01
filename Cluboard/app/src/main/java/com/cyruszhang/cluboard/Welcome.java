@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
 import com.parse.ParseUser;
@@ -24,6 +23,8 @@ import java.util.Arrays;
 public class Welcome extends Activity {
     Button logout;
     Button createNewClub;
+
+    ParseQueryAdapter<Club> clubsQueryAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,13 +58,20 @@ public class Welcome extends Activity {
         createNewClub.setOnClickListener(new View.OnClickListener() {
         //click and go to create club view
             public void onClick(View arg0) {
-                Intent intent = new Intent(Welcome.this, CreateClub.class);
+                Intent intent = new Intent(Welcome.this, NewClub.class);
                 startActivity(intent);
             }
         });
 
         setupClubList();
 
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        clubsQueryAdapter.loadObjects();
+        //clubsQueryAdapter.notifyDataSetChanged();
     }
 
     private void setupClubList() {
@@ -82,7 +90,7 @@ public class Welcome extends Activity {
                     }
                 };
 
-        final ParseQueryAdapter<Club> clubsQueryAdapter = new ParseQueryAdapter<Club>(this, factory) {
+        clubsQueryAdapter = new ParseQueryAdapter<Club>(this, factory) {
             @Override
             public View getItemView(Club object, View v, ViewGroup parent) {
                 if (v == null) {
