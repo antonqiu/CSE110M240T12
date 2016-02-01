@@ -11,7 +11,7 @@
     <string name="register">Register</string>
     <string name="welcome">Welcome!</string>
     <string name="logoutBtn">Log out</string>
-    <string name="createClubBtn">+ New Club</string>
+    <string name="addClubBtn">+ New Club</string>
 
 
     <string name="action_settings">Settings</string>
@@ -21,6 +21,11 @@
     <string name="logged_in_as">"You are logged in as "</string>
     <string name="logo_desc_demo">logo_desc_demo</string>
     <string name="club_detail_demo">Loading Club Detail</string>
+
+    <string name="club_name">Club Name</string>
+    <string name="club_desc">Club Description</string>
+    <string name="club_detail">Club Detail</string>
+    <string name="createClubBtn">Create Club</string>
 
 
 </resources>

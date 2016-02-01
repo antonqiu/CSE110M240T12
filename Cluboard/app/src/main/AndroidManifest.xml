@@ -47,6 +47,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.cyruszhang.cluboard.Welcome" />
         </activity>
+        <activity android:name=".CreateClub"></activity>
     </application>
 
 </manifest>

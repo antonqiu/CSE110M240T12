@@ -23,6 +23,7 @@ import java.util.Arrays;
  */
 public class Welcome extends Activity {
     Button logout;
+    Button createNewClub;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,17 @@ public class Welcome extends Activity {
                 // Logout current user
                 ParseUser.logOut();
                 Intent intent = new Intent(Welcome.this, Login.class);
+                startActivity(intent);
+            }
+        });
+
+        // Locate Button in welcome.xml
+        createNewClub = (Button) findViewById(R.id.newClubBtn);
+        // createNewClub Button Click Listener
+        createNewClub.setOnClickListener(new View.OnClickListener() {
+        //click and go to create club view
+            public void onClick(View arg0) {
+                Intent intent = new Intent(Welcome.this, CreateClub.class);
                 startActivity(intent);
             }
         });
