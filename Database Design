@@ -9,6 +9,8 @@ Description (Full name)
 Detail (An introduction paragraph)
 Email
 Website
+Owner (ParseRole)
+Editer (ParseRole)
 
 Event:
 Name
@@ -21,7 +23,7 @@ Permission:
   Club creator:
     Post new event
     Edit all club info
-    Give edit permission to other user by username or email
+    Give edit permission to other user by username or useremail
     Delete the club
     Delete the event
     
