@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">Cluboard</string>
+    <string name="APPLICATION_ID">VYpP0R73xQjEWBuozA9M51I9wCkeFOBldy7rdAsX</string>
+    <string name="CLIENT_KEY">BSWKCSr3dq4zuZZCKVrNTruGSOwsO3Phz7Kbqhr7</string>
+    <string name="facebook_app_id">1678390239087400</string>
+    <string name="welcome_text">Welcome</string>
+    <string name="username_text">Username:</string>
+    <string name="password_text">Password:</string>
+    <string name="login">Log in</string>
+    <string name="fb_login">Login Via Facebook</string>
+    <string name="register">Register</string>
+    <string name="welcome">Welcome!</string>
+    <string name="logoutBtn">Log out</string>
+    <string name="addClubBtn">+ New Club</string>
+
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_club_detail">Club Detail</string>
+    <string name="club_name_demo">Loading Club Name</string>
+    <string name="club_desc_demo">Club Description Demo</string>
+    <string name="logged_in_as">"You are logged in as "</string>
+    <string name="logo_desc_demo">logo_desc_demo</string>
+    <string name="club_detail_demo">Loading Club Detail</string>
+
+    <string name="club_name">Club Name</string>
+    <string name="club_desc">Club Description</string>
+    <string name="club_detail">Club Detail</string>
+    <string name="title_activity_new_club">New Club</string>
+    <string name="title_activity_welcome">Clubs</string>
+    <string name="action_about">About</string>
+    <string name="new_club_create_button">CREATE</string>
+    <string name="action_create_club">CREATE CLUB</string>
+
+
+</resources>
