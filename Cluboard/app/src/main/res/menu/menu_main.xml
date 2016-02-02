@@ -17,5 +17,6 @@
         android:id="@+id/action_create_club"
         android:orderInCategory="103"
         android:title="@string/action_create_club"
-        app:showAsAction="always" />
+        app:showAsAction="always"
+        android:icon="@drawable/ic_action_bookmark"/>
 </menu>
