@@ -1,0 +1,27 @@
+Login:
+Username,
+password,
+email (To add)
+
+Club:
+Name (abbreviation)
+Description (Full name)
+Detail (An introduction paragraph)
+Email
+Website
+
+Event:
+Name
+Date
+Time
+Location
+Description
+
+Permission:
+  Club creator:
+    Post new event
+    Edit all club info
+    Give edit permission to other user by username or email
+    Delete the club
+    Delete the event
+    

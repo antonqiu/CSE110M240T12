@@ -1,5 +1,7 @@
 package com.cyruszhang.cluboard;
 
+import com.parse.ParseObject;
+
 /**
  * Created by AntonioQ on 1/30/16.
  */
@@ -10,12 +12,14 @@ public class Event {
     private String eventDate;
     private String eventTime;
     private String eventLocation;
+    private String eventDesc;
 
-    public Event(String eventName, String eventDate, String eventTime, String eventLocation) {
+    public Event(String eventName, String eventDate, String eventTime, String eventLocation, String eventDesc) {
         this.eventName = eventName;
         this.eventDate = eventDate;
         this.eventTime = eventTime;
         this.eventLocation = eventLocation;
+        this.eventDesc = eventDesc;
 
         // TODO: event ID and database interaction
     }
@@ -50,5 +54,13 @@ public class Event {
 
     public void setEventLocation(String eventLocation) {
         this.eventLocation = eventLocation;
+    }
+
+    public String getEventDesc() {
+        return eventDesc;
+    }
+
+    public void setEventDesc(String eventDesc) {
+        this.eventDesc = eventDesc;
     }
 }

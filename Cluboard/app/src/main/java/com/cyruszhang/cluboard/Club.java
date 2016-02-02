@@ -48,6 +48,17 @@ public class Club extends ParseObject{
         return getString("detail");
     }
 
+    public String getClubEmail() {return getString("email"); }
+
+    public void setClubEmail(String clubEmail) {
+        put("email", clubEmail);
+    }
+
+    public String getClubWeb() {return getString("web"); }
+
+    public void setClubWeb(String clubWeb) {
+        put("web", clubWeb);
+    }
     public ParseUser getOwner() {
         return getParseUser("owner");
     }
