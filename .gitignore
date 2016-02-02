@@ -8,6 +8,9 @@
 # Java class files
 *.class
 
+# iml
+*.iml
+
 # Generated files
 bin/
 gen/
@@ -31,3 +34,9 @@ Cluboard/.navigation/
 # Android Studio captures folder
 Cluboard/captures/
 
+# from Andriod Studio
+Cluboard/.idea/workspace.xml
+Cluboard/.idea/libraries
+.DS_Store
+Cluboard/build
+Cluboard/captures
