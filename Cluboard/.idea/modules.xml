@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Cluboard.iml" filepath="$PROJECT_DIR$/Cluboard.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/cluboard.iml" filepath="$PROJECT_DIR$/cluboard.iml" />
     </modules>
   </component>
 </project>
