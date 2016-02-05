@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import com.parse.ParseACL;
 import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseRole;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
@@ -78,10 +80,16 @@ public class NewClub extends AppCompatActivity {
         newClub.setClubDetail(clubDetailtxt);
         newClub.setOwner(ParseUser.getCurrentUser());
 
-        // 2
-        ParseACL acl = new ParseACL();
-        acl.setPublicReadAccess(true);
-        newClub.setACL(acl);
+        /* set acl for the club
+        write and read access for owner
+        read access for public
+         */
+        setACL(newClub);
+
+        //add club to myClub in user information
+        User currentUser = (User)ParseUser.getCurrentUser();
+        currentUser.setMyclub(newClub);
+
 
         // 3
         newClub.saveInBackground(new SaveCallback() {
@@ -92,5 +100,21 @@ public class NewClub extends AppCompatActivity {
         });
         return true;
     }
+
+    /* set acl for the club
+        write and read access for owner
+        read access for public
+         */
+    private void setACL(Club newClub) {
+        ParseACL clubAcl = new ParseACL();
+        clubAcl.setPublicReadAccess(true);
+        String permission = clubNametxt + " " + "Owner";
+        ParseRole ownerRole = new ParseRole(permission, clubAcl);
+        ownerRole.getUsers().add(ParseUser.getCurrentUser());
+        ownerRole.saveInBackground();
+        clubAcl.setRoleWriteAccess(permission, true);
+        newClub.setACL(clubAcl);
+    }
+
 
 }

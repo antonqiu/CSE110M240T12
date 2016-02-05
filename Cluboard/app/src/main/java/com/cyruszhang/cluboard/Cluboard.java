@@ -21,6 +21,7 @@ public class Cluboard extends Application {
 
         // Add your initialization code here
         ParseObject.registerSubclass(Club.class);
+        ParseUser.registerSubclass(User.class);
         Parse.initialize(this, YOUR_APPLICATION_ID, YOUR_CLIENT_KEY);
         ParseFacebookUtils.initialize(this);
         ParseUser.enableAutomaticUser();
@@ -32,7 +33,6 @@ public class Cluboard extends Application {
 
         ParseACL.setDefaultACL(defaultACL, true);
     }
-
 
 
 }
