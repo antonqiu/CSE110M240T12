@@ -108,12 +108,23 @@ public class NewClub extends AppCompatActivity {
     private void setACL(Club newClub) {
         ParseACL clubAcl = new ParseACL();
         clubAcl.setPublicReadAccess(true);
-        String permission = clubNametxt + " " + "Owner";
-        ParseRole ownerRole = new ParseRole(permission, clubAcl);
-        ownerRole.getUsers().add(ParseUser.getCurrentUser());
-        ownerRole.saveInBackground();
+        String permission = clubNametxt + " " + "Moderator";
+        ParseRole moderatorRole = new ParseRole(permission, clubAcl);
+
+        /* allow club creator to change moderatorRole */
+        ParseACL roleACL = new ParseACL();
+        roleACL.setReadAccess(ParseUser.getCurrentUser(), true);
+        roleACL.setWriteAccess(ParseUser.getCurrentUser(), true);
+        moderatorRole.setACL(roleACL);
+
+        /* add owner to moderatorRole
+            give moderator write access
+            set owner as mater of club*/
+        moderatorRole.getUsers().add(ParseUser.getCurrentUser());
+        moderatorRole.saveInBackground();
         clubAcl.setRoleWriteAccess(permission, true);
         newClub.setACL(clubAcl);
+        
     }
 
 

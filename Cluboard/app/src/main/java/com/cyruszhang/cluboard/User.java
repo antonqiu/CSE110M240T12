@@ -23,6 +23,8 @@ public class User extends ParseUser {
     public void setFollowedEvent(Event followedEvent) {
         this.addAllUnique("followedEvent", Arrays.asList(followedEvent));
     }
+    public void checkPermission(Club club) {
 
+    }
 
 }

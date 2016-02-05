@@ -1,5 +1,6 @@
 package com.cyruszhang.cluboard;
 
+import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
@@ -37,6 +38,10 @@ public class ClubDetail extends AppCompatActivity {
         final TextView clubName = (TextView) this.findViewById(R.id.club_detail_name);
         final TextView clubDetail = (TextView) this.findViewById(R.id.club_detail_detail);
 
+        //User currentUser = (User)ParseUser.getCurrentUser();
+
+
+
         ParseQuery<Club> query = Club.getQuery();
         query.getInBackground(getIntent().getStringExtra("OBJECT_ID"), new GetCallback<Club>() {
             @Override
@@ -46,6 +51,7 @@ public class ClubDetail extends AppCompatActivity {
                     Log.d(getClass().getSimpleName(), "got club object" + thisClub.getClubName());
                     clubName.setText(thisClub.getClubName());
                     clubDetail.setText(thisClub.getClubDetail());
+
                 } else {
                     Toast.makeText(getApplicationContext(), "Something is wrong", Toast.LENGTH_SHORT).show();
                     finish();
@@ -58,7 +64,6 @@ public class ClubDetail extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         menu.add(0, MENU_ITEM_LOGOUT, 102, "Logout");
-
         return true;
     }
 

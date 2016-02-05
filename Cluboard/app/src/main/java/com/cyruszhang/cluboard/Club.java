@@ -5,6 +5,9 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import org.json.JSONArray;
+
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -61,6 +64,16 @@ public class Club extends ParseObject{
     }
     public ParseUser getOwner() {
         return getParseUser("owner");
+    }
+
+    /* add event to the events col in club */
+    public void addEvent(Event event) {
+        put("events", Arrays.asList(event));
+    }
+
+    /* get all event in a JsonArray from the club */
+    public JSONArray getEventList() {
+        return (JSONArray)get("events");
     }
 
     public void setOwner(ParseUser owner) {

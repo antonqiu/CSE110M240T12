@@ -35,8 +35,7 @@
         android:id="@+id/club_detail_scroll"
         android:layout_below="@+id/club_detail_logo"
         android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentEnd="true">
 
         <TextView
             android:layout_width="match_parent"
@@ -44,6 +43,23 @@
             android:text="@string/club_detail_demo"
             android:id="@+id/club_detail_detail" />
     </ScrollView>
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/event_list_view"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/club_detail_scroll"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="+ New Event"
+        android:id="@+id/new_event_btn"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:visibility="invisible"/>
 
 
 </RelativeLayout>

@@ -95,9 +95,13 @@ public class Welcome extends AppCompatActivity {
         int id = item.getItemId();
         switch (id) {
             case R.id.action_settings:
+                //go to setting page
                 Snackbar.make(coordinatorLayout,
                         "You selected settings", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                Intent intent = new Intent(Welcome.this, Setting.class);
+                startActivity(intent);
+
                 return true;
             case R.id.action_about:
                 Snackbar.make(coordinatorLayout,
@@ -106,7 +110,7 @@ public class Welcome extends AppCompatActivity {
             case MENU_ITEM_LOGOUT:
                 // Logout current user
                 ParseUser.logOut();
-                Intent intent = new Intent(Welcome.this, Login.class);
+                intent = new Intent(Welcome.this, Login.class);
                 startActivity(intent);
                 Snackbar.make(coordinatorLayout,
                         "You are logged out", Snackbar.LENGTH_LONG)
