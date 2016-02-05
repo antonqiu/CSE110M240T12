@@ -6,6 +6,7 @@ email (To add)
 Club:
 Name (abbreviation)
 Description (Full name)
+Icon (ParseFile)
 Detail (An introduction paragraph)
 Email
 Website
@@ -18,6 +19,7 @@ Date
 Time
 Location
 Description
+NumFollowed (int)
 
 Permission:
   Club creator:
