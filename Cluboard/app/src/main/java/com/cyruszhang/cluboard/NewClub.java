@@ -123,8 +123,9 @@ public class NewClub extends AppCompatActivity {
         moderatorRole.getUsers().add(ParseUser.getCurrentUser());
         moderatorRole.saveInBackground();
         clubAcl.setRoleWriteAccess(permission, true);
+        clubAcl.setWriteAccess(ParseUser.getCurrentUser(), true);
         newClub.setACL(clubAcl);
-        
+
     }
 
 
