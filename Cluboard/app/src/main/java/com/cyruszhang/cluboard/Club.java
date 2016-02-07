@@ -1,6 +1,8 @@
 package com.cyruszhang.cluboard;
 
+import com.parse.FindCallback;
 import com.parse.ParseClassName;
+import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseRelation;
@@ -90,10 +92,27 @@ public class Club extends ParseObject{
         put("owner", owner);
     }
 
-    public void addBookmarkUser(ParseUser bookmarker) {
-        ParseRelation<ParseUser> bookmarkRelation = getRelation("bookmarkUsers");
-        bookmarkRelation.add(bookmarker);
-        saveInBackground();
+    public void addBookmarkUser(final ParseUser bookmarker) {
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("BookmarkRelations");
+        query.whereEqualTo("clubObjectId", this.get("objectId"));
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> objects, ParseException e) {
+                if (objects == null) {
+                    ParseObject newRelation = new ParseObject("BookmarkRelations");
+                    newRelation.put("clubObjectId",this.get("objectId"));
+                    ParseRelation<ParseObject> bookmarkRelation = newRelation.getRelation("bookmarkUsers");
+                    bookmarkRelation.add(bookmarker);
+                    newRelation.saveInBackground();
+                }
+                else {
+                    ParseObject relation = objects.get(0);
+                    ParseRelation<ParseObject> bookmarkRelation = relation.getRelation("bookmarkUsers");
+                    bookmarkRelation.add(bookmarker);
+                    relation.saveInBackground();
+                }
+            }
+        });
     }
 
     public void removeBookmarkUser(ParseUser bookmarker) {
