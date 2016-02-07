@@ -29,6 +29,7 @@ import java.util.List;
 
 public class ClubDetail extends AppCompatActivity {
     private static final int MENU_ITEM_LOGOUT = 1001;
+    private static final int MENU_ITEM_BOOKMARK = 1002;
     private CoordinatorLayout coordinatorLayout;
     private Club thisClub;
 
@@ -111,6 +112,9 @@ public class ClubDetail extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         menu.add(0, MENU_ITEM_LOGOUT, 102, "Logout");
+        MenuItem bookmark = menu.add(0, MENU_ITEM_BOOKMARK, 103, "Bookmark");
+        bookmark.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        bookmark.setIcon(R.drawable.ic_action_bookmark);
         return true;
     }
 
