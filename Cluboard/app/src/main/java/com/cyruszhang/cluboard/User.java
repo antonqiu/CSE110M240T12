@@ -12,16 +12,16 @@ import java.util.Arrays;
  */
 public class User extends ParseUser {
     /* store user created club */
-    public void setMyclub(Club myClub) {
-        this.addUnique("myClub", myClub);
+    public void setMyclubs(Club myClub) {
+        this.addUnique("myClubs", myClub);
     }
     /* store bookmarked club */
     public void setBookmarkedClubs(Club bookmarkedClub) {
         this.addUnique("bookmarkedClubs", bookmarkedClub);
     }
     /* store followed event */
-    public void setFollowedEvent(Event followedEvent) {
-        this.addUnique("followedEvent", followedEvent);
+    public void setFollowedEvents(Event followedEvent) {
+        this.addUnique("followedEvents", followedEvent);
     }
     public void checkPermission(Club club) {
 
