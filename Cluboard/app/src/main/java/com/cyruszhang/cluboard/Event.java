@@ -3,13 +3,14 @@ package com.cyruszhang.cluboard;
 import com.parse.ParseClassName;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 import java.util.Date;
 
 /**
  * Created by AntonioQ on 1/30/16.
  * ParseObject Fields:
- * name String; datetime, Date; coord, GeoPoint;
+ * name String; datetime, Date; coord, GeoPoint; location, String; desc, String
  */
 @ParseClassName("Events")
 public class Event extends ParseObject {
@@ -58,5 +59,9 @@ public class Event extends ParseObject {
 
     public void setEventDesc(String eventDesc) {
         put("desc", eventDesc);
+    }
+
+    public static ParseQuery<Event> getQuery() {
+        return ParseQuery.getQuery(Event.class);
     }
 }

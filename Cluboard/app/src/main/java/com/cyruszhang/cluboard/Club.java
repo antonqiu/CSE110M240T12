@@ -12,14 +12,18 @@ import java.util.List;
 
 /**
  * Created by AntonioQ on 1/30/16.
+ * Fields:
+ * name: String
+ * desc: String
+ * clubID: String // TODO: Do we need it & How to implement
+ * detail: String
+ * email: String
+ * web: String
+ * owner: Relation of ParseUser
+ * events: Relation of Events
  */
 @ParseClassName("Clubs")
 public class Club extends ParseObject{
-    //protected String clubID;
-    //protected String clubName;
-    //protected String clubDesc;
-    //protected String clubDetail;
-    //protected ParseUser owner;
 
     public Club() {}
 
@@ -69,11 +73,13 @@ public class Club extends ParseObject{
     }
 
     /* add event to the events col in club */
+    // TODO: add vs. put?
     public void addEvent(Event event) {
         add("events", event);
     }
 
     /* get all event in a JsonArray from the club */
+    // TODO: we should change it to Relation, which is more standardized
     public JSONArray getEventList() {
         return (JSONArray)get("events");
     }
