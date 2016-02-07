@@ -12,18 +12,27 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.FindCallback;
 import com.parse.GetCallback;
+import com.parse.ParseACL;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseRole;
 import com.parse.ParseUser;
+
+import java.util.List;
 
 public class ClubDetail extends AppCompatActivity {
     private static final int MENU_ITEM_LOGOUT = 1001;
     private CoordinatorLayout coordinatorLayout;
     private Club thisClub;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +46,8 @@ public class ClubDetail extends AppCompatActivity {
 
         final TextView clubName = (TextView) this.findViewById(R.id.club_detail_name);
         final TextView clubDetail = (TextView) this.findViewById(R.id.club_detail_detail);
+        final Button createEventBtn = (Button) this.findViewById(R.id.new_event_btn);
 
-        //User currentUser = (User)ParseUser.getCurrentUser();
 
 
 
@@ -51,6 +60,32 @@ public class ClubDetail extends AppCompatActivity {
                     Log.d(getClass().getSimpleName(), "got club object" + thisClub.getClubName());
                     clubName.setText(thisClub.getClubName());
                     clubDetail.setText(thisClub.getClubDetail());
+                    //User currentUser = (User)ParseUser.getCurrentUser();
+
+                 /*   String roleName = thisClub.getClubName()+" "+"Moderator";
+                    ParseQuery<ParseRole> roleQuery = ParseRole.getQuery();
+                    roleQuery.whereEqualTo("name", roleName);
+                    roleQuery.whereEqualTo("users", currentUser);
+                    roleQuery.findInBackground(new FindCallback<ParseRole>() {
+                        @Override
+                        public void done(List<ParseRole> objects, ParseException e) {
+                            if(e==null) {
+                                Log.d("permission", "verified");
+                                createEventBtn.setVisibility(View.VISIBLE);
+                            }
+                            else {
+                                Log.d("permission", "denied");
+                            }
+                        }
+                    }); */
+                    User currentUser = (User)ParseUser.getCurrentUser();
+                    ParseACL clubAcl = thisClub.getACL();
+                    //if user is owner, show create event button
+                    if(clubAcl.getWriteAccess(currentUser)) {
+                        createEventBtn.setVisibility(View.VISIBLE);
+                    }
+
+
 
                 } else {
                     Toast.makeText(getApplicationContext(), "Something is wrong", Toast.LENGTH_SHORT).show();
@@ -58,6 +93,18 @@ public class ClubDetail extends AppCompatActivity {
                 }
             }
         });
+
+
+        createEventBtn.setOnClickListener(new View.OnClickListener() {
+            //click and go to create club view
+            public void onClick(View arg0) {
+                Intent intent = new Intent(ClubDetail.this, NewEvent.class);
+                intent.putExtra("OBJECT_ID", getIntent().getStringExtra("OBJECT_ID"));
+                startActivity(intent);
+            }
+        });
+
+
     }
 
     @Override

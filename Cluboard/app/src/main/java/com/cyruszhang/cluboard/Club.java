@@ -68,7 +68,7 @@ public class Club extends ParseObject{
 
     /* add event to the events col in club */
     public void addEvent(Event event) {
-        put("events", Arrays.asList(event));
+        add("events", event);
     }
 
     /* get all event in a JsonArray from the club */

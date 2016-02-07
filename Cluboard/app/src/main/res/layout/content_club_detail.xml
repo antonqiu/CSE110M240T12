@@ -55,7 +55,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="+ New Event"
+        android:text="@string/new_event_btn"
         android:id="@+id/new_event_btn"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
