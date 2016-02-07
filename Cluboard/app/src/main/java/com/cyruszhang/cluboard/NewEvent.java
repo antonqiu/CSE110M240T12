@@ -16,6 +16,7 @@ import com.parse.ParseACL;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 public class NewEvent extends AppCompatActivity {
     EditText eventName;
@@ -33,8 +34,8 @@ public class NewEvent extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         eventName = (EditText) findViewById(R.id.new_event_name);
-        eventDesc = (EditText) findViewById(R.id.new_club_desc);
-        eventDesc = (EditText) findViewById(R.id.new_event_location);
+        eventDesc = (EditText) findViewById(R.id.new_event_desc);
+        eventLocation = (EditText) findViewById(R.id.new_event_location);
 
         createEventBtn = (Button) findViewById(R.id.new_event_btn);
         createEventBtn.setOnClickListener(new View.OnClickListener() {
@@ -75,11 +76,18 @@ public class NewEvent extends AppCompatActivity {
                     thisClub.addEvent(newEvent);
                     ParseACL clubAcl = thisClub.getACL();
                     newEvent.setACL(clubAcl);
+                    newEvent.put("club", thisClub);
 
                 } else {
                     Toast.makeText(getApplicationContext(), "Something is wrong", Toast.LENGTH_SHORT).show();
                     finish();
                 }
+            }
+        });
+        newEvent.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                finish();
             }
         });
         return true;
