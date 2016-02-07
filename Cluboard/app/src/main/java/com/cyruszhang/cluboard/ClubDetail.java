@@ -53,6 +53,7 @@ public class ClubDetail extends AppCompatActivity {
 
 
         ParseQuery<Club> query = Club.getQuery();
+
         query.getInBackground(getIntent().getStringExtra("OBJECT_ID"), new GetCallback<Club>() {
             @Override
             public void done(Club object, ParseException e) {
@@ -140,6 +141,7 @@ public class ClubDetail extends AppCompatActivity {
                         "You are logged out", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             case MENU_ITEM_BOOKMARK:
+                // TODO: should toggle it based on
                 thisClub.addBookmarkUser(ParseUser.getCurrentUser());
                 Snackbar.make(coordinatorLayout,
                         "Bookmark Seleted", Snackbar.LENGTH_LONG)
