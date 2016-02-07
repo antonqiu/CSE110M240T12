@@ -33,6 +33,8 @@ public class NewEvent extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         eventName = (EditText) findViewById(R.id.new_event_name);
         eventDesc = (EditText) findViewById(R.id.new_event_desc);
         eventLocation = (EditText) findViewById(R.id.new_event_location);
