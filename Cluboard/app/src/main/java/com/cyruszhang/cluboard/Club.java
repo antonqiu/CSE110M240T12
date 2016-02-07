@@ -90,6 +90,18 @@ public class Club extends ParseObject{
         put("owner", owner);
     }
 
+    public void addBookmarkUser(ParseUser bookmarker) {
+        ParseRelation<ParseUser> bookmarkRelation = getRelation("bookmarkUsers");
+        bookmarkRelation.add(bookmarker);
+        saveInBackground();
+    }
+
+    public void removeBookmarkUser(ParseUser bookmarker) {
+        ParseRelation<ParseUser> bookmarkRelation = getRelation("bookmarkUsers");
+        bookmarkRelation.remove(bookmarker);
+        saveInBackground();
+    }
+
     public static ParseQuery<Club> getQuery() {
         return ParseQuery.getQuery(Club.class);
     }
