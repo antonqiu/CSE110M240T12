@@ -45,14 +45,6 @@ public class Event extends ParseObject{
         put("time", eventTime);
     }
 
-  /*  public String getEventTime() {
-        return getString("time");
-    }
-
-    public void setEventTime(String eventTime) {
-        put("time", )
-    } */
-
     public String getEventLocation() {
         return getString("location");
     }
