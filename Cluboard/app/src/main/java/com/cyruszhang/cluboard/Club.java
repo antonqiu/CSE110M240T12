@@ -3,6 +3,7 @@ package com.cyruszhang.cluboard;
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
 import org.json.JSONArray;
@@ -87,6 +88,18 @@ public class Club extends ParseObject{
     public void setOwner(ParseUser owner) {
         //this.owner = owner;
         put("owner", owner);
+    }
+
+    public void addBookmarkUser(ParseUser bookmarker) {
+        ParseRelation<ParseUser> bookmarkRelation = getRelation("bookmarkUsers");
+        bookmarkRelation.add(bookmarker);
+        saveInBackground();
+    }
+
+    public void removeBookmarkUser(ParseUser bookmarker) {
+        ParseRelation<ParseUser> bookmarkRelation = getRelation("bookmarkUsers");
+        bookmarkRelation.remove(bookmarker);
+        saveInBackground();
     }
 
     public static ParseQuery<Club> getQuery() {
