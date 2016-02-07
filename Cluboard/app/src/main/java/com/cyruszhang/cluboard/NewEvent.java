@@ -78,18 +78,20 @@ public class NewEvent extends AppCompatActivity {
                     newEvent.setACL(clubAcl);
                     newEvent.put("club", thisClub);
 
+                    newEvent.saveInBackground(new SaveCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                            finish();
+                        }
+                    });
+
                 } else {
                     Toast.makeText(getApplicationContext(), "Something is wrong", Toast.LENGTH_SHORT).show();
                     finish();
                 }
             }
         });
-        newEvent.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                finish();
-            }
-        });
+
         return true;
     }
 
