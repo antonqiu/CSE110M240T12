@@ -139,6 +139,11 @@ public class ClubDetail extends AppCompatActivity {
                 Snackbar.make(coordinatorLayout,
                         "You are logged out", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+            case MENU_ITEM_BOOKMARK:
+                thisClub.addBookmarkUser(ParseUser.getCurrentUser());
+                Snackbar.make(coordinatorLayout,
+                        "Bookmark Seleted", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
         }
         return true;
     }
