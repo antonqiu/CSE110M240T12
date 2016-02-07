@@ -1,9 +1,6 @@
 package com.cyruszhang.cluboard;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -13,7 +10,6 @@ import android.widget.Toast;
 
 import com.parse.ParseACL;
 import com.parse.ParseException;
-import com.parse.ParseObject;
 import com.parse.ParseRole;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
@@ -88,7 +84,7 @@ public class NewClub extends AppCompatActivity {
 
         //add club to myClub in user information
         User currentUser = (User)ParseUser.getCurrentUser();
-        currentUser.setMyclub(newClub);
+        currentUser.setMyclubs(newClub);
 
 
         // 3
@@ -106,6 +102,7 @@ public class NewClub extends AppCompatActivity {
         read access for public
          */
     private void setACL(Club newClub) {
+        // TODO: role hierarchy discussion
         ParseACL clubAcl = new ParseACL();
         clubAcl.setPublicReadAccess(true);
         String permission = clubNametxt + " " + "Moderator";
