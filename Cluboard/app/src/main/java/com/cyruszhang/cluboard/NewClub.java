@@ -10,6 +10,8 @@ import android.widget.Toast;
 
 import com.parse.ParseACL;
 import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseRelation;
 import com.parse.ParseRole;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
@@ -75,6 +77,10 @@ public class NewClub extends AppCompatActivity {
         newClub.setClubDesc(clubDesctxt);
         newClub.setClubDetail(clubDetailtxt);
         newClub.setOwner(ParseUser.getCurrentUser());
+        ParseObject newRelation = new ParseObject("BookmarkRelations");
+        newRelation.put("clubObject", newClub);
+        ParseRelation<ParseObject> bookmarkRelation = newRelation.getRelation("bookmarkUsers");
+        newRelation.saveInBackground();
 
         /* set acl for the club
         write and read access for owner

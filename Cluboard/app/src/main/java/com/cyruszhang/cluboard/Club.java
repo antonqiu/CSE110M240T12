@@ -92,6 +92,21 @@ public class Club extends ParseObject{
         put("owner", owner);
     }
 
+    public ParseObject findBookmarkRelation(final ParseUser bookmarker){
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("BookmarkRelations");
+        query.whereEqualTo("clubObjectId", this.get("objectId"));
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> objects, ParseException e) {
+                if (objects.size() == 0) {
+                    return null;
+                } else {
+                    return objects.get(0);
+                }
+            }
+        });
+    }
+
     public void addBookmarkUser(final ParseUser bookmarker) {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("BookmarkRelations");
         query.whereEqualTo("clubObjectId", this.get("objectId"));
@@ -104,8 +119,7 @@ public class Club extends ParseObject{
                     ParseRelation<ParseObject> bookmarkRelation = newRelation.getRelation("bookmarkUsers");
                     bookmarkRelation.add(bookmarker);
                     newRelation.saveInBackground();
-                }
-                else {
+                } else {
                     ParseObject relation = objects.get(0);
                     ParseRelation<ParseObject> bookmarkRelation = relation.getRelation("bookmarkUsers");
                     bookmarkRelation.add(bookmarker);
@@ -115,10 +129,21 @@ public class Club extends ParseObject{
         });
     }
 
-    public void removeBookmarkUser(ParseUser bookmarker) {
-        ParseRelation<ParseUser> bookmarkRelation = getRelation("bookmarkUsers");
-        bookmarkRelation.remove(bookmarker);
-        saveInBackground();
+    public void removeBookmarkUser(final ParseUser bookmarker) {
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("BookmarkRelations");
+        query.whereEqualTo("clubObjectId", this.get("objectId"));
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> objects, ParseException e) {
+                if (objects.size() != 0)
+                {
+                    ParseObject relation = objects.get(0);
+                    ParseRelation<ParseObject> bookmarkRelation = relation.getRelation("bookmarkUsers");
+                    bookmarkRelation.remove(bookmarker);
+                    relation.saveInBackground();
+                }
+            }
+        });
     }
 
     public static ParseQuery<Club> getQuery() {
