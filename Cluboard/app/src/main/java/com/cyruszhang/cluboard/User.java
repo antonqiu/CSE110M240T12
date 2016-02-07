@@ -24,7 +24,7 @@ public class User extends ParseUser {
         this.addUnique("followedEvents", followedEvent);
     }
     public void checkPermission(Club club) {
-
+        // TODO: check permissions
     }
 
 }

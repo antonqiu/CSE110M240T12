@@ -102,6 +102,7 @@ public class NewClub extends AppCompatActivity {
         read access for public
          */
     private void setACL(Club newClub) {
+        // TODO: role hierarchy discussion
         ParseACL clubAcl = new ParseACL();
         clubAcl.setPublicReadAccess(true);
         String permission = clubNametxt + " " + "Moderator";

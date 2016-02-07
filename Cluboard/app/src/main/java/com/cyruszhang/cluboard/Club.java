@@ -21,6 +21,8 @@ public class Club extends ParseObject{
     //protected String clubDetail;
     //protected ParseUser owner;
 
+    public Club() {}
+
     public String getClubName() {
         return getString("name");
     }

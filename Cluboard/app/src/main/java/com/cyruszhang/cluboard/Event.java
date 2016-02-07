@@ -1,33 +1,23 @@
 package com.cyruszhang.cluboard;
 
 import com.parse.ParseClassName;
+import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 
 import java.util.Date;
 
 /**
  * Created by AntonioQ on 1/30/16.
+ * ParseObject Fields:
+ * name String; datetime, Date; coord, GeoPoint;
  */
 @ParseClassName("Events")
-public class Event extends ParseObject{
-    /*protected int eventID;
-    private String eventName;
-    // TODO: date time type?
-    private String eventDate;
-    private String eventTime;
-    private String eventLocation;
-    private String eventDesc;
-*/
-   /* public Event(String eventName, String eventDate, String eventTime, String eventLocation, String eventDesc) {
-        this.eventName = eventName;
-        this.eventDate = eventDate;
-        this.eventTime = eventTime;
-        this.eventLocation = eventLocation;
-        this.eventDesc = eventDesc;
+public class Event extends ParseObject {
 
-        // TODO: event ID and database interaction
+    // from docs, ParseObject has to have an empty constructor
+    public Event() {
     }
-*/
+
     public String getEventName() {
         return getString("name");
     }
@@ -38,11 +28,20 @@ public class Event extends ParseObject{
 
     /* include date and time */
     public Date getEventTime() {
-        return getDate("time");
+        return getDate("datetime");
     }
 
-    public void setEventDate(Date eventTime) {
-        put("time", eventTime);
+    public void setEventTime(Date eventTime) {
+        put("datetime", eventTime);
+    }
+
+    // let's use a GeoPoint type to store a 2nd location
+    public ParseGeoPoint getEventCoordinate() {
+        return getParseGeoPoint("coord");
+    }
+
+    public void setEventCoordinate(ParseGeoPoint coord) {
+        put("coord", coord);
     }
 
     public String getEventLocation() {
