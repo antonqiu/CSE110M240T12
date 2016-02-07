@@ -33,8 +33,8 @@ public class NewEvent extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         eventName = (EditText) findViewById(R.id.new_event_name);
-        eventDesc = (EditText) findViewById(R.id.new_club_desc);
-        eventDesc = (EditText) findViewById(R.id.new_event_location);
+        eventDesc = (EditText) findViewById(R.id.new_event_desc);
+        eventLocation = (EditText) findViewById(R.id.new_event_location);
 
         createEventBtn = (Button) findViewById(R.id.new_event_btn);
         createEventBtn.setOnClickListener(new View.OnClickListener() {

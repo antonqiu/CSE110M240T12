@@ -136,7 +136,7 @@ public class Login extends AppCompatActivity {
 
                 } else {
                     // Save new user data into Parse.com Data Storage
-                    ParseUser user = new ParseUser();
+                    User user = new User();
                     user.setUsername(usernametxt);
                     user.setPassword(passwordtxt);
                     user.signUpInBackground(new SignUpCallback() {
