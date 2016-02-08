@@ -154,7 +154,8 @@ public class ClubDetail extends AppCompatActivity {
         MenuItem bookmark = menu.add(0, MENU_ITEM_BOOKMARK, 104, "Add Bookmark");
         bookmark.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         bookmark.setCheckable(true);
-        if (((User) (User.getCurrentUser())).checkBookmarkClub(thisClub)) {
+        // TODO: returns false all the time???
+        if (((User)(User.getCurrentUser())).checkBookmarkClub(thisClub)) {
             bookmark.setChecked(true);
             bookmark.setIcon(R.drawable.ic_action_remove_bookmark);
         } else {
@@ -187,7 +188,6 @@ public class ClubDetail extends AppCompatActivity {
                         "You are logged out", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             case MENU_ITEM_BOOKMARK:
-                // TODO: should toggle it based on
                 if (item.isChecked()) {
                     thisClub.removeBookmarkUser(ParseUser.getCurrentUser());
                     item.setIcon(R.drawable.ic_action_add_bookmark);
@@ -246,7 +246,8 @@ public class ClubDetail extends AppCompatActivity {
                 TextView eventLocation = (TextView) v.findViewById(R.id.event_list_item_location);
                 eventName.setText(object.getEventName());
                 eventLocation.setText(object.getEventLocation());
-                // follow button
+
+                // follow button setup TODO: two options: 1. visibility 2. Checkable
                 if (eventItemLayout.findViewById(IMAGE_VIEW_ID) == null) {
                     ImageButton followButton = new ImageButton(getContext());
                     followButton.setImageResource(R.drawable.ic_button_following);
@@ -260,9 +261,11 @@ public class ClubDetail extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             object.addFollowingUser(ParseUser.getCurrentUser());
+                            Snackbar.make(coordinatorLayout,
+                                    "You followed this event", Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
                         }
                     });
-                } else {
                 }
 
 
