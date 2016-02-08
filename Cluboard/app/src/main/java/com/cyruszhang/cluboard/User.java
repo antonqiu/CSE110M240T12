@@ -31,7 +31,7 @@ public class User extends ParseUser {
     }
 
     public boolean checkBookmarkClub(Club club) {
-        ParseRelation bookmarkRelation = club.findBookmarkRelation().getRelation("bookmarkUsers");
+        ParseRelation<ParseUser> bookmarkRelation = club.findBookmarkRelation().getRelation("bookmarkUsers");
         ParseQuery<ParseUser> userQuery = bookmarkRelation.getQuery();
         userQuery.whereEqualTo("objectId", this.getObjectId());
         try {
@@ -43,4 +43,16 @@ public class User extends ParseUser {
         }
     }
 
+    public boolean checkFollowingClub(Event event) {
+        ParseRelation<ParseUser> followingRelation = event.findFollowingRelation().getRelation("followingUsers");
+        ParseQuery<ParseUser> userQuery = followingRelation.getQuery();
+        userQuery.whereEqualTo("objectId", this.getObjectId());
+        try {
+            userQuery.getFirst();
+            return true;
+        }
+        catch (com.parse.ParseException e) {
+            return false;
+        }
+    }
 }

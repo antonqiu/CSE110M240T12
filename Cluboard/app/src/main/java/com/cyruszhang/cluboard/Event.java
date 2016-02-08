@@ -68,7 +68,7 @@ public class Event extends ParseObject {
         return ParseQuery.getQuery(Event.class);
     }
 
-    public ParseObject findFollowingRelation(final ParseUser follower){
+    public ParseObject findFollowingRelation(){
         ParseQuery<ParseObject> query = ParseQuery.getQuery("BookmarkRelations");
         query.whereEqualTo("clubObjectId", this.get("objectId"));
         try {
@@ -80,26 +80,26 @@ public class Event extends ParseObject {
     }
 
     public void addFollowingUser(final ParseUser follower) {
-        ParseObject relation = findFollowingRelation(follower);
+        ParseObject relation = findFollowingRelation();
 
         if (relation == null) {
             ParseObject newRelation = new ParseObject("BookmarkRelations");
             newRelation.put("clubObjectId", getObjectId());
-            ParseRelation<ParseUser> bookmarkRelation = newRelation.getRelation("bookmarkUsers");
+            ParseRelation<ParseUser> bookmarkRelation = newRelation.getRelation("followingUsers");
             bookmarkRelation.add(follower);
             newRelation.saveInBackground();
         } else {
-            ParseRelation<ParseUser> bookmarkRelation = relation.getRelation("bookmarkUsers");
+            ParseRelation<ParseUser> bookmarkRelation = relation.getRelation("followingUsers");
             bookmarkRelation.add(follower);
             relation.saveInBackground();
         }
     }
 
     public void removeFollowingUser(final ParseUser follower) {
-        ParseObject relation = findFollowingRelation(follower);
+        ParseObject relation = findFollowingRelation();
 
         if (relation != null) {
-            ParseRelation<ParseUser> bookmarkRelation = relation.getRelation("bookmarkUsers");
+            ParseRelation<ParseUser> bookmarkRelation = relation.getRelation("followingUsers");
             bookmarkRelation.remove(follower);
             relation.saveInBackground();
         }
