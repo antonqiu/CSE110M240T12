@@ -36,6 +36,7 @@ public class ClubDetail extends AppCompatActivity {
     private static final int MENU_ITEM_ADD_BOOKMARK = 1002;
     private static final int MENU_ITEM_REMOVE_BOOKMARK = 1003;
     private static final int MENU_ITEM_REFRESH = 1004;
+    private static final int IMAGE_VIEW_ID = View.generateViewId();
     private CoordinatorLayout coordinatorLayout;
     private Club thisClub;
     private ParseQueryAdapter<Event> eventQueryAdapter;
@@ -257,18 +258,24 @@ public class ClubDetail extends AppCompatActivity {
                 eventName.setText(object.getEventName());
                 eventLocation.setText(object.getEventLocation());
                 // follow button
-                ImageButton followButton = new ImageButton(getContext());
-                followButton.setImageResource(R.drawable.ic_button_following);
+                if (eventItemLayout.findViewById(IMAGE_VIEW_ID) == null) {
+                    ImageButton followButton = new ImageButton(getContext());
+                    followButton.setImageResource(R.drawable.ic_button_following);
+                    followButton.setId(IMAGE_VIEW_ID);
                 /*RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) followButton.getLayoutParams();
                 params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
                 followButton.setLayoutParams(params);*/
-                followButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        object.addFollowingUser(ParseUser.getCurrentUser());
-                    }
-                });
-                eventItemLayout.addView(followButton);
+                    eventItemLayout.addView(followButton);
+
+                    followButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            object.addFollowingUser(ParseUser.getCurrentUser());
+                        }
+                    });
+                }
+                else {
+                }
 
 
                 return v;
