@@ -59,6 +59,8 @@ public class ClubDetail extends AppCompatActivity {
                     Log.d(getClass().getSimpleName(), "got club object" + thisClub.getClubName());
                     clubName.setText(thisClub.getClubName());
                     clubDetail.setText(thisClub.getClubDetail());
+
+                    setupEventList();
                     //User currentUser = (User)ParseUser.getCurrentUser();
 
                  /*   String roleName = thisClub.getClubName()+" "+"Moderator";
@@ -77,10 +79,10 @@ public class ClubDetail extends AppCompatActivity {
                             }
                         }
                     }); */
-                    User currentUser = (User)ParseUser.getCurrentUser();
+                    User currentUser = (User) ParseUser.getCurrentUser();
                     ParseACL clubAcl = thisClub.getACL();
                     //if user is owner, show create event button
-                    if(clubAcl.getWriteAccess(currentUser)) {
+                    if (clubAcl.getWriteAccess(currentUser)) {
                         createEventBtn.setVisibility(View.VISIBLE);
                     }
 
@@ -102,7 +104,7 @@ public class ClubDetail extends AppCompatActivity {
 
 
         //set event listview
-        setupEventList();
+
     }
 
 
@@ -171,7 +173,12 @@ public class ClubDetail extends AppCompatActivity {
                 new ParseQueryAdapter.QueryFactory<Event>() {
                     public ParseQuery<Event> create() {
                         ParseQuery<Event> query = Event.getQuery();
-                        query.whereEqualTo("club", thisClub);
+                        if(thisClub!=null) {
+                            query.whereEqualTo("club", thisClub);
+                        }
+                        else{
+                            Toast.makeText(getApplicationContext(), "thisclub is null", Toast.LENGTH_SHORT).show();
+                        }
                         // only query on two keys to save time
                         query.selectKeys(Arrays.asList("name", "location"));
                         query.orderByDescending("createdAt");
@@ -201,17 +208,19 @@ public class ClubDetail extends AppCompatActivity {
         eventList.setAdapter(eventQueryAdapter);
 
         // item click listener
-        /*
+
         eventList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 final Event event = eventQueryAdapter.getItem(position);
-                Intent intent = new Intent(Welcome.this, ClubDetail.class);
+                event.addFollowingUser((User)ParseUser.getCurrentUser());
+                Toast.makeText(getApplicationContext(), "You followed this event", Toast.LENGTH_SHORT).show();
+               /* Intent intent = new Intent(Welcome.this, ClubDetail.class);
                 intent.putExtra("OBJECT_ID", club.getObjectId());
-                startActivity(intent);
+                startActivity(intent); */
             }
         });
-        */
+
     }
 
 }
