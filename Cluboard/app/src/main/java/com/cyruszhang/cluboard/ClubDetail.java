@@ -21,6 +21,7 @@ import com.parse.GetCallback;
 import com.parse.Parse;
 import com.parse.ParseACL;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
 import com.parse.ParseUser;
@@ -48,30 +49,36 @@ public class ClubDetail extends AppCompatActivity {
         final TextView clubDetail = (TextView) this.findViewById(R.id.club_detail_detail);
         final Button createEventBtn = (Button) this.findViewById(R.id.new_event_btn);
 
-        ParseQuery<Club> query = Club.getQuery();
+        //ParseQuery<Club> query = Club.getQuery();
 
         /* Alternatives, start */
-
+        /*
         query.whereEqualTo("objectID", getIntent().getStringExtra("OBJECT_ID"));
         try {
             thisClub = query.getFirst();
         } catch (Exception e) {
             Toast.makeText(getApplicationContext(), "Something is wrong", Toast.LENGTH_SHORT).show();
         }
-
-        Log.d(getClass().getSimpleName(), "got club object" + thisClub.getClubName());
-        clubName.setText(thisClub.getClubName());
-        clubDetail.setText(thisClub.getClubDetail());
-
-        setupEventList();
-
-        User currentUser = (User) ParseUser.getCurrentUser();
-        ParseACL clubAcl = thisClub.getACL();
-        //if user is owner, show create event button
-        if (clubAcl.getWriteAccess(currentUser)) {
-            createEventBtn.setVisibility(View.VISIBLE);
+        */
+        thisClub = (Club)ParseObject.createWithoutData("Clubs", getIntent().getStringExtra("OBJECT_ID"));
+        if(thisClub == null) {
+            Toast.makeText(getApplicationContext(), "thisClub is null", Toast.LENGTH_SHORT).show();
         }
+        else {
+            Log.d(getClass().getSimpleName(), "got club object" + thisClub.getClubName());
+            clubName.setText(thisClub.getClubName());
+            clubDetail.setText(thisClub.getClubDetail());
 
+            setupEventList();
+
+            User currentUser = (User) ParseUser.getCurrentUser();
+            ParseACL clubAcl = thisClub.getACL();
+            //if user is owner, show create event button
+            if (clubAcl.getWriteAccess(currentUser)) {
+                createEventBtn.setVisibility(View.VISIBLE);
+            }
+
+        }
         /* Alternative, end */
 
 
