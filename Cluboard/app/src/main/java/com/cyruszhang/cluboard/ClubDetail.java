@@ -259,9 +259,9 @@ public class ClubDetail extends AppCompatActivity {
                 // follow button
                 ImageButton followButton = new ImageButton(getContext());
                 followButton.setImageResource(R.drawable.ic_button_following);
-                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) followButton.getLayoutParams();
+                /*RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) followButton.getLayoutParams();
                 params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-                followButton.setLayoutParams(params);
+                followButton.setLayoutParams(params);*/
                 followButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

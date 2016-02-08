@@ -20,10 +20,4 @@
         android:text="@string/club_desc_demo"
         android:textSize="@dimen/club_detail_size"
         android:id="@+id/event_list_item_location" />
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_button_following"
-        android:id="@+id/event_list_item_following_button"
-        android:layout_alighParentRight="true" />
 </LinearLayout>
