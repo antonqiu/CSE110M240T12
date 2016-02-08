@@ -171,6 +171,7 @@ public class ClubDetail extends AppCompatActivity {
                 new ParseQueryAdapter.QueryFactory<Event>() {
                     public ParseQuery<Event> create() {
                         ParseQuery<Event> query = Event.getQuery();
+                        query.whereEqualTo("club", thisClub);
                         // only query on two keys to save time
                         query.selectKeys(Arrays.asList("name", "location"));
                         query.orderByDescending("createdAt");
