@@ -145,6 +145,13 @@ public class ClubDetail extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        eventQueryAdapter.loadObjects();
+        eventQueryAdapter.notifyDataSetChanged();
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
