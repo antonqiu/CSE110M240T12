@@ -5,8 +5,13 @@ android {
     buildToolsVersion "23.0.2"
 
     defaultConfig {
+<<<<<<< HEAD
         applicationId "com.example.yimeng.clubboardui"
         minSdkVersion 8
+=======
+        applicationId "com.example.bentley.clubboardui"
+        minSdkVersion 15
+>>>>>>> 1c456b7b196109fc8f7008e42bf3e1abfb8abb7f
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"

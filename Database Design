@@ -1,0 +1,31 @@
+Login:
+Username,
+password,
+email (To add)
+
+Club:
+Name (abbreviation)
+Description (Full name)
+Icon (ParseFile)
+Detail (An introduction paragraph)
+Email
+Website
+Owner (ParseRole)
+Editer (ParseRole)
+
+Event:
+Name
+Date
+Time
+Location
+Description
+NumFollowed (int)
+
+Permission:
+  Club creator:
+    Post new event
+    Edit all club info
+    Give edit permission to other user by username or useremail
+    Delete the club
+    Delete the event
+    

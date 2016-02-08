@@ -1,9 +1,6 @@
 package com.cyruszhang.cluboard;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -13,6 +10,9 @@ import android.widget.Toast;
 
 import com.parse.ParseACL;
 import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseRelation;
+import com.parse.ParseRole;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
@@ -77,11 +77,21 @@ public class NewClub extends AppCompatActivity {
         newClub.setClubDesc(clubDesctxt);
         newClub.setClubDetail(clubDetailtxt);
         newClub.setOwner(ParseUser.getCurrentUser());
+        ParseObject newRelation = new ParseObject("BookmarkRelations");
+        newRelation.put("clubObject", newClub);
+        //ParseRelation<ParseUser> bookmarkRelation = newRelation.getRelation("bookmarkUsers");
+        newRelation.saveInBackground();
 
-        // 2
-        ParseACL acl = new ParseACL();
-        acl.setPublicReadAccess(true);
-        newClub.setACL(acl);
+        /* set acl for the club
+        write and read access for owner
+        read access for public
+         */
+        setACL(newClub);
+
+        //add club to myClub in user information
+        // User currentUser = (User)ParseUser.getCurrentUser();
+        // currentUser.setMyclubs(newClub);
+
 
         // 3
         newClub.saveInBackground(new SaveCallback() {
@@ -92,5 +102,34 @@ public class NewClub extends AppCompatActivity {
         });
         return true;
     }
+
+    /* set acl for the club
+        write and read access for owner
+        read access for public
+         */
+    private void setACL(Club newClub) {
+        // TODO: role hierarchy discussion
+        ParseACL clubAcl = new ParseACL();
+        clubAcl.setPublicReadAccess(true);
+        String permission = clubNametxt + " " + "Moderator";
+        ParseRole moderatorRole = new ParseRole(permission, clubAcl);
+
+        /* allow club creator to change moderatorRole */
+        ParseACL roleACL = new ParseACL();
+        roleACL.setReadAccess(ParseUser.getCurrentUser(), true);
+        roleACL.setWriteAccess(ParseUser.getCurrentUser(), true);
+        moderatorRole.setACL(roleACL);
+
+        /* add owner to moderatorRole
+            give moderator write access
+            set owner as mater of club*/
+        moderatorRole.getUsers().add(ParseUser.getCurrentUser());
+        moderatorRole.saveInBackground();
+        clubAcl.setRoleWriteAccess(permission, true);
+        clubAcl.setWriteAccess(ParseUser.getCurrentUser(), true);
+        newClub.setACL(clubAcl);
+
+    }
+
 
 }

@@ -40,8 +40,7 @@
         <activity
             android:name=".Welcome"
             android:label="@string/title_activity_welcome"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ClubDetail"
             android:label="@string/title_activity_club_detail"
@@ -60,6 +59,19 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.cyruszhang.cluboard.Welcome" />
         </activity>
+        <activity
+            android:name=".Setting"
+            android:label="@string/title_activity_setting"
+            android:parentActivityName=".Welcome"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cyruszhang.cluboard.Welcome" />
+        </activity>
+        <activity
+            android:name=".NewEvent"
+            android:label="@string/title_activity_new_event"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

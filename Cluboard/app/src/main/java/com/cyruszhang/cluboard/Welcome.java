@@ -29,6 +29,7 @@ import java.util.Arrays;
  */
 public class Welcome extends AppCompatActivity {
     private static final int MENU_ITEM_LOGOUT = 1001;
+    private static final int MENU_ITEM_REFRESH = 1002;
 
     Button logout;
     Button createNewClub;
@@ -79,25 +80,31 @@ public class Welcome extends AppCompatActivity {
     protected void onRestart() {
         super.onRestart();
         clubsQueryAdapter.loadObjects();
-        //clubsQueryAdapter.notifyDataSetChanged();
+        clubsQueryAdapter.notifyDataSetChanged();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         menu.add(0, MENU_ITEM_LOGOUT, 102, "Logout");
-        return true;
+        MenuItem refresh = menu.add(0, MENU_ITEM_REFRESH, 103, "Refresh");
+        refresh.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        refresh.setIcon(R.drawable.ic_action_refresh);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
         switch (id) {
             case R.id.action_settings:
+                //go to setting page
                 Snackbar.make(coordinatorLayout,
                         "You selected settings", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                Intent intent = new Intent(Welcome.this, Setting.class);
+                startActivity(intent);
+
                 return true;
             case R.id.action_about:
                 Snackbar.make(coordinatorLayout,
@@ -106,13 +113,16 @@ public class Welcome extends AppCompatActivity {
             case MENU_ITEM_LOGOUT:
                 // Logout current user
                 ParseUser.logOut();
-                Intent intent = new Intent(Welcome.this, Login.class);
+                intent = new Intent(Welcome.this, Login.class);
                 startActivity(intent);
                 Snackbar.make(coordinatorLayout,
                         "You are logged out", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+            case MENU_ITEM_REFRESH:
+                clubsQueryAdapter.loadObjects();
+                clubsQueryAdapter.notifyDataSetChanged();
         }
-        return true;
+        return super.onOptionsItemSelected(item);
     }
 
     private void setupClubList() {
@@ -134,6 +144,8 @@ public class Welcome extends AppCompatActivity {
         clubsQueryAdapter = new ParseQueryAdapter<Club>(this, factory) {
             @Override
             public View getItemView(Club object, View v, ViewGroup parent) {
+                // Local DataStore
+
                 if (v == null) {
                     Log.d(getClass().getSimpleName(), "inflating item view");
                     v = View.inflate(getContext(), R.layout.club_list_item, null);
