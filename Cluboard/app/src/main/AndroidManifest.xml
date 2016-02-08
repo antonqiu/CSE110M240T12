@@ -68,6 +68,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.cyruszhang.cluboard.Welcome" />
         </activity>
+        <activity
+            android:name=".NewEvent"
+            android:label="@string/title_activity_new_event"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
