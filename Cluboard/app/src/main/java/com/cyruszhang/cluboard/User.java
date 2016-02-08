@@ -14,7 +14,7 @@ import java.util.Arrays;
 /**
  * Created by zhangxinyuan on 2/4/16.
  */
-@ParseClassName("User")
+@ParseClassName("_User")
 public class User extends ParseUser {
     public User() {}
     

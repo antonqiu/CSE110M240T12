@@ -110,7 +110,7 @@ public class ClubDetail extends AppCompatActivity {
         menu.add(0, MENU_ITEM_LOGOUT, 102, "Logout");
 
         // add bookmark or remove bookmark, + actionbar button
-        if (((User)User.getCurrentUser()).checkBookmarkClub(thisClub)) {
+        if (((User)(User.getCurrentUser())).checkBookmarkClub(thisClub)) {
             MenuItem bookmark = menu.add(0, MENU_ITEM_REMOVE_BOOKMARK, 103, "Remove Bookmark");
             bookmark.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
             bookmark.setIcon(R.drawable.ic_action_remove_bookmark);

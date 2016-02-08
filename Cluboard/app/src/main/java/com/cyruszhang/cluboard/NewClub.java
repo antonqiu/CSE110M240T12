@@ -89,8 +89,8 @@ public class NewClub extends AppCompatActivity {
         setACL(newClub);
 
         //add club to myClub in user information
-        User currentUser = (User)ParseUser.getCurrentUser();
-        currentUser.setMyclubs(newClub);
+        // User currentUser = (User)ParseUser.getCurrentUser();
+        // currentUser.setMyclubs(newClub);
 
 
         // 3
