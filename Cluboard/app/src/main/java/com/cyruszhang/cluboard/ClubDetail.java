@@ -36,7 +36,6 @@ public class ClubDetail extends AppCompatActivity {
     private ParseQueryAdapter<Event> eventQueryAdapter;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,47 +50,72 @@ public class ClubDetail extends AppCompatActivity {
 
         ParseQuery<Club> query = Club.getQuery();
 
-        query.getInBackground(getIntent().getStringExtra("OBJECT_ID"), new GetCallback<Club>() {
-            @Override
-            public void done(Club object, ParseException e) {
-                if (e == null) {
-                    thisClub = (Club) object;
-                    Log.d(getClass().getSimpleName(), "got club object" + thisClub.getClubName());
-                    clubName.setText(thisClub.getClubName());
-                    clubDetail.setText(thisClub.getClubDetail());
+        /* Alternatives, start */
 
-                    setupEventList();
-                    //User currentUser = (User)ParseUser.getCurrentUser();
+        query.whereEqualTo("objectID", getIntent().getStringExtra("OBJECT_ID"));
+        try {
+            thisClub = query.getFirst();
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "Something is wrong", Toast.LENGTH_SHORT).show();
+        }
 
-                 /*   String roleName = thisClub.getClubName()+" "+"Moderator";
-                    ParseQuery<ParseRole> roleQuery = ParseRole.getQuery();
-                    roleQuery.whereEqualTo("name", roleName);
-                    roleQuery.whereEqualTo("users", currentUser);
-                    roleQuery.findInBackground(new FindCallback<ParseRole>() {
-                        @Override
-                        public void done(List<ParseRole> objects, ParseException e) {
-                            if(e==null) {
-                                Log.d("permission", "verified");
-                                createEventBtn.setVisibility(View.VISIBLE);
-                            }
-                            else {
-                                Log.d("permission", "denied");
-                            }
-                        }
-                    }); */
-                    User currentUser = (User) ParseUser.getCurrentUser();
-                    ParseACL clubAcl = thisClub.getACL();
-                    //if user is owner, show create event button
-                    if (clubAcl.getWriteAccess(currentUser)) {
-                        createEventBtn.setVisibility(View.VISIBLE);
-                    }
+        Log.d(getClass().getSimpleName(), "got club object" + thisClub.getClubName());
+        clubName.setText(thisClub.getClubName());
+        clubDetail.setText(thisClub.getClubDetail());
 
-                } else {
-                    Toast.makeText(getApplicationContext(), "Something is wrong", Toast.LENGTH_SHORT).show();
-                    finish();
-                }
-            }
-        });
+        setupEventList();
+
+        User currentUser = (User) ParseUser.getCurrentUser();
+        ParseACL clubAcl = thisClub.getACL();
+        //if user is owner, show create event button
+        if (clubAcl.getWriteAccess(currentUser)) {
+            createEventBtn.setVisibility(View.VISIBLE);
+        }
+
+        /* Alternative, end */
+
+
+//        query.getInBackground(getIntent().getStringExtra("OBJECT_ID"), new GetCallback<Club>() {
+//            @Override
+//            public void done(Club object, ParseException e) {
+//                if (e == null) {
+//                    thisClub = (Club) object;
+//                    Log.d(getClass().getSimpleName(), "got club object" + thisClub.getClubName());
+//                    clubName.setText(thisClub.getClubName());
+//                    clubDetail.setText(thisClub.getClubDetail());
+//
+//                    setupEventList();
+//                    //User currentUser = (User)ParseUser.getCurrentUser();
+//
+//                 /*   String roleName = thisClub.getClubName()+" "+"Moderator";
+//                    ParseQuery<ParseRole> roleQuery = ParseRole.getQuery();
+//                    roleQuery.whereEqualTo("name", roleName);
+//                    roleQuery.whereEqualTo("users", currentUser);
+//                    roleQuery.findInBackground(new FindCallback<ParseRole>() {
+//                        @Override
+//                        public void done(List<ParseRole> objects, ParseException e) {
+//                            if(e==null) {
+//                                Log.d("permission", "verified");
+//                                createEventBtn.setVisibility(View.VISIBLE);
+//                            }
+//                            else {
+//                                Log.d("permission", "denied");
+//                            }
+//                        }
+//                    }); */
+//                    User currentUser = (User) ParseUser.getCurrentUser();
+//                    ParseACL clubAcl = thisClub.getACL();
+//                    //if user is owner, show create event button
+//                    if (clubAcl.getWriteAccess(currentUser)) {
+//                        createEventBtn.setVisibility(View.VISIBLE);
+//                    }
+//
+//                } else {
+//                    Toast.makeText(getApplicationContext(), "Something is wrong", Toast.LENGTH_SHORT).show();
+//                    finish();
+//                }
+//            }
+//        });
 
         createEventBtn.setOnClickListener(new View.OnClickListener() {
             //click and go to create club view
@@ -108,9 +132,8 @@ public class ClubDetail extends AppCompatActivity {
     }
 
 
-
     @Override
-    public synchronized boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         menu.add(0, MENU_ITEM_LOGOUT, 102, "Logout");
 
@@ -121,9 +144,9 @@ public class ClubDetail extends AppCompatActivity {
 //            bookmark.setIcon(R.drawable.ic_action_remove_bookmark);
 //        }
 //        else {
-            MenuItem bookmark = menu.add(0, MENU_ITEM_ADD_BOOKMARK, 103, "Add Bookmark");
-            bookmark.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-            bookmark.setIcon(R.drawable.ic_action_add_bookmark);
+        MenuItem bookmark = menu.add(0, MENU_ITEM_ADD_BOOKMARK, 103, "Add Bookmark");
+        bookmark.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        bookmark.setIcon(R.drawable.ic_action_add_bookmark);
 //        }
 
         return true;
@@ -173,10 +196,9 @@ public class ClubDetail extends AppCompatActivity {
                 new ParseQueryAdapter.QueryFactory<Event>() {
                     public ParseQuery<Event> create() {
                         ParseQuery<Event> query = Event.getQuery();
-                        if(thisClub!=null) {
+                        if (thisClub != null) {
                             query.whereEqualTo("club", thisClub);
-                        }
-                        else{
+                        } else {
                             Toast.makeText(getApplicationContext(), "thisclub is null", Toast.LENGTH_SHORT).show();
                         }
                         // only query on two keys to save time
@@ -213,7 +235,7 @@ public class ClubDetail extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 final Event event = eventQueryAdapter.getItem(position);
-                event.addFollowingUser((User)ParseUser.getCurrentUser());
+                event.addFollowingUser((User) ParseUser.getCurrentUser());
                 Toast.makeText(getApplicationContext(), "You followed this event", Toast.LENGTH_SHORT).show();
                /* Intent intent = new Intent(Welcome.this, ClubDetail.class);
                 intent.putExtra("OBJECT_ID", club.getObjectId());
