@@ -38,14 +38,9 @@ public class ClubDetail extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
-
         final TextView clubName = (TextView) this.findViewById(R.id.club_detail_name);
         final TextView clubDetail = (TextView) this.findViewById(R.id.club_detail_detail);
         final Button createEventBtn = (Button) this.findViewById(R.id.new_event_btn);
-
-
-
 
         ParseQuery<Club> query = Club.getQuery();
 
@@ -82,15 +77,12 @@ public class ClubDetail extends AppCompatActivity {
                         createEventBtn.setVisibility(View.VISIBLE);
                     }
 
-
-
                 } else {
                     Toast.makeText(getApplicationContext(), "Something is wrong", Toast.LENGTH_SHORT).show();
                     finish();
                 }
             }
         });
-
 
         createEventBtn.setOnClickListener(new View.OnClickListener() {
             //click and go to create club view
@@ -101,25 +93,24 @@ public class ClubDetail extends AppCompatActivity {
             }
         });
 
-
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public synchronized boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         menu.add(0, MENU_ITEM_LOGOUT, 102, "Logout");
 
         // add bookmark or remove bookmark, + actionbar button
-        if (((User)(User.getCurrentUser())).checkBookmarkClub(thisClub)) {
-            MenuItem bookmark = menu.add(0, MENU_ITEM_REMOVE_BOOKMARK, 103, "Remove Bookmark");
-            bookmark.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-            bookmark.setIcon(R.drawable.ic_action_remove_bookmark);
-        }
-        else {
+//        if (((User)(User.getCurrentUser())).checkBookmarkClub(thisClub)) {
+//            MenuItem bookmark = menu.add(0, MENU_ITEM_REMOVE_BOOKMARK, 103, "Remove Bookmark");
+//            bookmark.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+//            bookmark.setIcon(R.drawable.ic_action_remove_bookmark);
+//        }
+//        else {
             MenuItem bookmark = menu.add(0, MENU_ITEM_ADD_BOOKMARK, 103, "Add Bookmark");
             bookmark.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
             bookmark.setIcon(R.drawable.ic_action_add_bookmark);
-        }
+//        }
 
         return true;
     }
