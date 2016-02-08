@@ -32,6 +32,7 @@ public class ClubDetail extends AppCompatActivity {
     private static final int MENU_ITEM_LOGOUT = 1001;
     private static final int MENU_ITEM_ADD_BOOKMARK = 1002;
     private static final int MENU_ITEM_REMOVE_BOOKMARK = 1003;
+    private static final int MENU_ITEM_REFRESH = 1004;
     private CoordinatorLayout coordinatorLayout;
     private Club thisClub;
     private ParseQueryAdapter<Event> eventQueryAdapter;
@@ -170,6 +171,10 @@ public class ClubDetail extends AppCompatActivity {
         bookmark.setIcon(R.drawable.ic_action_add_bookmark);
 //        }
 
+        MenuItem refresh = menu.add(0, MENU_ITEM_REFRESH, 104, "Refresh");
+        refresh.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        refresh.setIcon(R.drawable.ic_action_refresh);
+
         return true;
     }
 
@@ -205,6 +210,9 @@ public class ClubDetail extends AppCompatActivity {
                 Snackbar.make(coordinatorLayout,
                         "Bookmark Removed", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+            case MENU_ITEM_REFRESH:
+                eventQueryAdapter.loadObjects();
+                eventQueryAdapter.notifyDataSetChanged();
         }
         return true;
     }
