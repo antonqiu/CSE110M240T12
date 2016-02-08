@@ -13,7 +13,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -220,7 +223,7 @@ public class ClubDetail extends AppCompatActivity {
 
         eventQueryAdapter = new ParseQueryAdapter<Event>(this, factory) {
             @Override
-            public View getItemView(Event object, View v, ViewGroup parent) {
+            public View getItemView(final Event object, View v, ViewGroup parent) {
                 if (v == null) {
                     Log.d(getClass().getSimpleName(), "inflating item view");
                     v = View.inflate(getContext(), R.layout.event_list_item, null);
@@ -228,10 +231,26 @@ public class ClubDetail extends AppCompatActivity {
                     // inflate(R.layout.club_list_item, null, false);
                 }
                 Log.d(getClass().getSimpleName(), "setting up item view");
+                LinearLayout eventItemLayout = (LinearLayout) v.findViewById(R.id.event_list_item_layout);
                 TextView eventName = (TextView) v.findViewById(R.id.event_list_item_name);
                 TextView eventLocation = (TextView) v.findViewById(R.id.event_list_item_location);
                 eventName.setText(object.getEventName());
                 eventLocation.setText(object.getEventLocation());
+                // follow button
+                ImageButton followButton = new ImageButton(getContext());
+                followButton.setImageResource(R.drawable.ic_button_following);
+                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) followButton.getLayoutParams();
+                params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+                followButton.setLayoutParams(params);
+                followButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        object.addFollowingUser(ParseUser.getCurrentUser());
+                    }
+                });
+                eventItemLayout.addView(followButton);
+
+
                 return v;
             }
         };
