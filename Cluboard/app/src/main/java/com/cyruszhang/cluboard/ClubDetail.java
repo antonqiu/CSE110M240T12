@@ -192,7 +192,7 @@ public class ClubDetail extends AppCompatActivity {
                 TextView eventName = (TextView) v.findViewById(R.id.event_list_item_name);
                 TextView eventLocation = (TextView) v.findViewById(R.id.event_list_item_location);
                 eventName.setText(object.getEventName());
-                eventLocation.setText(object.getEventDesc());
+                eventLocation.setText(object.getEventLocation());
                 return v;
             }
         };
