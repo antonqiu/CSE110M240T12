@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.parse.GetCallback;
 import com.parse.ParseACL;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
@@ -79,7 +80,8 @@ public class NewEvent extends AppCompatActivity {
                     ParseACL clubAcl = thisClub.getACL();
                     newEvent.setACL(clubAcl);
                     newEvent.put("club", thisClub);
-
+                    ParseObject newRelation = new ParseObject("FollowingRelations");
+                    newRelation.put("eventObject", newEvent);
                     newEvent.saveInBackground(new SaveCallback() {
                         @Override
                         public void done(ParseException e) {
