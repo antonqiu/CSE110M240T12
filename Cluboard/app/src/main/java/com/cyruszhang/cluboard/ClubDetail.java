@@ -56,7 +56,9 @@ public class ClubDetail extends AppCompatActivity {
         query.whereEqualTo("objectID", getIntent().getStringExtra("OBJECT_ID"));
         try {
             thisClub = query.getFirst();
+            Log.d(getClass().getSimpleName(), "got" + query.count());
         } catch (Exception e) {
+            Log.e(getClass().getSimpleName(), "query exception!!!");
             Toast.makeText(getApplicationContext(), "Something is wrong", Toast.LENGTH_SHORT).show();
         }
         */
