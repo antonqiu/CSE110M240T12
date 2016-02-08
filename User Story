@@ -1,23 +1,34 @@
 1. As a student, I want to be able to follow groups for news about various events so that I can join them easily. 
-P1
+Priority 1 Estimate Time: 2 days  Status: Done
+
 2. As a student, I want to know contact information about different organizations such as names, websites, and emails so that I can get in touch with them.
-P1
+Priority 1 Estimate Time: 1 day  Status: Done
+
 3. As a student, I want to know whoelse is going to the events so that I can meet with more people who share same interest with me.
-P3 (optional)
+Priority 3 (optional) Time: 5 days Status: In progress
+
 4. As a student, I want to get notifications about upcoming events so that I don't miss them.
-P2
+Priority 2  Time: 7 days Status: Pending
+
 5 As a student, I want to search different events by tags so that I can find events that I'm interested in more efficiently.
-P4 (optional)
+Priority 4 (optional) Time: 7 days Status: Pending
+
 6. As an organization leader, I want to share introduction and history of our group so that others can get to know about us well.
-P1
+Priority 1 Estimate Time: 2 days  Status: Done
+
 7. As an organization leader, I want to post events, including time, location, entrance requirement, so that we can attract more participants.
-P1
+Priority 1 Estimate Time: 3 days  Status: Done
+
 8. As an organization leader, I want to send out reminders of the events so that the participants don't miss out. (feature)
-P3
+Priority 3 Estimate Time: 5 days  Status: Pending
+
 9. As an organization leader, I want to give different administration rights to others so that they can help me manage the events.
-P3
+Priority 3 Estimate Time: 3 day  Status: In progress
+
 10. As an organization leader, I want to attach tags to my events so that people who have certain interests can find us easily.
-P4 (optinal)
+Priority 4 (optinal)
+
 11. As an organization leader, I want to know how many are following the event so that we can estimate how many people will come to the event.
-P2
+Priority 2
+Estimate Time: 5 days  Status: In progress
 
