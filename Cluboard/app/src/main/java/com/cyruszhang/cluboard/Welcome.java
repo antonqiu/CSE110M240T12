@@ -138,6 +138,8 @@ public class Welcome extends AppCompatActivity {
         clubsQueryAdapter = new ParseQueryAdapter<Club>(this, factory) {
             @Override
             public View getItemView(Club object, View v, ViewGroup parent) {
+                // Local DataStore
+
                 if (v == null) {
                     Log.d(getClass().getSimpleName(), "inflating item view");
                     v = View.inflate(getContext(), R.layout.club_list_item, null);
