@@ -16,14 +16,10 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.parse.GetCallback;
-import com.parse.Parse;
 import com.parse.ParseACL;
-import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
@@ -33,7 +29,7 @@ import java.util.Arrays;
 
 public class ClubDetail extends AppCompatActivity {
     private static final int MENU_ITEM_LOGOUT = 1001;
-    private static final int MENU_ITEM_ADD_BOOKMARK = 1002;
+    private static final int MENU_ITEM_BOOKMARK = 1002;
     private static final int MENU_ITEM_REMOVE_BOOKMARK = 1003;
     private static final int MENU_ITEM_REFRESH = 1004;
     private static final int IMAGE_VIEW_ID = View.generateViewId();
@@ -50,28 +46,16 @@ public class ClubDetail extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         final TextView clubName = (TextView) this.findViewById(R.id.club_detail_name);
         final TextView clubDetail = (TextView) this.findViewById(R.id.club_detail_detail);
         final Button createEventBtn = (Button) this.findViewById(R.id.new_event_btn);
 
-        //ParseQuery<Club> query = Club.getQuery();
-
-        /* Alternatives, start */
-        /*
-        query.whereEqualTo("objectID", getIntent().getStringExtra("OBJECT_ID"));
-        try {
-            thisClub = query.getFirst();
-            Log.d(getClass().getSimpleName(), "got" + query.count());
-        } catch (Exception e) {
-            Log.e(getClass().getSimpleName(), "query exception!!!");
-            Toast.makeText(getApplicationContext(), "Something is wrong", Toast.LENGTH_SHORT).show();
-        }
-        */
-        thisClub = (Club)ParseObject.createWithoutData("Clubs", getIntent().getStringExtra("OBJECT_ID"));
-        if(thisClub == null) {
+        thisClub = (Club) ParseObject.createWithoutData("Clubs", getIntent().getStringExtra("OBJECT_ID"));
+        if (thisClub == null) {
             Toast.makeText(getApplicationContext(), "thisClub is null", Toast.LENGTH_SHORT).show();
-        }
-        else {
+        } else {
             try {
                 thisClub.fetch();
             } catch (Exception e) {
@@ -81,6 +65,7 @@ public class ClubDetail extends AppCompatActivity {
             clubName.setText(thisClub.getClubName());
             clubDetail.setText(thisClub.getClubDetail());
 
+            // listview setup
             setupEventList();
 
             User currentUser = (User) ParseUser.getCurrentUser();
@@ -91,8 +76,6 @@ public class ClubDetail extends AppCompatActivity {
             }
 
         }
-        /* Alternative, end */
-
 
 //        query.getInBackground(getIntent().getStringExtra("OBJECT_ID"), new GetCallback<Club>() {
 //            @Override
@@ -145,9 +128,6 @@ public class ClubDetail extends AppCompatActivity {
             }
         });
 
-
-        //set event listview
-
     }
 
     @Override
@@ -161,23 +141,26 @@ public class ClubDetail extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        // Logout
         menu.add(0, MENU_ITEM_LOGOUT, 102, "Logout");
 
-        // add bookmark or remove bookmark, + actionbar button
-//        if (((User)(User.getCurrentUser())).checkBookmarkClub(thisClub)) {
-//            MenuItem bookmark = menu.add(0, MENU_ITEM_REMOVE_BOOKMARK, 103, "Remove Bookmark");
-//            bookmark.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-//            bookmark.setIcon(R.drawable.ic_action_remove_bookmark);
-//        }
-//        else {
-        MenuItem bookmark = menu.add(0, MENU_ITEM_ADD_BOOKMARK, 103, "Add Bookmark");
-        bookmark.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        bookmark.setIcon(R.drawable.ic_action_add_bookmark);
-//        }
-
-        MenuItem refresh = menu.add(0, MENU_ITEM_REFRESH, 104, "Refresh");
+        // refresh
+        MenuItem refresh = menu.add(0, MENU_ITEM_REFRESH, 103, "Refresh");
         refresh.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         refresh.setIcon(R.drawable.ic_action_refresh);
+
+        // add bookmark or remove bookmark, + actionbar button
+        MenuItem bookmark = menu.add(0, MENU_ITEM_BOOKMARK, 104, "Add Bookmark");
+        bookmark.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        bookmark.setCheckable(true);
+        if (((User) (User.getCurrentUser())).checkBookmarkClub(thisClub)) {
+            bookmark.setChecked(true);
+            bookmark.setIcon(R.drawable.ic_action_remove_bookmark);
+        } else {
+            bookmark.setChecked(false);
+            bookmark.setIcon(R.drawable.ic_action_add_bookmark);
+        }
 
         return true;
     }
@@ -203,17 +186,23 @@ public class ClubDetail extends AppCompatActivity {
                 Snackbar.make(coordinatorLayout,
                         "You are logged out", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-            case MENU_ITEM_ADD_BOOKMARK:
+            case MENU_ITEM_BOOKMARK:
                 // TODO: should toggle it based on
-                thisClub.addBookmarkUser(ParseUser.getCurrentUser());
-                Snackbar.make(coordinatorLayout,
-                        "Bookmark Added", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            case MENU_ITEM_REMOVE_BOOKMARK:
-                thisClub.removeBookmarkUser(ParseUser.getCurrentUser());
-                Snackbar.make(coordinatorLayout,
-                        "Bookmark Removed", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                if (item.isChecked()) {
+                    thisClub.removeBookmarkUser(ParseUser.getCurrentUser());
+                    item.setIcon(R.drawable.ic_action_add_bookmark);
+                    item.setChecked(false);
+                    Snackbar.make(coordinatorLayout,
+                            "Bookmark Removed", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                } else {
+                    thisClub.addBookmarkUser(ParseUser.getCurrentUser());
+                    item.setIcon(R.drawable.ic_action_remove_bookmark);
+                    item.setChecked(true);
+                    Snackbar.make(coordinatorLayout,
+                            "Bookmarked", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
             case MENU_ITEM_REFRESH:
                 eventQueryAdapter.loadObjects();
                 eventQueryAdapter.notifyDataSetChanged();
@@ -273,8 +262,7 @@ public class ClubDetail extends AppCompatActivity {
                             object.addFollowingUser(ParseUser.getCurrentUser());
                         }
                     });
-                }
-                else {
+                } else {
                 }
 
 
