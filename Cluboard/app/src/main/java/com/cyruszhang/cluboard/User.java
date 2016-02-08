@@ -31,7 +31,7 @@ public class User extends ParseUser {
     }
 
     public boolean checkBookmarkClub(Club club) {
-        ParseRelation bookmarkRelation = club.findBookmarkRelation(club).getRelation("bookmarkUsers");
+        ParseRelation bookmarkRelation = club.findBookmarkRelation().getRelation("bookmarkUsers");
         ParseQuery<ParseUser> userQuery = bookmarkRelation.getQuery();
         userQuery.whereEqualTo("objectId", this.getObjectId());
         try {

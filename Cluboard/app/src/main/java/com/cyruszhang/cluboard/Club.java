@@ -92,7 +92,7 @@ public class Club extends ParseObject{
         put("owner", owner);
     }
 
-    public ParseObject findBookmarkRelation(final ParseUser bookmarker){
+    public ParseObject findBookmarkRelation(){
         ParseQuery<ParseObject> query = ParseQuery.getQuery("BookmarkRelations");
         query.whereEqualTo("clubObjectId", this.get("objectId"));
         try {
@@ -104,7 +104,7 @@ public class Club extends ParseObject{
     }
 
     public void addBookmarkUser(final ParseUser bookmarker) {
-        ParseObject relation = findBookmarkRelation(bookmarker);
+        ParseObject relation = findBookmarkRelation();
 
         if (relation == null) {
             ParseObject newRelation = new ParseObject("BookmarkRelations");
@@ -120,7 +120,7 @@ public class Club extends ParseObject{
     }
 
     public void removeBookmarkUser(final ParseUser bookmarker) {
-        ParseObject relation = findBookmarkRelation(bookmarker);
+        ParseObject relation = findBookmarkRelation();
 
         if (relation != null) {
             ParseRelation<ParseObject> bookmarkRelation = relation.getRelation("bookmarkUsers");
