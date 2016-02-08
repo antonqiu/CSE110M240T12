@@ -22,6 +22,7 @@ Week 6 -
    User interaction function implement. (ZZY, JXD）
    
 Week 7/8/9/10 
+   fix login/logout when user click backbutton
   connect Database with the APP.
   Test each function
   Fix bugs
