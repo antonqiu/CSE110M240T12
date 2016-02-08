@@ -1,9 +1,12 @@
 package com.cyruszhang.cluboard;
 
+import com.parse.ParseQuery;
+import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
 import org.json.JSONArray;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -25,6 +28,19 @@ public class User extends ParseUser {
     }
     public void checkPermission(Club club) {
         // TODO: check permissions
+    }
+
+    public boolean checkBookmarkClub(Club club) {
+        ParseRelation bookmarkRelation = club.findBookmarkRelation(club).getRelation("bookmarkUsers");
+        ParseQuery<ParseUser> userQuery = bookmarkRelation.getQuery();
+        userQuery.whereEqualTo("objectId", this.getObjectId());
+        try {
+            userQuery.getFirst();
+            return true;
+        }
+        catch (com.parse.ParseException e) {
+            return false;
+        }
     }
 
 }
