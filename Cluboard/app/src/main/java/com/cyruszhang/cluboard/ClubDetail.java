@@ -10,7 +10,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,7 +22,10 @@ import com.parse.Parse;
 import com.parse.ParseACL;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
+import com.parse.ParseQueryAdapter;
 import com.parse.ParseUser;
+
+import java.util.Arrays;
 
 public class ClubDetail extends AppCompatActivity {
     private static final int MENU_ITEM_LOGOUT = 1001;
@@ -27,6 +33,7 @@ public class ClubDetail extends AppCompatActivity {
     private static final int MENU_ITEM_REMOVE_BOOKMARK = 1003;
     private CoordinatorLayout coordinatorLayout;
     private Club thisClub;
+    private ParseQueryAdapter<Event> eventQueryAdapter;
 
 
 
@@ -101,11 +108,12 @@ public class ClubDetail extends AppCompatActivity {
             }
         });
 
-
+        //set event listview
+        setupEventList();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+
+    public boolean onCreateMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         menu.add(0, MENU_ITEM_LOGOUT, 102, "Logout");
 
@@ -158,6 +166,56 @@ public class ClubDetail extends AppCompatActivity {
                         .setAction("Action", null).show();
         }
         return true;
+    }
+
+    private void setupEventList() {
+        // Get List View
+        ListView eventList = (ListView) this.findViewById(R.id.event_list_view);
+
+        ParseQueryAdapter.QueryFactory<Event> factory =
+                new ParseQueryAdapter.QueryFactory<Event>() {
+                    public ParseQuery<Event> create() {
+                        ParseQuery<Event> query = Event.getQuery();
+                        // only query on two keys to save time
+                        query.selectKeys(Arrays.asList("name", "location"));
+                        query.orderByDescending("createdAt");
+                        Log.d(getClass().getSimpleName(), "factory created");
+                        return query;
+                    }
+                };
+
+        eventQueryAdapter = new ParseQueryAdapter<Event>(this, factory) {
+            @Override
+            public View getItemView(Event object, View v, ViewGroup parent) {
+                if (v == null) {
+                    Log.d(getClass().getSimpleName(), "inflating item view");
+                    v = View.inflate(getContext(), R.layout.event_list_item, null);
+                    // v = LayoutInflater.from(getContext()).
+                    // inflate(R.layout.club_list_item, null, false);
+                }
+                Log.d(getClass().getSimpleName(), "setting up item view");
+                TextView eventName = (TextView) v.findViewById(R.id.event_list_item_name);
+                TextView eventLocation = (TextView) v.findViewById(R.id.event_list_item_location);
+                eventName.setText(object.getEventName());
+                eventLocation.setText(object.getEventDesc());
+                return v;
+            }
+        };
+        Log.d(getClass().getSimpleName(), "setting up adapter");
+        eventList.setAdapter(eventQueryAdapter);
+
+        // item click listener
+        /*
+        eventList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                final Event event = eventQueryAdapter.getItem(position);
+                Intent intent = new Intent(Welcome.this, ClubDetail.class);
+                intent.putExtra("OBJECT_ID", club.getObjectId());
+                startActivity(intent);
+            }
+        });
+        */
     }
 
 }
