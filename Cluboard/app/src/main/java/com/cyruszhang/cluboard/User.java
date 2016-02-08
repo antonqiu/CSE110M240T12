@@ -1,5 +1,6 @@
 package com.cyruszhang.cluboard;
 
+import com.parse.ParseClassName;
 import com.parse.ParseQuery;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
@@ -13,7 +14,10 @@ import java.util.Arrays;
 /**
  * Created by zhangxinyuan on 2/4/16.
  */
+@ParseClassName("User")
 public class User extends ParseUser {
+    public User() {}
+    
     /* store user created club */
     public void setMyclubs(Club myClub) {
         this.addUnique("myClubs", myClub);
