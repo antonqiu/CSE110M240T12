@@ -1,6 +1,7 @@
 package com.cyruszhang.cluboard;
 
 import com.parse.ParseClassName;
+import com.parse.ParseException;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -67,15 +68,40 @@ public class Event extends ParseObject {
         return ParseQuery.getQuery(Event.class);
     }
 
-    public void addFollowingUser(ParseUser followingUser) {
-        ParseRelation<ParseUser> followingUsers = getRelation("followingUsers");
-        followingUsers.add(followingUser);
-        saveInBackground();
+    public ParseObject findFollowingRelation(final ParseUser follower){
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("BookmarkRelations");
+        query.whereEqualTo("clubObjectId", this.get("objectId"));
+        try {
+            return query.getFirst();
+        }
+        catch(ParseException exception) {
+            return null;
+        }
     }
 
-    public void removeFollowingUser(ParseUser followingUser) {
-        ParseRelation<ParseUser> followingUsers = getRelation("followingUsers");
-        followingUsers.remove(followingUser);
-        saveInBackground();
+    public void addFollowingUser(final ParseUser follower) {
+        ParseObject relation = findFollowingRelation(follower);
+
+        if (relation == null) {
+            ParseObject newRelation = new ParseObject("BookmarkRelations");
+            newRelation.put("clubObjectId", getObjectId());
+            ParseRelation<ParseUser> bookmarkRelation = newRelation.getRelation("bookmarkUsers");
+            bookmarkRelation.add(follower);
+            newRelation.saveInBackground();
+        } else {
+            ParseRelation<ParseUser> bookmarkRelation = relation.getRelation("bookmarkUsers");
+            bookmarkRelation.add(follower);
+            relation.saveInBackground();
+        }
+    }
+
+    public void removeFollowingUser(final ParseUser follower) {
+        ParseObject relation = findFollowingRelation(follower);
+
+        if (relation != null) {
+            ParseRelation<ParseUser> bookmarkRelation = relation.getRelation("bookmarkUsers");
+            bookmarkRelation.remove(follower);
+            relation.saveInBackground();
+        }
     }
 }

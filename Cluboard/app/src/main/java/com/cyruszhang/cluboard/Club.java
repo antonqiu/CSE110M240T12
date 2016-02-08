@@ -109,11 +109,11 @@ public class Club extends ParseObject{
         if (relation == null) {
             ParseObject newRelation = new ParseObject("BookmarkRelations");
             newRelation.put("clubObjectId", getObjectId());
-            ParseRelation<ParseObject> bookmarkRelation = newRelation.getRelation("bookmarkUsers");
+            ParseRelation<ParseUser> bookmarkRelation = newRelation.getRelation("bookmarkUsers");
             bookmarkRelation.add(bookmarker);
             newRelation.saveInBackground();
         } else {
-            ParseRelation<ParseObject> bookmarkRelation = relation.getRelation("bookmarkUsers");
+            ParseRelation<ParseUser> bookmarkRelation = relation.getRelation("bookmarkUsers");
             bookmarkRelation.add(bookmarker);
             relation.saveInBackground();
         }
@@ -123,7 +123,7 @@ public class Club extends ParseObject{
         ParseObject relation = findBookmarkRelation();
 
         if (relation != null) {
-            ParseRelation<ParseObject> bookmarkRelation = relation.getRelation("bookmarkUsers");
+            ParseRelation<ParseUser> bookmarkRelation = relation.getRelation("bookmarkUsers");
             bookmarkRelation.remove(bookmarker);
             relation.saveInBackground();
         }
