@@ -35,6 +35,7 @@ public class ClubDetail extends AppCompatActivity {
     private static final int MENU_ITEM_LOGOUT = 1001;
     private static final int MENU_ITEM_ADD_BOOKMARK = 1002;
     private static final int MENU_ITEM_REMOVE_BOOKMARK = 1003;
+    private static final int MENU_ITEM_REFRESH = 1004;
     private CoordinatorLayout coordinatorLayout;
     private Club thisClub;
     private ParseQueryAdapter<Event> eventQueryAdapter;
@@ -70,6 +71,11 @@ public class ClubDetail extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "thisClub is null", Toast.LENGTH_SHORT).show();
         }
         else {
+            try {
+                thisClub.fetch();
+            } catch (Exception e) {
+                Log.d(getClass().getSimpleName(), "fetch failed" + thisClub.getClubName());
+            }
             Log.d(getClass().getSimpleName(), "got club object" + thisClub.getClubName());
             clubName.setText(thisClub.getClubName());
             clubDetail.setText(thisClub.getClubDetail());
@@ -143,6 +149,13 @@ public class ClubDetail extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        eventQueryAdapter.loadObjects();
+        eventQueryAdapter.notifyDataSetChanged();
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -160,6 +173,10 @@ public class ClubDetail extends AppCompatActivity {
         bookmark.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         bookmark.setIcon(R.drawable.ic_action_add_bookmark);
 //        }
+
+        MenuItem refresh = menu.add(0, MENU_ITEM_REFRESH, 104, "Refresh");
+        refresh.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        refresh.setIcon(R.drawable.ic_action_refresh);
 
         return true;
     }
@@ -196,6 +213,9 @@ public class ClubDetail extends AppCompatActivity {
                 Snackbar.make(coordinatorLayout,
                         "Bookmark Removed", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+            case MENU_ITEM_REFRESH:
+                eventQueryAdapter.loadObjects();
+                eventQueryAdapter.notifyDataSetChanged();
         }
         return true;
     }

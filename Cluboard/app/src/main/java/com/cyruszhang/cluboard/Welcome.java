@@ -29,6 +29,7 @@ import java.util.Arrays;
  */
 public class Welcome extends AppCompatActivity {
     private static final int MENU_ITEM_LOGOUT = 1001;
+    private static final int MENU_ITEM_REFRESH = 1002;
 
     Button logout;
     Button createNewClub;
@@ -79,14 +80,16 @@ public class Welcome extends AppCompatActivity {
     protected void onRestart() {
         super.onRestart();
         clubsQueryAdapter.loadObjects();
-        //clubsQueryAdapter.notifyDataSetChanged();
+        clubsQueryAdapter.notifyDataSetChanged();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         menu.add(0, MENU_ITEM_LOGOUT, 102, "Logout");
-
+        MenuItem refresh = menu.add(0, MENU_ITEM_REFRESH, 103, "Refresh");
+        refresh.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        refresh.setIcon(R.drawable.ic_action_refresh);
         return true;
     }
 
@@ -115,6 +118,9 @@ public class Welcome extends AppCompatActivity {
                 Snackbar.make(coordinatorLayout,
                         "You are logged out", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+            case MENU_ITEM_REFRESH:
+                clubsQueryAdapter.loadObjects();
+                clubsQueryAdapter.notifyDataSetChanged();
         }
         return true;
     }

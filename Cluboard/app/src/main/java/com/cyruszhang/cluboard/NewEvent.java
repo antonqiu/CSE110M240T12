@@ -76,7 +76,7 @@ public class NewEvent extends AppCompatActivity {
                 if (e == null) {
                     Club thisClub = (Club) object;
                     Log.d(getClass().getSimpleName(), "got club object" + thisClub.getClubName());
-                    thisClub.addEvent(newEvent);
+                    // thisClub.addEvent(newEvent);
                     ParseACL clubAcl = thisClub.getACL();
                     newEvent.setACL(clubAcl);
                     newEvent.put("club", thisClub);

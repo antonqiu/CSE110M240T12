@@ -17,13 +17,18 @@ Week5 -
    Allow user to create club and post events in the club page. (CSM, ZXY, QCT)
    
 Week 6 - 
-   Access Permission Design （GYM, LHC)
+   Access Permission Design (CSM, ZXY, QCT)
+   Enable local data storage. So when user post an event, it will show up immediately in event list. (CSM, ZXY, QCT)
+   Enable club owner to edit club info and event info.(CSM, ZXY, QCT)
    Immplement follow event and bookmark club funtion (CSM, ZXY, QCT)
-   User interaction function implement. (ZZY, JXD）
+   Finish up ui design for welcome page, create club page, create event page, club detail page, user profile page.
+   (Hanchao Liu, Yimeng Gu,Zhiye Zhang, Xingda Jiang)
    
-Week 7/8/9/10 
+Week 7
    fix login/logout when user click backbutton
-  connect Database with the APP.
+   add strech goal function 
+  Release basic version to customer, ask for improvement and modification.
+
+week 8/9/10 
   Test each function
   Fix bugs
-  Release basic version to customer, ask for improvement and modification.
