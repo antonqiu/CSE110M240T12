@@ -1,10 +1,8 @@
 package com.cyruszhang.cluboard;
 
-import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -16,20 +14,17 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.parse.FindCallback;
 import com.parse.GetCallback;
+import com.parse.Parse;
 import com.parse.ParseACL;
 import com.parse.ParseException;
-import com.parse.ParseObject;
 import com.parse.ParseQuery;
-import com.parse.ParseRole;
 import com.parse.ParseUser;
-
-import java.util.List;
 
 public class ClubDetail extends AppCompatActivity {
     private static final int MENU_ITEM_LOGOUT = 1001;
-    private static final int MENU_ITEM_BOOKMARK = 1002;
+    private static final int MENU_ITEM_ADD_BOOKMARK = 1002;
+    private static final int MENU_ITEM_REMOVE_BOOKMARK = 1003;
     private CoordinatorLayout coordinatorLayout;
     private Club thisClub;
 
@@ -113,9 +108,19 @@ public class ClubDetail extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         menu.add(0, MENU_ITEM_LOGOUT, 102, "Logout");
-        MenuItem bookmark = menu.add(0, MENU_ITEM_BOOKMARK, 103, "Bookmark");
-        bookmark.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        bookmark.setIcon(R.drawable.ic_action_bookmark);
+
+        // add bookmark or remove bookmark, + actionbar button
+        if (((User)User.getCurrentUser()).checkBookmarkClub(thisClub)) {
+            MenuItem bookmark = menu.add(0, MENU_ITEM_REMOVE_BOOKMARK, 103, "Remove Bookmark");
+            bookmark.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+            bookmark.setIcon(R.drawable.ic_action_remove_bookmark);
+        }
+        else {
+            MenuItem bookmark = menu.add(0, MENU_ITEM_ADD_BOOKMARK, 103, "Add Bookmark");
+            bookmark.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+            bookmark.setIcon(R.drawable.ic_action_add_bookmark);
+        }
+
         return true;
     }
 
@@ -140,11 +145,16 @@ public class ClubDetail extends AppCompatActivity {
                 Snackbar.make(coordinatorLayout,
                         "You are logged out", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-            case MENU_ITEM_BOOKMARK:
+            case MENU_ITEM_ADD_BOOKMARK:
                 // TODO: should toggle it based on
                 thisClub.addBookmarkUser(ParseUser.getCurrentUser());
                 Snackbar.make(coordinatorLayout,
-                        "Bookmark Seleted", Snackbar.LENGTH_LONG)
+                        "Bookmark Added", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            case MENU_ITEM_REMOVE_BOOKMARK:
+                thisClub.removeBookmarkUser(ParseUser.getCurrentUser());
+                Snackbar.make(coordinatorLayout,
+                        "Bookmark Removed", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
         }
         return true;
