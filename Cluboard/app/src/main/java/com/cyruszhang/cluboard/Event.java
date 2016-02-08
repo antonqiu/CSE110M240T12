@@ -69,8 +69,8 @@ public class Event extends ParseObject {
     }
 
     public ParseObject findFollowingRelation(){
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("BookmarkRelations");
-        query.whereEqualTo("clubObjectId", this.get("objectId"));
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("FollowingRelations");
+        query.whereEqualTo("clubObject", this);
         try {
             return query.getFirst();
         }
@@ -83,8 +83,8 @@ public class Event extends ParseObject {
         ParseObject relation = findFollowingRelation();
 
         if (relation == null) {
-            ParseObject newRelation = new ParseObject("BookmarkRelations");
-            newRelation.put("clubObjectId", getObjectId());
+            ParseObject newRelation = new ParseObject("FollowingRelations");
+            newRelation.put("clubObject", this);
             ParseRelation<ParseUser> bookmarkRelation = newRelation.getRelation("followingUsers");
             bookmarkRelation.add(follower);
             newRelation.saveInBackground();

@@ -94,7 +94,7 @@ public class Club extends ParseObject{
 
     public ParseObject findBookmarkRelation(){
         ParseQuery<ParseObject> query = ParseQuery.getQuery("BookmarkRelations");
-        query.whereEqualTo("clubObjectId", this.get("objectId"));
+        query.whereEqualTo("clubObject", this);
         try {
             return query.getFirst();
         }
@@ -108,7 +108,7 @@ public class Club extends ParseObject{
 
         if (relation == null) {
             ParseObject newRelation = new ParseObject("BookmarkRelations");
-            newRelation.put("clubObjectId", getObjectId());
+            newRelation.put("clubObject", this);
             ParseRelation<ParseUser> bookmarkRelation = newRelation.getRelation("bookmarkUsers");
             bookmarkRelation.add(bookmarker);
             newRelation.saveInBackground();
