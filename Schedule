@@ -21,7 +21,8 @@ Week 6 -
    Enable local data storage. So when user post an event, it will show up immediately in event list. (CSM, ZXY, QCT)
    Enable club owner to edit club info and event info.(CSM, ZXY, QCT)
    Immplement follow event and bookmark club funtion (CSM, ZXY, QCT)
-   Finish up ui design for welcome page, create club page, create event page, club detail page, user profile page.
+   Finish up ui design for welcome page, create club page, create event page, club detail page, event Detail page, user profile page, 
+   In side bar: Bookmarked club, Followed events, My club, Setting. 
    (Hanchao Liu, Yimeng Gu,Zhiye Zhang, Xingda Jiang)
    
 Week 7
