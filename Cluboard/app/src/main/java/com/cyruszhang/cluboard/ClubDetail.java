@@ -30,8 +30,7 @@ import java.util.Arrays;
 public class ClubDetail extends AppCompatActivity {
     private static final int MENU_ITEM_LOGOUT = 1001;
     private static final int MENU_ITEM_BOOKMARK = 1002;
-    private static final int MENU_ITEM_REMOVE_BOOKMARK = 1003;
-    private static final int MENU_ITEM_REFRESH = 1004;
+    private static final int MENU_ITEM_REFRESH = 1003;
     private static final int IMAGE_VIEW_ID = View.generateViewId();
     private CoordinatorLayout coordinatorLayout;
     private Club thisClub;
@@ -42,11 +41,11 @@ public class ClubDetail extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_club_detail);
-        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator);
-        Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator);
 
         final TextView clubName = (TextView) this.findViewById(R.id.club_detail_name);
         final TextView clubDetail = (TextView) this.findViewById(R.id.club_detail_detail);
@@ -162,12 +161,13 @@ public class ClubDetail extends AppCompatActivity {
             bookmark.setChecked(false);
             bookmark.setIcon(R.drawable.ic_action_add_bookmark);
         }
-
-        return true;
+        // in order to support the native back button
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Log.d(getClass().getSimpleName(), "Item with ID" + item.getItemId());
         int id = item.getItemId();
         switch (id) {
             case R.id.action_settings:
@@ -207,7 +207,8 @@ public class ClubDetail extends AppCompatActivity {
                 eventQueryAdapter.loadObjects();
                 eventQueryAdapter.notifyDataSetChanged();
         }
-        return true;
+        // in order to support the native back button
+        return super.onOptionsItemSelected(item);
     }
 
     private void setupEventList() {

@@ -90,7 +90,7 @@ public class Welcome extends AppCompatActivity {
         MenuItem refresh = menu.add(0, MENU_ITEM_REFRESH, 103, "Refresh");
         refresh.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         refresh.setIcon(R.drawable.ic_action_refresh);
-        return true;
+        return onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -122,7 +122,7 @@ public class Welcome extends AppCompatActivity {
                 clubsQueryAdapter.loadObjects();
                 clubsQueryAdapter.notifyDataSetChanged();
         }
-        return true;
+        return super.onOptionsItemSelected(item);
     }
 
     private void setupClubList() {
