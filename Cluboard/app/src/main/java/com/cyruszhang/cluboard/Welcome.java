@@ -79,7 +79,7 @@ public class Welcome extends AppCompatActivity {
     protected void onRestart() {
         super.onRestart();
         clubsQueryAdapter.loadObjects();
-        //clubsQueryAdapter.notifyDataSetChanged();
+        clubsQueryAdapter.notifyDataSetChanged();
     }
 
     @Override

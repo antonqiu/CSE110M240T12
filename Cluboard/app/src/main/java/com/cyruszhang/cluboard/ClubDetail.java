@@ -67,6 +67,11 @@ public class ClubDetail extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "thisClub is null", Toast.LENGTH_SHORT).show();
         }
         else {
+            try {
+                thisClub.fetch();
+            } catch (Exception e) {
+                Log.d(getClass().getSimpleName(), "fetch failed" + thisClub.getClubName());
+            }
             Log.d(getClass().getSimpleName(), "got club object" + thisClub.getClubName());
             clubName.setText(thisClub.getClubName());
             clubDetail.setText(thisClub.getClubDetail());
