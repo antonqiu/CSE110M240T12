@@ -154,10 +154,13 @@ public class ClubDetail extends AppCompatActivity {
         bookmark.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         bookmark.setCheckable(true);
         // TODO: returns false all the time???
-        if (((User)(User.getCurrentUser())).checkBookmarkClub(thisClub)) {
+        User thisUser = (User) ParseUser.getCurrentUser();
+        if (thisUser.checkBookmarkClub(thisClub)) {
+            Log.d(getClass().getSimpleName(), "You have bookmarked it before.");
             bookmark.setChecked(true);
             bookmark.setIcon(R.drawable.ic_action_remove_bookmark);
         } else {
+            Log.d(getClass().getSimpleName(), "You have not bookmarked it before.");
             bookmark.setChecked(false);
             bookmark.setIcon(R.drawable.ic_action_add_bookmark);
         }
