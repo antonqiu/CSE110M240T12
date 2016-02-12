@@ -59,7 +59,9 @@
         android:id="@+id/new_event_btn"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:visibility="invisible"/>
+        android:visibility="invisible"
+        style="?android:attr/borderlessButtonStyle"
+        android:textColor="@color/colorPrimary" />
 
 
 </RelativeLayout>
