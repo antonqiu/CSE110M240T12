@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:id="@+id/event_list_item_layout">
+    android:id="@+id/event_list_item_layout"
+    android:weightSum="1">
 
     <TextView
         android:layout_width="wrap_content"
@@ -19,4 +20,13 @@
         android:text="@string/club_desc_demo"
         android:textSize="@dimen/club_detail_size"
         android:id="@+id/event_list_item_location" />
+
+    <ToggleButton
+        android:layout_width="34dp"
+        android:layout_height="24dp"
+        android:id="@+id/event_list_item_follow"
+        android:textOff=""
+        android:textOn=""
+        android:background="@drawable/ic_button_following"
+        android:layout_weight="0.02" />
 </LinearLayout>
