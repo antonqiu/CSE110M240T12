@@ -34,6 +34,8 @@ public class MyBookmark extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_bookmark);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -44,7 +46,6 @@ public class MyBookmark extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-        getSupportActionBar();
         setupClubList();
     }
 
