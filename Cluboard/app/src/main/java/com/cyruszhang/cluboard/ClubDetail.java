@@ -258,7 +258,6 @@ public class ClubDetail extends AppCompatActivity {
                 followButton.setLayoutParams(params);*/
                 if (object.findFollowingRelation() == null) {
                     followButton.setChecked(false);
-
                 }
                 else
                     followButton.setChecked(true);
