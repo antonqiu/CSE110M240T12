@@ -37,6 +37,7 @@
     <string name="new_event_name">Event Name</string>
     <string name="new_event_desc">Event Description</string>
     <string name="new_event_creat_btn">Create Event</string>
+    <string name="title_activity_my_bookmark">My_bookmark</string>
 
 
 </resources>
