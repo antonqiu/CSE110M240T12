@@ -18,7 +18,6 @@ import java.util.List;
  * Fields:
  * name: String
  * desc: String
- * clubID: String // TODO: Do we need it & How to implement
  * detail: String
  * email: String
  * web: String
@@ -82,7 +81,7 @@ public class Club extends ParseObject{
     }
 
     /* get all event in a JsonArray from the club */
-    // TODO: we should change it to Relation, which is more standardized
+    // TODO: remove this field, entirely
     public JSONArray getEventList() {
         return (JSONArray)get("events");
     }

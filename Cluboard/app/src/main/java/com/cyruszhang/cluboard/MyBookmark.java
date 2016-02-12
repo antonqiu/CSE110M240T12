@@ -98,6 +98,7 @@ public class MyBookmark extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    // TODO: WITH BUG: DO NOT SHOW ANY ITEM
     private void setupClubList() {
         // Get List View
         ListView bookmarkList = (ListView) this.findViewById(R.id.bookmark_list_view);

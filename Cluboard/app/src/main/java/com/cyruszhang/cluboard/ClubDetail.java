@@ -154,7 +154,7 @@ public class ClubDetail extends AppCompatActivity {
         MenuItem bookmark = menu.add(0, MENU_ITEM_BOOKMARK, 104, "Add Bookmark");
         bookmark.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         bookmark.setCheckable(true);
-        // TODO: returns false all the time???
+
         User thisUser = (User) ParseUser.getCurrentUser();
         if (thisUser.checkBookmarkClub(thisClub)) {
             Log.d(getClass().getSimpleName(), "You have bookmarked it before.");
@@ -251,7 +251,7 @@ public class ClubDetail extends AppCompatActivity {
                 eventName.setText(object.getEventName());
                 eventLocation.setText(object.getEventLocation());
 
-                // follow button setup TODO: two options: 1. visibility 2. Checkable
+                // follow button setup
                 final ToggleButton followButton = (ToggleButton) v.findViewById(R.id.event_list_item_follow);
                 /*RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) followButton.getLayoutParams();
                 params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
