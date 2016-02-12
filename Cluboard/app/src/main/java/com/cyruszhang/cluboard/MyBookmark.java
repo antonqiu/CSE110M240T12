@@ -16,17 +16,13 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.parse.ParseException;
-import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
-import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
-public class My_bookmark extends AppCompatActivity {
+public class MyBookmark extends AppCompatActivity {
     private static final int MENU_ITEM_LOGOUT = 1001;
     private static final int MENU_ITEM_REFRESH = 1002;
 
@@ -78,7 +74,7 @@ public class My_bookmark extends AppCompatActivity {
                 Snackbar.make(coordinatorLayout,
                         "You selected settings", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-                Intent intent = new Intent(My_bookmark.this, Setting.class);
+                Intent intent = new Intent(MyBookmark.this, Setting.class);
                 startActivity(intent);
 
                 return true;
@@ -89,7 +85,7 @@ public class My_bookmark extends AppCompatActivity {
             case MENU_ITEM_LOGOUT:
                 // Logout current user
                 ParseUser.logOut();
-                intent = new Intent(My_bookmark.this, Login.class);
+                intent = new Intent(MyBookmark.this, Login.class);
                 startActivity(intent);
                 Snackbar.make(coordinatorLayout,
                         "You are logged out", Snackbar.LENGTH_LONG)
@@ -145,7 +141,7 @@ public class My_bookmark extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 final Club club = bookmarkQueryAdapter.getItem(position);
-                Intent intent = new Intent(My_bookmark.this, ClubDetail.class);
+                Intent intent = new Intent(MyBookmark.this, ClubDetail.class);
                 intent.putExtra("OBJECT_ID", club.getObjectId());
                 startActivity(intent);
             }
