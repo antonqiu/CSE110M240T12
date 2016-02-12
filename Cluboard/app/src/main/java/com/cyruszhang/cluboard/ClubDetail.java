@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.parse.ParseACL;
 import com.parse.ParseObject;
@@ -153,7 +154,7 @@ public class ClubDetail extends AppCompatActivity {
         MenuItem bookmark = menu.add(0, MENU_ITEM_BOOKMARK, 104, "Add Bookmark");
         bookmark.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         bookmark.setCheckable(true);
-        // TODO: returns false all the time???
+
         User thisUser = (User) ParseUser.getCurrentUser();
         if (thisUser.checkBookmarkClub(thisClub)) {
             Log.d(getClass().getSimpleName(), "You have bookmarked it before.");
@@ -245,32 +246,40 @@ public class ClubDetail extends AppCompatActivity {
                     // inflate(R.layout.club_list_item, null, false);
                 }
                 Log.d(getClass().getSimpleName(), "setting up item view");
-                LinearLayout eventItemLayout = (LinearLayout) v.findViewById(R.id.event_list_item_layout);
                 TextView eventName = (TextView) v.findViewById(R.id.event_list_item_name);
                 TextView eventLocation = (TextView) v.findViewById(R.id.event_list_item_location);
                 eventName.setText(object.getEventName());
                 eventLocation.setText(object.getEventLocation());
 
-                // follow button setup TODO: two options: 1. visibility 2. Checkable
-                if (eventItemLayout.findViewById(IMAGE_VIEW_ID) == null) {
-                    ImageButton followButton = new ImageButton(getContext());
-                    followButton.setImageResource(R.drawable.ic_button_following);
-                    followButton.setId(IMAGE_VIEW_ID);
+                // follow button setup
+                final ToggleButton followButton = (ToggleButton) v.findViewById(R.id.event_list_item_follow);
                 /*RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) followButton.getLayoutParams();
                 params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
                 followButton.setLayoutParams(params);*/
-                    eventItemLayout.addView(followButton);
-
-                    followButton.setOnClickListener(new View.OnClickListener() {
+                if (object.findFollowingRelation() == null) {
+                    followButton.setChecked(false);
+                }
+                else
+                    followButton.setChecked(true);
+                followButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            object.addFollowingUser(ParseUser.getCurrentUser());
-                            Snackbar.make(coordinatorLayout,
-                                    "You followed this event", Snackbar.LENGTH_LONG)
-                                    .setAction("Action", null).show();
+                            if (followButton.isChecked()) {
+                                object.removeFollowingUser(ParseUser.getCurrentUser());
+                                Snackbar.make(coordinatorLayout,
+                                        "You unfollowed this event", Snackbar.LENGTH_LONG)
+                                        .setAction("Action", null).show();
+
+                            }
+                            else {
+                                object.addFollowingUser(ParseUser.getCurrentUser());
+                                Snackbar.make(coordinatorLayout,
+                                        "You followed this event", Snackbar.LENGTH_LONG)
+                                        .setAction("Action", null).show();
+                            }
+
                         }
                     });
-                }
 
 
                 return v;

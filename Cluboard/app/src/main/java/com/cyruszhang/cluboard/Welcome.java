@@ -1,10 +1,8 @@
 package com.cyruszhang.cluboard;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -72,7 +70,13 @@ public class Welcome extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+        Button bookmark = (Button) findViewById(R.id.my_bookmark);
+        bookmark.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0) {
+                Intent intent = new Intent(Welcome.this, MyBookmark.class);
+                startActivity(intent);
+            }
+        });
         setupClubList();
     }
 
