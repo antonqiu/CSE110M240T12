@@ -79,6 +79,10 @@ public class NewClub extends AppCompatActivity {
         newClub.setOwner(ParseUser.getCurrentUser());
         ParseObject newRelation = new ParseObject("BookmarkRelations");
         newRelation.put("clubObject", newClub);
+        ParseACL relationACL = new ParseACL();
+        relationACL.setPublicReadAccess(true);
+        relationACL.setPublicWriteAccess(true);
+        newRelation.setACL(relationACL);
         //ParseRelation<ParseUser> bookmarkRelation = newRelation.getRelation("bookmarkUsers");
         newRelation.saveInBackground();
 

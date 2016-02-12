@@ -1,5 +1,7 @@
 package com.cyruszhang.cluboard;
 
+import android.util.Log;
+
 import com.parse.ParseClassName;
 import com.parse.ParseException;
 import com.parse.ParseGeoPoint;
