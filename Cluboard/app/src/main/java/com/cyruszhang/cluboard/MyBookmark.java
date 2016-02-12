@@ -100,7 +100,7 @@ public class MyBookmark extends AppCompatActivity {
 
     private void setupClubList() {
         // Get List View
-        ListView bookmarkList = (ListView) this.findViewById(R.id.club_list_view);
+        ListView bookmarkList = (ListView) this.findViewById(R.id.bookmark_list_view);
         final User currentUser = (User) ParseUser.getCurrentUser();
 
         ParseQueryAdapter.QueryFactory<Club> factory =
