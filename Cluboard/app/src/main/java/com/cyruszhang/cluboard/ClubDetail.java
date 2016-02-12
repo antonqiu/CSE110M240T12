@@ -266,14 +266,19 @@ public class ClubDetail extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             if (followButton.isChecked()) {
-                                object.addFollowingUser(ParseUser.getCurrentUser());
+                                object.removeFollowingUser(ParseUser.getCurrentUser());
+                                Snackbar.make(coordinatorLayout,
+                                        "You unfollowed this event", Snackbar.LENGTH_LONG)
+                                        .setAction("Action", null).show();
+
                             }
                             else {
-                                object.removeFollowingUser(ParseUser.getCurrentUser());
+                                object.addFollowingUser(ParseUser.getCurrentUser());
+                                Snackbar.make(coordinatorLayout,
+                                        "You followed this event", Snackbar.LENGTH_LONG)
+                                        .setAction("Action", null).show();
                             }
-                            Snackbar.make(coordinatorLayout,
-                                    "You followed this event", Snackbar.LENGTH_LONG)
-                                    .setAction("Action", null).show();
+
                         }
                     });
 
