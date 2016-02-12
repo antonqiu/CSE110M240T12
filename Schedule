@@ -23,14 +23,17 @@ Week 6 -
    
    Finish up ui design for welcome page, create club page, create event page, club detail page, event Detail page, user profile page, 
    In side bar: Bookmarked club, Followed events, My club, Setting. 
+   Do those on another application called cluboardUI.
    (Hanchao Liu, Yimeng Gu,Zhiye Zhang, Xingda Jiang)
    
 Week 7
- Enable local data storage. So when user post an event, it will show up immediately in event list. (CSM, ZXY, QCT)
-   fix login/logout when user click backbutton
-   add strech goal function 
-  Release basic version to customer, ask for improvement and modification.
+   Enable local data storage. So when user post an event, it will show up immediately in event list. (CSM, ZXY, QCT)
+   push notification to user fo those events they followed (CSM, ZXY, QCT)
+   fix login/logout when user click backbutton (Hanchao Liu, Yimeng Gu,Zhiye Zhang, Xingda Jiang)
+   Add UI to our main application, connect front-end to back-end. (Hanchao Liu, Yimeng Gu,Zhiye Zhang, Xingda Jiang)
+   Release basic version to customer, ask for improvement and modification.
 
 week 8/9/10 
   Test each function
   Fix bugs
+  TO BE UPDATED
