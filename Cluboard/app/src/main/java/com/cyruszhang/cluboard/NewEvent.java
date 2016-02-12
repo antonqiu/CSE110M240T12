@@ -69,6 +69,7 @@ public class NewEvent extends AppCompatActivity {
         newEvent.setEventDesc(eventDesctxt);
         newEvent.setEventLocation(eventLocationtxt);
 
+
         ParseQuery<Club> query = Club.getQuery();
         query.getInBackground(getIntent().getStringExtra("OBJECT_ID"), new GetCallback<Club>() {
             @Override
@@ -82,6 +83,10 @@ public class NewEvent extends AppCompatActivity {
                     newEvent.put("club", thisClub);
                     ParseObject newRelation = new ParseObject("FollowingRelations");
                     newRelation.put("eventObject", newEvent);
+                    ParseACL relationACL = new ParseACL();
+                    relationACL.setPublicReadAccess(true);
+                    relationACL.setPublicWriteAccess(true);
+                    newRelation.setACL(relationACL);
                     newEvent.saveInBackground(new SaveCallback() {
                         @Override
                         public void done(ParseException e) {
