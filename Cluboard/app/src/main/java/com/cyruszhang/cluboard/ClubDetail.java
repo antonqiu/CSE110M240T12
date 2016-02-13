@@ -256,7 +256,8 @@ public class ClubDetail extends AppCompatActivity {
                 /*RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) followButton.getLayoutParams();
                 params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
                 followButton.setLayoutParams(params);*/
-                if (object.findFollowingRelation() == null) {
+                User currentUser = (User) ParseUser.getCurrentUser();
+                if (currentUser.checkFollowingEvent(object)) {
                     followButton.setChecked(false);
                 }
                 else

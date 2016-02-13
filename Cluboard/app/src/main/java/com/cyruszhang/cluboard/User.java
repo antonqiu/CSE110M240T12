@@ -47,7 +47,7 @@ public class User extends ParseUser {
         }
     }
 
-    public boolean checkFollowingClub(Event event) {
+    public boolean checkFollowingEvent(Event event) {
         ParseRelation<ParseUser> followingRelation = event.findFollowingRelation().getRelation("followingUsers");
         ParseQuery<ParseUser> userQuery = followingRelation.getQuery();
         userQuery.whereEqualTo("objectId", this.getObjectId());
