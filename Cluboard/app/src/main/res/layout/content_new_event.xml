@@ -65,12 +65,6 @@
         android:layout_below="@id/new_event_location_label"
         android:layout_alignParentStart="true" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/new_event_creat_btn"
-        android:id="@+id/new_event_btn"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+
 
 </RelativeLayout>

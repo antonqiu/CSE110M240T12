@@ -62,7 +62,7 @@ public class NewClub extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         menu.add(0, MENU_ITEM_LOGOUT, 102, "Logout");
-        MenuItem create = menu.add(0, MENU_ITEM_CREATE, 103, "Refresh");
+        MenuItem create = menu.add(0, MENU_ITEM_CREATE, 103, "Create");
         create.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         create.setTitle("CREATE");
         return super.onCreateOptionsMenu(menu);

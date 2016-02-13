@@ -124,6 +124,7 @@ public class Welcome extends AppCompatActivity {
                 Snackbar.make(coordinatorLayout,
                         "You selected About", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                break;
             case MENU_ITEM_LOGOUT:
                 // Logout current user
                 ParseUser.logOut();
@@ -132,9 +133,13 @@ public class Welcome extends AppCompatActivity {
                 Snackbar.make(coordinatorLayout,
                         "You are logged out", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                break;
             case MENU_ITEM_REFRESH:
                 clubsQueryAdapter.loadObjects();
                 clubsQueryAdapter.notifyDataSetChanged();
+                break;
+            default:
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

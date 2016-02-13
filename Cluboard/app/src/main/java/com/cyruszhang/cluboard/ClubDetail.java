@@ -183,6 +183,7 @@ public class ClubDetail extends AppCompatActivity {
                 Snackbar.make(coordinatorLayout,
                         "You selected About", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                break;
             case MENU_ITEM_LOGOUT:
                 // Logout current user
                 ParseUser.logOut();
@@ -191,6 +192,7 @@ public class ClubDetail extends AppCompatActivity {
                 Snackbar.make(coordinatorLayout,
                         "You are logged out", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                break;
             case MENU_ITEM_BOOKMARK:
                 if (item.isChecked()) {
                     thisClub.removeBookmarkUser(ParseUser.getCurrentUser());
@@ -207,9 +209,13 @@ public class ClubDetail extends AppCompatActivity {
                             "Bookmarked", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }
+                break;
             case MENU_ITEM_REFRESH:
                 eventQueryAdapter.loadObjects();
                 eventQueryAdapter.notifyDataSetChanged();
+                break;
+            default:
+                break;
         }
         // in order to support the native back button
         return super.onOptionsItemSelected(item);
