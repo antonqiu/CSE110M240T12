@@ -1,32 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:minHeight="72dp"
     android:orientation="vertical"
-    android:id="@+id/event_list_item_layout"
-    android:weightSum="1">
+    android:paddingBottom="8dp"
+    android:paddingTop="8dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/club_name_demo"
-        android:textSize="@dimen/club_name_size"
-        android:id="@+id/event_list_item_name"
-        android:textColor="@color/colorPrimaryDark"/>
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/club_name_demo"
+    android:textSize="@dimen/club_name_size"
+    android:id="@+id/event_list_item_name"
+    android:textColor="@color/colorPrimaryDark" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/club_desc_demo"
-        android:textSize="@dimen/club_detail_size"
-        android:id="@+id/event_list_item_location" />
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/club_desc_demo"
+    android:textSize="@dimen/club_detail_size"
+    android:id="@+id/event_list_item_location" />
 
-    <ToggleButton
-        android:layout_width="34dp"
-        android:layout_height="34dp"
-        android:id="@+id/event_list_item_follow"
-        android:textOff=""
-        android:textOn=""
-        android:background="@drawable/eventcheck"
-        android:layout_weight="0.03" />
-</LinearLayout>
+<ToggleButton
+    android:layout_width="34dp"
+    android:layout_height="34dp"
+    android:id="@+id/event_list_item_follow"
+    android:textOff=""
+    android:textOn=""
+    android:background="@drawable/eventcheck"
+    android:layout_weight="0.03" />
+
+</RelativeLayout>
