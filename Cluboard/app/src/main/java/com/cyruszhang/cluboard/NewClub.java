@@ -1,8 +1,13 @@
 package com.cyruszhang.cluboard;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,12 +16,17 @@ import android.widget.Toast;
 import com.parse.ParseACL;
 import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseQueryAdapter;
 import com.parse.ParseRelation;
 import com.parse.ParseRole;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 public class NewClub extends AppCompatActivity {
+    private static final int MENU_ITEM_LOGOUT = 1001;
+    private static final int MENU_ITEM_CREATE = 1002;
+
+    private CoordinatorLayout coordinatorLayout;
 
     EditText clubName;
     EditText clubDesc;
@@ -46,19 +56,55 @@ public class NewClub extends AppCompatActivity {
         clubName = (EditText) findViewById(R.id.new_club_name);
         clubDesc = (EditText) findViewById(R.id.new_club_desc);
         clubDetail = (EditText) findViewById(R.id.new_club_detail);
-
-        createClubBtn = (Button) findViewById(R.id.new_club_btn);
-        createClubBtn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                if (createClub()) {
-                    // Intent intent = new Intent(NewClub.this, Welcome.class);
-                    // startActivity(intent);
-                    finish();
-                }
-            }
-        });
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        menu.add(0, MENU_ITEM_LOGOUT, 102, "Logout");
+        MenuItem create = menu.add(0, MENU_ITEM_CREATE, 103, "Refresh");
+        create.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        create.setTitle("CREATE");
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.action_settings:
+                //go to setting page
+                Snackbar.make(coordinatorLayout,
+                        "You selected settings", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                Intent intent = new Intent(NewClub.this, Setting.class);
+                startActivity(intent);
+                return true;
+            case R.id.action_about:
+                Snackbar.make(coordinatorLayout,
+                        "You selected About", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                break;
+            case MENU_ITEM_LOGOUT:
+                // Logout current user
+                ParseUser.logOut();
+                intent = new Intent(NewClub.this, Login.class);
+                startActivity(intent);
+                Snackbar.make(coordinatorLayout,
+                        "You are logged out", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                break;
+            case MENU_ITEM_CREATE:
+                if (createClub()) {
+                    finish();
+                }
+                break;
+            default:
+                break;
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
     //create a new club object and store in the database
     private boolean createClub () {
         clubNametxt = clubName.getText().toString();
