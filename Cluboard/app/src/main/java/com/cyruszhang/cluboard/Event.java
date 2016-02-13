@@ -96,14 +96,15 @@ public class Event extends ParseObject {
             newRelation.put("eventObject", this);
             ParseRelation<ParseUser> bookmarkRelation = newRelation.getRelation("followingUsers");
             bookmarkRelation.add(follower);
+            newRelation.increment("count", 1);
             newRelation.saveInBackground();
         } else {
             ParseRelation<ParseUser> bookmarkRelation = relation.getRelation("followingUsers");
             bookmarkRelation.add(follower);
+            relation.increment("count", 1);
             relation.saveInBackground();
         }
-        this.increment("count", 1);
-        this.saveEventually();
+
     }
 
     public void removeFollowingUser(final ParseUser follower) {
@@ -112,10 +113,10 @@ public class Event extends ParseObject {
         if (relation != null) {
             ParseRelation<ParseUser> bookmarkRelation = relation.getRelation("followingUsers");
             bookmarkRelation.remove(follower);
+            relation.increment("count", -1);
             relation.saveInBackground();
         }
-        this.increment("count", -1);
-        this.saveEventually();
+
     }
 
 }

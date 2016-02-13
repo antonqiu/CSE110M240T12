@@ -105,6 +105,7 @@ public class NewEvent extends AppCompatActivity {
                     newEvent.put("club", thisClub);
                     ParseObject newRelation = new ParseObject("FollowingRelations");
                     newRelation.put("eventObject", newEvent);
+                    newRelation.put("count", 0);
                     ParseACL relationACL = new ParseACL();
                     relationACL.setPublicReadAccess(true);
                     relationACL.setPublicWriteAccess(true);
