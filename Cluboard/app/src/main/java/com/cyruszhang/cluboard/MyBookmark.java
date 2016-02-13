@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
 import com.parse.ParseUser;
@@ -26,7 +27,7 @@ public class MyBookmark extends AppCompatActivity {
     private static final int MENU_ITEM_LOGOUT = 1001;
     private static final int MENU_ITEM_REFRESH = 1002;
 
-    ParseQueryAdapter<Club> bookmarkQueryAdapter;
+    ParseQueryAdapter<ParseObject> bookmarkQueryAdapter;
     private CoordinatorLayout coordinatorLayout;
 
     @Override
@@ -104,37 +105,43 @@ public class MyBookmark extends AppCompatActivity {
         ListView bookmarkList = (ListView) this.findViewById(R.id.bookmark_list_view);
         final User currentUser = (User) ParseUser.getCurrentUser();
 
-        ParseQueryAdapter.QueryFactory<Club> factory =
-                new ParseQueryAdapter.QueryFactory<Club>() {
-                    public ParseQuery<Club> create() {
-                        ParseQuery<Club> query = Club.getQuery();
-                        query.whereEqualTo("User", currentUser);
+        ParseQueryAdapter.QueryFactory<ParseObject> factory =
+                new ParseQueryAdapter.QueryFactory<ParseObject>() {
+                    public ParseQuery<ParseObject> create() {
+                        ParseQuery<ParseObject> query = ParseQuery.getQuery("BookmarkRelations");
+                        query.whereEqualTo("bookmarkUsers", currentUser);
                         // only query on two keys to save time
-                        query.selectKeys(Arrays.asList("name", "desc"));
                         query.orderByDescending("createdAt");
-                        Log.d(getClass().getSimpleName(), "factory created");
+                        // Log.d(getClass().getSimpleName(), "factory created");
                         return query;
                     }
                 };
-        bookmarkQueryAdapter = new ParseQueryAdapter<Club>(this, factory) {
+        bookmarkQueryAdapter = new ParseQueryAdapter<ParseObject>(this, factory) {
             @Override
-            public View getItemView(Club object, View v, ViewGroup parent) {
+            public View getItemView(ParseObject object, View v, ViewGroup parent) {
                 // Local DataStore
 
                 if (v == null) {
-                    Log.d(getClass().getSimpleName(), "inflating item view");
+                    // Log.d(getClass().getSimpleName(), "inflating item view");
                     v = View.inflate(getContext(), R.layout.club_list_item, null);
                     // v = LayoutInflater.from(getContext()).
                     // inflate(R.layout.club_list_item, null, false);
                 }
-                Log.d(getClass().getSimpleName(), "setting up item view");
+                // Log.d(getClass().getSimpleName(), "setting up item view");
                 TextView clubName = (TextView) v.findViewById(R.id.club_list_item_name);
                 TextView clubDetail = (TextView) v.findViewById(R.id.club_list_item_desc);
-                clubName.setText(object.getClubName());
-                clubDetail.setText(object.getClubDesc());
+                Club thisClub = (Club) object.getParseObject("clubObject");
+                try {
+                    thisClub.fetch();
+                } catch (Exception e) {
+                    Log.d(getClass().getSimpleName(), "Something is wrong");
+                }
+                clubName.setText(thisClub.getClubName());
+                clubDetail.setText(thisClub.getClubDetail());
                 return v;
             }
         };
+
         Log.d(getClass().getSimpleName(), "setting up adapter");
         bookmarkList.setAdapter(bookmarkQueryAdapter);
 
@@ -142,12 +149,11 @@ public class MyBookmark extends AppCompatActivity {
         bookmarkList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                final Club club = bookmarkQueryAdapter.getItem(position);
+                final Club club = (Club) bookmarkQueryAdapter.getItem(position).getParseObject("clubObject");
                 Intent intent = new Intent(MyBookmark.this, ClubDetail.class);
                 intent.putExtra("OBJECT_ID", club.getObjectId());
                 startActivity(intent);
             }
         });
-
     }
 }
