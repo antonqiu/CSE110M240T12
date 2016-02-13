@@ -31,7 +31,7 @@ public class Welcome extends AppCompatActivity {
 
     Button logout;
     Button createNewClub;
-
+    Button myEvents;
     ParseQueryAdapter<Club> clubsQueryAdapter;
 
     private CoordinatorLayout coordinatorLayout;
@@ -62,11 +62,21 @@ public class Welcome extends AppCompatActivity {
 
         // Locate Button in welcome.xml
         createNewClub = (Button) findViewById(R.id.newClubBtn);
+
         // createNewClub Button Click Listener
         createNewClub.setOnClickListener(new View.OnClickListener() {
         //click and go to create club view
             public void onClick(View arg0) {
                 Intent intent = new Intent(Welcome.this, NewClub.class);
+                startActivity(intent);
+            }
+        });
+
+        myEvents = (Button) findViewById(R.id.my_events);
+        myEvents.setOnClickListener(new View.OnClickListener() {
+            //click and go to create club view
+            public void onClick(View arg0) {
+                Intent intent = new Intent(Welcome.this, MyEvents.class);
                 startActivity(intent);
             }
         });

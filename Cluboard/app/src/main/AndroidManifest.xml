@@ -81,6 +81,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.cyruszhang.cluboard.Welcome" />
         </activity>
+        <activity
+            android:name=".MyEvents"
+            android:label="@string/title_activity_my_events"
+            android:parentActivityName=".Welcome"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cyruszhang.cluboard.Welcome" />
+        </activity>
     </application>
 
 </manifest>
