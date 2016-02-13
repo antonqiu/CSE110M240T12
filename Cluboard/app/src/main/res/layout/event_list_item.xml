@@ -50,6 +50,7 @@
         android:textOff=""
         android:textOn=""
         android:layout_centerVertical="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="45dp" />
 
 </RelativeLayout>

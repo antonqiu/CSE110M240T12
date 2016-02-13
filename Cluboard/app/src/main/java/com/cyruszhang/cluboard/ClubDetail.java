@@ -26,6 +26,8 @@ import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
 import com.parse.ParseUser;
 
+import org.w3c.dom.Text;
+
 import java.util.Arrays;
 
 public class ClubDetail extends AppCompatActivity {
@@ -254,9 +256,10 @@ public class ClubDetail extends AppCompatActivity {
                 Log.d(getClass().getSimpleName(), "setting up item view");
                 TextView eventName = (TextView) v.findViewById(R.id.event_list_item_name);
                 TextView eventLocation = (TextView) v.findViewById(R.id.event_list_item_location);
+                final TextView eventCount = (TextView) v.findViewById(R.id.event_list_item_count);
                 eventName.setText(object.getEventName());
                 eventLocation.setText(object.getEventLocation());
-
+                eventCount.setText(object.getCount());
                 // follow button setup
                 final ToggleButton followButton = (ToggleButton) v.findViewById(R.id.event_list_item_follow);
                 /*RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) followButton.getLayoutParams();
@@ -284,6 +287,7 @@ public class ClubDetail extends AppCompatActivity {
                                         "You followed this event", Snackbar.LENGTH_LONG)
                                         .setAction("Action", null).show();
                             }
+                            eventCount.setText(object.getCount());
 
                         }
                     });
