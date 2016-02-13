@@ -66,6 +66,9 @@ public class Event extends ParseObject {
         put("desc", eventDesc);
     }
 
+    public void initCount() {
+        put("count", 0);
+    }
     public static ParseQuery<Event> getQuery() {
         return ParseQuery.getQuery(Event.class);
     }
@@ -95,6 +98,7 @@ public class Event extends ParseObject {
             bookmarkRelation.add(follower);
             relation.saveInBackground();
         }
+        this.increment("count", 1);
     }
 
     public void removeFollowingUser(final ParseUser follower) {
@@ -105,5 +109,7 @@ public class Event extends ParseObject {
             bookmarkRelation.remove(follower);
             relation.saveInBackground();
         }
+        this.increment("count", -1);
     }
+
 }
