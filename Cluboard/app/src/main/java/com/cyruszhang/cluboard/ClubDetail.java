@@ -259,7 +259,7 @@ public class ClubDetail extends AppCompatActivity {
                 final TextView eventCount = (TextView) v.findViewById(R.id.event_list_item_count);
                 eventName.setText(object.getEventName());
                 eventLocation.setText(object.getEventLocation());
-                eventCount.setText(Integer.toString(object.getCount()));
+                eventCount.setText(String.format("%d", object.getCount()));
                 // follow button setup
                 final ToggleButton followButton = (ToggleButton) v.findViewById(R.id.event_list_item_follow);
                 /*RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) followButton.getLayoutParams();
@@ -287,7 +287,7 @@ public class ClubDetail extends AppCompatActivity {
                                         "You followed this event", Snackbar.LENGTH_LONG)
                                         .setAction("Action", null).show();
                             }
-                            eventCount.setText(Integer.toString(object.getCount()));
+                            eventCount.setText(String.format("%d", object.getCount()));
 
                         }
                     });
