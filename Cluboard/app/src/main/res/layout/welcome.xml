@@ -51,8 +51,9 @@
         android:layout_height="wrap_content"
         android:text="My events"
         android:id="@+id/my_events"
-        android:layout_alignBaseline="@+id/newClubBtn"
-        android:layout_alignBottom="@+id/newClubBtn"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/newClubBtn"
+        style="?android:attr/borderlessButtonStyle"
+        android:textColor="@color/colorPrimary"/>
 
 </RelativeLayout>
