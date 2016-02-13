@@ -237,7 +237,7 @@ public class ClubDetail extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "thisclub is null", Toast.LENGTH_SHORT).show();
                         }
                         // only query on two keys to save time
-                        query.selectKeys(Arrays.asList("name", "location"));
+                        query.selectKeys(Arrays.asList("name", "location", "count"));
                         query.orderByDescending("createdAt");
                         Log.d(getClass().getSimpleName(), "factory created");
                         return query;
