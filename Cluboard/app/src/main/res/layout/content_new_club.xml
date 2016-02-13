@@ -65,14 +65,6 @@
         android:layout_below="@id/club_detail"
         android:layout_alignParentStart="true" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/new_club_create_button"
-        android:id="@+id/new_club_btn"
-        style="?android:attr/borderlessButtonStyle"
-        android:textColor="@color/colorPrimary"
-        android:layout_below="@+id/new_club_detail"
-        android:layout_centerHorizontal="true" />
+
 
 </RelativeLayout>
