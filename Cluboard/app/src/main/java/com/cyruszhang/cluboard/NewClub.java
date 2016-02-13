@@ -23,7 +23,6 @@ import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 public class NewClub extends AppCompatActivity {
-    private static final int MENU_ITEM_LOGOUT = 1001;
     private static final int MENU_ITEM_CREATE = 1002;
 
     private CoordinatorLayout coordinatorLayout;
@@ -34,7 +33,6 @@ public class NewClub extends AppCompatActivity {
     String clubNametxt;
     String clubDesctxt;
     String clubDetailtxt;
-    Button createClubBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +58,6 @@ public class NewClub extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        menu.add(0, MENU_ITEM_LOGOUT, 102, "Logout");
         MenuItem create = menu.add(0, MENU_ITEM_CREATE, 103, "Create");
         create.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         create.setTitle("CREATE");
@@ -72,28 +68,6 @@ public class NewClub extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-            case R.id.action_settings:
-                //go to setting page
-                Snackbar.make(coordinatorLayout,
-                        "You selected settings", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                Intent intent = new Intent(NewClub.this, Setting.class);
-                startActivity(intent);
-                return true;
-            case R.id.action_about:
-                Snackbar.make(coordinatorLayout,
-                        "You selected About", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                break;
-            case MENU_ITEM_LOGOUT:
-                // Logout current user
-                ParseUser.logOut();
-                intent = new Intent(NewClub.this, Login.class);
-                startActivity(intent);
-                Snackbar.make(coordinatorLayout,
-                        "You are logged out", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                break;
             case MENU_ITEM_CREATE:
                 if (createClub()) {
                     finish();

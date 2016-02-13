@@ -33,7 +33,7 @@ public class MyEvents extends AppCompatActivity {
         setContentView(R.layout.activity_my_events);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        setupMyEvents();
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -54,6 +54,7 @@ public class MyEvents extends AppCompatActivity {
                 new ParseQueryAdapter.QueryFactory<ParseObject>() {
                     public ParseQuery<ParseObject> create() {
                         ParseQuery<ParseObject> relationQuery = ParseQuery.getQuery("FollowingRelations");
+                        Log.d(getClass().getSimpleName(),"getting query");
                         User currUser = (User) ParseUser.getCurrentUser();
                         relationQuery.whereEqualTo("followingUsers", currUser);
                         relationQuery.orderByDescending("createdAt");
@@ -70,10 +71,16 @@ public class MyEvents extends AppCompatActivity {
                     // v = LayoutInflater.from(getContext()).
                     // inflate(R.layout.club_list_item, null, false);
                 }
+                Log.d(getClass().getSimpleName(), "item retrieved");
                 final Event thisEvent = (Event) object.getParseObject("eventObject");
                 Log.d(getClass().getSimpleName(), "setting up item view");
                 TextView eventName = (TextView) v.findViewById(R.id.event_list_item_name);
                 TextView eventLocation = (TextView) v.findViewById(R.id.event_list_item_location);
+                try {
+                    thisEvent.fetch();
+                } catch (Exception e) {
+                    Log.d(getClass().getSimpleName(), "Something is wrong");
+                }
                 eventName.setText(thisEvent.getEventName());
                 eventLocation.setText(thisEvent.getEventLocation());
 

@@ -17,7 +17,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/event_list_view"
         android:layout_marginTop="20dp"
-        android:layout_below="@+id/club_detail_scroll"
         android:layout_alignParentStart="true" />
 
 </RelativeLayout>
