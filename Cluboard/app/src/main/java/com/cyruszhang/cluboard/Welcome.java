@@ -3,6 +3,7 @@ package com.cyruszhang.cluboard;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -30,7 +31,6 @@ public class Welcome extends AppCompatActivity {
     private static final int MENU_ITEM_REFRESH = 1002;
 
     Button logout;
-    Button createNewClub;
     Button myEvents;
     ParseQueryAdapter<Club> clubsQueryAdapter;
 
@@ -60,13 +60,11 @@ public class Welcome extends AppCompatActivity {
         // Set the currentUser String into TextView
         txtuser.setText(getString(R.string.logged_in_as) + struser);
 
-        // Locate Button in welcome.xml
-        createNewClub = (Button) findViewById(R.id.newClubBtn);
-
-        // createNewClub Button Click Listener
-        createNewClub.setOnClickListener(new View.OnClickListener() {
-        //click and go to create club view
-            public void onClick(View arg0) {
+        // add new club floating button
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.welcome_fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 Intent intent = new Intent(Welcome.this, NewClub.class);
                 startActivity(intent);
             }
