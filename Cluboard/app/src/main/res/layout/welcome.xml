@@ -29,16 +29,6 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/addClubBtn"
-        android:id="@+id/newClubBtn"
-        android:layout_alignTop="@+id/my_bookmark"
-        android:layout_toEndOf="@+id/my_bookmark"
-        style="?android:attr/borderlessButtonStyle"
-        android:textColor="@color/colorPrimary" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="Bookmark"
         android:id="@+id/my_bookmark"
         android:layout_alignParentBottom="true"
@@ -51,8 +41,8 @@
         android:layout_height="wrap_content"
         android:text="My events"
         android:id="@+id/my_events"
+        android:layout_toEndOf="@id/my_bookmark"
         android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@+id/newClubBtn"
         style="?android:attr/borderlessButtonStyle"
         android:textColor="@color/colorPrimary"/>
 
