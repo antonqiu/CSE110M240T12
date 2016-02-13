@@ -1,21 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:minHeight="72dp"
+    android:orientation="vertical"
+    android:paddingBottom="8dp"
+    android:paddingTop="8dp">
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:layout_marginLeft="16dp"
+        android:foregroundGravity="center"
+        android:src="@drawable/ic_stars_48dp"
+        android:contentDescription="Alt" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/club_name_demo"
-        android:textSize="@dimen/club_name_size"
         android:id="@+id/club_list_item_name"
-        android:textColor="@color/colorPrimaryDark"/>
-
-    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="start"
+        android:paddingTop="20dp"
+        android:paddingLeft="72dp"
+        android:paddingRight="16dp"
+        android:fontFamily="sans-serif-light"
+        android:singleLine="true"
+        android:text="@string/club_name_demo"
+        android:textColor="#000000"
+        android:textSize="@dimen/club_name_size"
+        android:layout_alignParentStart="true"/>
+
+    <TextView
+        android:id="@+id/club_list_item_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:paddingLeft="72dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="20dp"
+        android:singleLine="true"
+        android:fontFamily="sans-serif-thin"
         android:text="@string/club_desc_demo"
         android:textSize="@dimen/club_detail_size"
-        android:id="@+id/club_list_item_desc" />
-</LinearLayout>
+        android:layout_below="@+id/club_list_item_name"
+        android:layout_alignParentStart="true" />
+</RelativeLayout>
