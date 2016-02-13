@@ -8,28 +8,48 @@
     android:paddingBottom="8dp"
     android:paddingTop="8dp">
 
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="@string/club_name_demo"
-    android:textSize="@dimen/club_name_size"
-    android:id="@+id/event_list_item_name"
-    android:textColor="@color/colorPrimaryDark" />
+    <TextView
+        android:id="@+id/event_list_item_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:paddingTop="20dp"
+        android:paddingLeft="72dp"
+        android:paddingRight="16dp"
+        android:fontFamily="sans-serif-light"
+        android:singleLine="true"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/event_list_item_follow"
+        android:text="@string/club_name_demo"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="@dimen/club_name_size" />
 
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="@string/club_desc_demo"
-    android:textSize="@dimen/club_detail_size"
-    android:id="@+id/event_list_item_location" />
+    <TextView
+        android:id="@+id/event_list_item_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:paddingLeft="72dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="20dp"
+        android:singleLine="true"
+        android:fontFamily="sans-serif-thin"
+        android:text="@string/club_desc_demo"
+        android:textSize="@dimen/club_detail_size"
+        android:layout_toStartOf="@+id/event_list_item_follow"
+        android:layout_below="@+id/event_list_item_name"
+        android:layout_alignParentStart="true" />
 
-<ToggleButton
-    android:layout_width="34dp"
-    android:layout_height="34dp"
-    android:id="@+id/event_list_item_follow"
-    android:textOff=""
-    android:textOn=""
-    android:background="@drawable/eventcheck"
-    android:layout_weight="0.03" />
+    <ToggleButton
+        android:id="@+id/event_list_item_follow"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_weight="0.03"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/ic_following_event_toggle"
+        android:textOff=""
+        android:textOn=""
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>
