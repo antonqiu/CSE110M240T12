@@ -109,7 +109,6 @@ public class NewEvent extends AppCompatActivity {
                     relationACL.setPublicReadAccess(true);
                     relationACL.setPublicWriteAccess(true);
                     newRelation.setACL(relationACL);
-                    newEvent.put("relationObject", newRelation);
                     newEvent.saveInBackground(new SaveCallback() {
                         @Override
                         public void done(ParseException e) {
