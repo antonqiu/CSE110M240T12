@@ -216,6 +216,11 @@ public class ClubDetail extends AppCompatActivity {
                 eventQueryAdapter.loadObjects();
                 eventQueryAdapter.notifyDataSetChanged();
                 break;
+            // back button behavior customization
+            case android.R.id.home:
+                Log.d(getClass().getSimpleName(), "back button pressed.");
+                finish();
+                return true;
             default:
                 break;
         }
