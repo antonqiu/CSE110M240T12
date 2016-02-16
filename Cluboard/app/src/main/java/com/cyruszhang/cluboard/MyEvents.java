@@ -84,7 +84,8 @@ public class MyEvents extends AppCompatActivity {
                 }
                 eventName.setText(thisEvent.getEventName());
                 eventLocation.setText(thisEvent.getEventLocation());
-
+                final TextView eventCount = (TextView) v.findViewById(R.id.event_list_item_count);
+                eventCount.setText(String.format("%d", (int) thisEvent.findFollowingRelation().get("count")));
                 // follow button setup
                 final ToggleButton followButton = (ToggleButton) v.findViewById(R.id.event_list_item_follow);
                 /*RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) followButton.getLayoutParams();
@@ -101,18 +102,20 @@ public class MyEvents extends AppCompatActivity {
                     public void onClick(View v) {
                         if (followButton.isChecked()) {
                             thisEvent.removeFollowingUser(ParseUser.getCurrentUser());
-                            Snackbar.make(coordinatorLayout,
+                            Snackbar.make(v,
                                     "You unfollowed this event", Snackbar.LENGTH_LONG)
                                     .setAction("Action", null).show();
 
                         }
                         else {
                             thisEvent.addFollowingUser(ParseUser.getCurrentUser());
-                            Snackbar.make(coordinatorLayout,
+                            Snackbar.make(v,
                                     "You followed this event", Snackbar.LENGTH_LONG)
                                     .setAction("Action", null).show();
-                        }
 
+
+                        }
+                        eventCount.setText(String.format("%d", (int) thisEvent.findFollowingRelation().get("count")));
                     }
                 });
 
