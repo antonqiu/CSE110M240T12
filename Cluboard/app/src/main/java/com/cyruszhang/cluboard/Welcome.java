@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -30,8 +31,8 @@ public class Welcome extends AppCompatActivity {
     private static final int MENU_ITEM_LOGOUT = 1001;
     private static final int MENU_ITEM_REFRESH = 1002;
 
-    Button logout;
     Button myEvents;
+    SwipeRefreshLayout swipeRefresh;
     ParseQueryAdapter<Club> clubsQueryAdapter;
 
     private CoordinatorLayout coordinatorLayout;
@@ -70,6 +71,16 @@ public class Welcome extends AppCompatActivity {
             }
         });
 
+        // swipe refresh
+        swipeRefresh = (SwipeRefreshLayout) findViewById(R.id.welcome_swiperefresh);
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Log.d(getClass().getSimpleName(), "refresh triggered");
+                refreshClubList();
+            }
+        });
+
         myEvents = (Button) findViewById(R.id.my_events);
         myEvents.setOnClickListener(new View.OnClickListener() {
             //click and go to create club view
@@ -91,8 +102,8 @@ public class Welcome extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
-        clubsQueryAdapter.loadObjects();
-        clubsQueryAdapter.notifyDataSetChanged();
+        swipeRefresh.setRefreshing(true);
+        refreshClubList();
     }
 
     @Override
@@ -133,8 +144,8 @@ public class Welcome extends AppCompatActivity {
                         .setAction("Action", null).show();
                 break;
             case MENU_ITEM_REFRESH:
-                clubsQueryAdapter.loadObjects();
-                clubsQueryAdapter.notifyDataSetChanged();
+                swipeRefresh.setRefreshing(true);
+                refreshClubList();
                 break;
             default:
                 break;
@@ -190,6 +201,12 @@ public class Welcome extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private void refreshClubList() {
+        clubsQueryAdapter.loadObjects();
+        clubsQueryAdapter.notifyDataSetChanged();
+        swipeRefresh.setRefreshing(false);
     }
 
 }
