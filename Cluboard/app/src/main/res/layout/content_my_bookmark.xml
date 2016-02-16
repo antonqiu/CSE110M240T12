@@ -12,10 +12,13 @@
     tools:context=".MyBookmark"
     tools:showIn="@layout/activity_my_bookmark">
 
+
     <ListView
+        android:id="@+id/bookmark_list_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/bookmark_list_view"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true" />
+
+
 </RelativeLayout>
