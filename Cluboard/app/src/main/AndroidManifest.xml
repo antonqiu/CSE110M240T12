@@ -52,9 +52,9 @@
         </activity>
         <activity
             android:name=".NewClub"
-            android:label="@string/title_activity_new_club"
-            android:parentActivityName=".Welcome"
-            android:theme="@style/AppTheme.NoActionBar">
+                android:label="@string/title_activity_new_club"
+                android:parentActivityName=".Welcome"
+                android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.cyruszhang.cluboard.Welcome" />

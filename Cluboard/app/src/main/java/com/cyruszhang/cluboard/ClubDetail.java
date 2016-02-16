@@ -20,7 +20,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.parse.GetCallback;
 import com.parse.ParseACL;
+import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
@@ -36,6 +38,8 @@ public class ClubDetail extends AppCompatActivity {
     private static final int MENU_ITEM_REFRESH = 1003;
     private static final int IMAGE_VIEW_ID = View.generateViewId();
     private CoordinatorLayout coordinatorLayout;
+    private Menu menu;
+    private ToggleButton followButton;
     private Club thisClub;
     private ParseQueryAdapter<Event> eventQueryAdapter;
 
@@ -57,68 +61,31 @@ public class ClubDetail extends AppCompatActivity {
         // normal intent starts
         if (thisClub == null) {
             thisClub = (Club) ParseObject.createWithoutData("Clubs", getIntent().getStringExtra("OBJECT_ID"));
-            Log.d(getClass().getSimpleName(), (String)getIntent().getStringExtra("OBJECT_ID"));
+            Log.d(getClass().getSimpleName(), (String) getIntent().getStringExtra("OBJECT_ID"));
             try {
-                thisClub.fetch();
+                thisClub.fetchIfNeededInBackground(new GetCallback<Club>() {
+                    @Override
+                    public void done(Club object, ParseException e) {
+                        thisClub = object;
+
+                        Log.d(getClass().getSimpleName(), "got club object" + thisClub.getClubName());
+                        clubName.setText(thisClub.getClubName());
+                        clubDetail.setText(thisClub.getClubDetail());
+
+                        User currentUser = (User) ParseUser.getCurrentUser();
+                        ParseACL clubAcl = thisClub.getACL();
+                        //if user is owner, show create event button
+                        if (clubAcl.getWriteAccess(currentUser)) {
+                            createEventBtn.setVisibility(View.VISIBLE);
+                        }
+                        initBookmark();
+                        setupEventList();
+                    }
+                });
             } catch (Exception e) {
                 Log.d(getClass().getSimpleName(), "fetch failed" + thisClub.getClubName());
             }
         }
-        Log.d(getClass().getSimpleName(), "got club object" + thisClub.getClubName());
-        clubName.setText(thisClub.getClubName());
-        clubDetail.setText(thisClub.getClubDetail());
-
-        // listview setup
-        setupEventList();
-
-        User currentUser = (User) ParseUser.getCurrentUser();
-        ParseACL clubAcl = thisClub.getACL();
-        //if user is owner, show create event button
-        if (clubAcl.getWriteAccess(currentUser)) {
-            createEventBtn.setVisibility(View.VISIBLE);
-        }
-
-//        query.getInBackground(getIntent().getStringExtra("OBJECT_ID"), new GetCallback<Club>() {
-//            @Override
-//            public void done(Club object, ParseException e) {
-//                if (e == null) {
-//                    thisClub = (Club) object;
-//                    Log.d(getClass().getSimpleName(), "got club object" + thisClub.getClubName());
-//                    clubName.setText(thisClub.getClubName());
-//                    clubDetail.setText(thisClub.getClubDetail());
-//
-//                    setupEventList();
-//                    //User currentUser = (User)ParseUser.getCurrentUser();
-//
-//                 /*   String roleName = thisClub.getClubName()+" "+"Moderator";
-//                    ParseQuery<ParseRole> roleQuery = ParseRole.getQuery();
-//                    roleQuery.whereEqualTo("name", roleName);
-//                    roleQuery.whereEqualTo("users", currentUser);
-//                    roleQuery.findInBackground(new FindCallback<ParseRole>() {
-//                        @Override
-//                        public void done(List<ParseRole> objects, ParseException e) {
-//                            if(e==null) {
-//                                Log.d("permission", "verified");
-//                                createEventBtn.setVisibility(View.VISIBLE);
-//                            }
-//                            else {
-//                                Log.d("permission", "denied");
-//                            }
-//                        }
-//                    }); */
-//                    User currentUser = (User) ParseUser.getCurrentUser();
-//                    ParseACL clubAcl = thisClub.getACL();
-//                    //if user is owner, show create event button
-//                    if (clubAcl.getWriteAccess(currentUser)) {
-//                        createEventBtn.setVisibility(View.VISIBLE);
-//                    }
-//
-//                } else {
-//                    Toast.makeText(getApplicationContext(), "Something is wrong", Toast.LENGTH_SHORT).show();
-//                    finish();
-//                }
-//            }
-//        });
 
         createEventBtn.setOnClickListener(new View.OnClickListener() {
             //click and go to create club view
@@ -138,10 +105,10 @@ public class ClubDetail extends AppCompatActivity {
         eventQueryAdapter.notifyDataSetChanged();
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        this.menu = menu;
 
         // Logout
         menu.add(0, MENU_ITEM_LOGOUT, 102, "Logout");
@@ -151,28 +118,12 @@ public class ClubDetail extends AppCompatActivity {
         refresh.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         refresh.setIcon(R.drawable.ic_action_refresh);
 
-        // add bookmark or remove bookmark, + actionbar button
-        MenuItem bookmark = menu.add(0, MENU_ITEM_BOOKMARK, 104, "Add Bookmark");
-        bookmark.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        bookmark.setCheckable(true);
-
-        User thisUser = (User) ParseUser.getCurrentUser();
-        if (thisUser.checkBookmarkClub(thisClub)) {
-            Log.d(getClass().getSimpleName(), "You have bookmarked it before.");
-            bookmark.setChecked(true);
-            bookmark.setIcon(R.drawable.ic_action_remove_bookmark);
-        } else {
-            Log.d(getClass().getSimpleName(), "You have not bookmarked it before.");
-            bookmark.setChecked(false);
-            bookmark.setIcon(R.drawable.ic_action_add_bookmark);
-        }
         // in order to support the native back button
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Log.d(getClass().getSimpleName(), "Item with ID" + item.getItemId());
         int id = item.getItemId();
         switch (id) {
             case R.id.action_settings:
@@ -217,7 +168,6 @@ public class ClubDetail extends AppCompatActivity {
                 break;
             // back button behavior customization
             case android.R.id.home:
-                Log.d(getClass().getSimpleName(), "back button pressed.");
                 finish();
                 return true;
             default:
@@ -235,11 +185,7 @@ public class ClubDetail extends AppCompatActivity {
                 new ParseQueryAdapter.QueryFactory<Event>() {
                     public ParseQuery<Event> create() {
                         ParseQuery<Event> query = Event.getQuery();
-                        if (thisClub != null) {
-                            query.whereEqualTo("club", thisClub);
-                        } else {
-                            Toast.makeText(getApplicationContext(), "thisclub is null", Toast.LENGTH_SHORT).show();
-                        }
+                        query.whereEqualTo("club", thisClub);
                         // only query on two keys to save time
                         query.selectKeys(Arrays.asList("name", "location", "count"));
                         query.orderByDescending("createdAt");
@@ -265,10 +211,7 @@ public class ClubDetail extends AppCompatActivity {
                 eventLocation.setText(object.getEventLocation());
                 eventCount.setText(String.format("%d", (int) object.findFollowingRelation().get("count")));
                 // follow button setup
-                final ToggleButton followButton = (ToggleButton) v.findViewById(R.id.event_list_item_follow);
-                /*RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) followButton.getLayoutParams();
-                params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-                followButton.setLayoutParams(params);*/
+                followButton = (ToggleButton) v.findViewById(R.id.event_list_item_follow);
                 User currentUser = (User) ParseUser.getCurrentUser();
                 if (currentUser.checkFollowingEvent(object)) {
                     followButton.setChecked(false);
@@ -290,11 +233,8 @@ public class ClubDetail extends AppCompatActivity {
                                     .setAction("Action", null).show();
                         }
                         eventCount.setText(String.format("%d", (int) object.findFollowingRelation().get("count")));
-
                     }
                 });
-
-
                 return v;
             }
         };
@@ -315,6 +255,25 @@ public class ClubDetail extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void initBookmark() {
+        User thisUser = (User) ParseUser.getCurrentUser();
+
+        // add bookmark or remove bookmark, + actionbar button
+        MenuItem bookmark = menu.add(0, MENU_ITEM_BOOKMARK, 104, "Add Bookmark");
+        bookmark.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        bookmark.setCheckable(true);
+
+        if (thisUser.checkBookmarkClub(thisClub)) {
+            Log.d(getClass().getSimpleName(), "You have bookmarked it before.");
+            bookmark.setChecked(true);
+            bookmark.setIcon(R.drawable.ic_action_remove_bookmark);
+        } else {
+            Log.d(getClass().getSimpleName(), "You have not bookmarked it before.");
+            bookmark.setChecked(false);
+            bookmark.setIcon(R.drawable.ic_action_add_bookmark);
+        }
     }
 
 }
