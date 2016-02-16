@@ -40,14 +40,12 @@
         <activity
             android:name=".Welcome"
             android:label="@string/title_activity_welcome"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:launchMode="singleTop" />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ClubDetail"
             android:label="@string/title_activity_club_detail"
             android:parentActivityName=".Welcome"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:launchMode="singleTop" >
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.cyruszhang.cluboard.Welcome" />
@@ -73,12 +71,7 @@
         <activity
             android:name=".NewEvent"
             android:label="@string/title_activity_new_event"
-            android:parentActivityName=".ClubDetail"
-            android:theme="@style/AppTheme.NoActionBar" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.cyruszhang.cluboard.ClubDetail" />
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MyBookmark"
             android:label="@string/title_activity_my_bookmark"

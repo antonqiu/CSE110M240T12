@@ -113,8 +113,8 @@ public class NewEvent extends AppCompatActivity {
     };
 
     private void showDate(int year, int month, int day) {
-        dateView.setText(new StringBuilder().append(day).append("/")
-                .append(month).append("/").append(year));
+        dateView.setText(new StringBuilder().append(month).append("/")
+                .append(day).append("/").append(year));
     }
 
     public void showTime(int hour, int min) {
@@ -176,7 +176,6 @@ public class NewEvent extends AppCompatActivity {
         newEvent.setEventName(eventNametxt);
         newEvent.setEventDesc(eventDesctxt);
         newEvent.setEventLocation(eventLocationtxt);
-        newEvent.initCount();
 
 
         ParseQuery<Club> query = Club.getQuery();
