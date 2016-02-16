@@ -2,6 +2,7 @@ package com.cyruszhang.cluboard;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.parse.GetCallback;
@@ -35,7 +37,10 @@ public class NewEvent extends AppCompatActivity {
     DatePicker datePicker;
     Calendar calendar;
     TextView dateView;
+    TextView timeView;
     int year, month, day;
+    int hour, minute;
+    String format = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,27 +55,37 @@ public class NewEvent extends AppCompatActivity {
         eventDesc = (EditText) findViewById(R.id.new_event_desc);
         eventLocation = (EditText) findViewById(R.id.new_event_location);
         dateView = (TextView) findViewById(R.id.new_date_selected);
+        timeView = (TextView) findViewById(R.id.new_time_selected);
         calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
-
         month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);
         showDate(year, month+1, day);
-
+        hour = calendar.get(Calendar.HOUR);
+        minute = calendar.get(Calendar.MINUTE);
+        showTime(hour, minute);
     }
 
     @SuppressWarnings("deprecation")
     public void setDate(View view) {
         showDialog(999);
-        Toast.makeText(getApplicationContext(), "ca", Toast.LENGTH_SHORT)
-                .show();
     }
 
+    @SuppressWarnings("deprecation")
+    public void setTime(View view) {
+        showDialog(998);
+    }
+
+    @SuppressWarnings("deprecation")
     @Override
     protected Dialog onCreateDialog(int id) {
         // TODO Auto-generated method stub
         if (id == 999) {
             return new DatePickerDialog(this, myDateListener, year, month, day);
+        }
+        else if (id == 998) {
+            Log.d("New Event", "998 called");
+            return new TimePickerDialog(this, myTimeListener, hour, minute, false);
         }
         return null;
     }
@@ -86,9 +101,37 @@ public class NewEvent extends AppCompatActivity {
         }
     };
 
+    private TimePickerDialog.OnTimeSetListener myTimeListener = new TimePickerDialog.OnTimeSetListener() {
+        @Override
+        public void onTimeSet(TimePicker timePicker, int hour, int minute) {
+            // TODO Auto-generated method stub
+            // arg1 = year
+            // arg2 = month
+            // arg3 = day
+            showTime(hour, minute);
+        }
+    };
+
     private void showDate(int year, int month, int day) {
         dateView.setText(new StringBuilder().append(day).append("/")
                 .append(month).append("/").append(year));
+    }
+
+    public void showTime(int hour, int min) {
+        if (hour == 0) {
+            hour += 12;
+            format = "AM";
+        }
+        else if (hour == 12) {
+            format = "PM";
+        } else if (hour > 12) {
+            hour -= 12;
+            format = "PM";
+        } else {
+            format = "AM";
+        }
+        timeView.setText(new StringBuilder().append(hour).append(" : ").append(min)
+                .append(" ").append(format));
     }
 
 
