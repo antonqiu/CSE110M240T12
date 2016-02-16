@@ -71,7 +71,12 @@
         <activity
             android:name=".NewEvent"
             android:label="@string/title_activity_new_event"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:parentActivityName=".ClubDetail"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="com.cyruszhang.cluboard.ClubDetail" />
+        </activity>
         <activity
             android:name=".MyBookmark"
             android:label="@string/title_activity_my_bookmark"
