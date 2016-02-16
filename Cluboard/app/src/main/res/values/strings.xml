@@ -39,6 +39,8 @@
     <string name="new_event_creat_btn">Create Event</string>
     <string name="title_activity_my_bookmark">My_bookmark</string>
     <string name="title_activity_my_events">myEvents</string>
-
+    <string name="hello_world">Hello world!</string>
+    <string name="event_date_label_set">Press the button to set the date</string>
+    <string name="event_date_selected"></string>
 
 </resources>
