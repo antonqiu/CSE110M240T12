@@ -28,11 +28,11 @@ public class MyEvents extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_events);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        coordinatorLayout = (CoordinatorLayout) this.findViewById(R.id.coordinator);
         setupMyEvents();
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
@@ -43,6 +43,7 @@ public class MyEvents extends AppCompatActivity {
 //            }
 //        });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
     }
 
     private void setupMyEvents() {
