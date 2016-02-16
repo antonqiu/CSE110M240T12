@@ -208,7 +208,6 @@ public class NewEvent extends AppCompatActivity {
         newEvent.setEventName(eventNametxt);
         newEvent.setEventDesc(eventDesctxt);
         newEvent.setEventLocation(eventLocationtxt);
-        newEvent.initCount();
 
 
         ParseQuery<Club> query = Club.getQuery();

@@ -66,12 +66,6 @@ public class Event extends ParseObject {
         put("desc", eventDesc);
     }
 
-    public void initCount() {
-        put("count", 0);
-    }
-    public long getCount() {
-        return getLong("count");
-    }
 
     public static ParseQuery<Event> getQuery() {
         return ParseQuery.getQuery(Event.class);

@@ -54,29 +54,28 @@ public class ClubDetail extends AppCompatActivity {
         final TextView clubDetail = (TextView) this.findViewById(R.id.club_detail_detail);
         final Button createEventBtn = (Button) this.findViewById(R.id.new_event_btn);
 
-        thisClub = (Club) ParseObject.createWithoutData("Clubs", getIntent().getStringExtra("OBJECT_ID"));
+        // normal intent starts
         if (thisClub == null) {
-            Toast.makeText(getApplicationContext(), "thisClub is null", Toast.LENGTH_SHORT).show();
-        } else {
+            thisClub = (Club) ParseObject.createWithoutData("Clubs", getIntent().getStringExtra("OBJECT_ID"));
+            Log.d(getClass().getSimpleName(), (String)getIntent().getStringExtra("OBJECT_ID"));
             try {
                 thisClub.fetch();
             } catch (Exception e) {
                 Log.d(getClass().getSimpleName(), "fetch failed" + thisClub.getClubName());
             }
-            Log.d(getClass().getSimpleName(), "got club object" + thisClub.getClubName());
-            clubName.setText(thisClub.getClubName());
-            clubDetail.setText(thisClub.getClubDetail());
+        }
+        Log.d(getClass().getSimpleName(), "got club object" + thisClub.getClubName());
+        clubName.setText(thisClub.getClubName());
+        clubDetail.setText(thisClub.getClubDetail());
 
-            // listview setup
-            setupEventList();
+        // listview setup
+        setupEventList();
 
-            User currentUser = (User) ParseUser.getCurrentUser();
-            ParseACL clubAcl = thisClub.getACL();
-            //if user is owner, show create event button
-            if (clubAcl.getWriteAccess(currentUser)) {
-                createEventBtn.setVisibility(View.VISIBLE);
-            }
-
+        User currentUser = (User) ParseUser.getCurrentUser();
+        ParseACL clubAcl = thisClub.getACL();
+        //if user is owner, show create event button
+        if (clubAcl.getWriteAccess(currentUser)) {
+            createEventBtn.setVisibility(View.VISIBLE);
         }
 
 //        query.getInBackground(getIntent().getStringExtra("OBJECT_ID"), new GetCallback<Club>() {
@@ -273,29 +272,27 @@ public class ClubDetail extends AppCompatActivity {
                 User currentUser = (User) ParseUser.getCurrentUser();
                 if (currentUser.checkFollowingEvent(object)) {
                     followButton.setChecked(false);
-                }
-                else
+                } else
                     followButton.setChecked(true);
                 followButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            if (followButton.isChecked()) {
-                                object.removeFollowingUser(ParseUser.getCurrentUser());
-                                Snackbar.make(coordinatorLayout,
-                                        "You unfollowed this event", Snackbar.LENGTH_LONG)
-                                        .setAction("Action", null).show();
+                    @Override
+                    public void onClick(View v) {
+                        if (followButton.isChecked()) {
+                            object.removeFollowingUser(ParseUser.getCurrentUser());
+                            Snackbar.make(coordinatorLayout,
+                                    "You unfollowed this event", Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
 
-                            }
-                            else {
-                                object.addFollowingUser(ParseUser.getCurrentUser());
-                                Snackbar.make(coordinatorLayout,
-                                        "You followed this event", Snackbar.LENGTH_LONG)
-                                        .setAction("Action", null).show();
-                            }
-                            eventCount.setText(String.format("%d", (int) object.findFollowingRelation().get("count")));
-
+                        } else {
+                            object.addFollowingUser(ParseUser.getCurrentUser());
+                            Snackbar.make(coordinatorLayout,
+                                    "You followed this event", Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
                         }
-                    });
+                        eventCount.setText(String.format("%d", (int) object.findFollowingRelation().get("count")));
+
+                    }
+                });
 
 
                 return v;
