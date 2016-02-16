@@ -23,7 +23,11 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.SaveCallback;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
 
 public class NewEvent extends AppCompatActivity {
     private static final int MENU_ITEM_CREATE = 1001;
@@ -113,8 +117,8 @@ public class NewEvent extends AppCompatActivity {
     };
 
     private void showDate(int year, int month, int day) {
-        dateView.setText(new StringBuilder().append(day).append("/")
-                .append(month).append("/").append(year));
+        dateView.setText(new StringBuilder().append(month).append("/")
+                        .append(day).append("/").append(year));
     }
 
     public void showTime(int hour, int min) {
@@ -159,6 +163,34 @@ public class NewEvent extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    private Date getEventDate(int year, int month, int day, int hour, int minute) {
+        Log.d(getClass().getSimpleName(), Integer.toString(year));
+
+        String dateString = "";
+        if (month < 9)
+            dateString = "0";
+        dateString += (month+1) + "/";
+        if (day < 10)
+            dateString += "0";
+        dateString += day + "/" + year + "/";
+        if (hour < 10)
+            dateString += 0;
+        dateString += hour + ":";
+        if (minute < 10)
+            dateString += 0;
+        dateString += minute;
+        Log.d(getClass().getSimpleName(), dateString);
+        DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy/hh:mm");
+        formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+        try {
+            return formatter.parse(dateString);
+        }
+        catch (Exception e) {
+            Log.d("NewEvent", "data parse error");
+            return null;
+        }
+    }
+
 
     private boolean createEvent() {
         eventNametxt = eventName.getText().toString();
@@ -186,6 +218,9 @@ public class NewEvent extends AppCompatActivity {
                 if (e == null) {
                     Club thisClub = (Club) object;
                     Log.d(getClass().getSimpleName(), "got club object" + thisClub.getClubName());
+                    Date eventDate = getEventDate(year, month, day, hour, minute);
+
+
                     // thisClub.addEvent(newEvent);
                     ParseACL clubAcl = thisClub.getACL();
                     newEvent.setACL(clubAcl);
@@ -193,6 +228,11 @@ public class NewEvent extends AppCompatActivity {
                     ParseObject newRelation = new ParseObject("FollowingRelations");
                     newRelation.put("eventObject", newEvent);
                     newRelation.put("count", 0);
+                    if (eventDate != null) {
+                        newEvent.put("eventTime", eventDate.getTime());
+                    }
+                    else
+                        Log.d(getClass().getSimpleName(), "eventDate null");
                     ParseACL relationACL = new ParseACL();
                     relationACL.setPublicReadAccess(true);
                     relationACL.setPublicWriteAccess(true);
