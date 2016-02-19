@@ -31,9 +31,16 @@ Week 7
    push notification to user fo those events they followed (CSM, ZXY, QCT)
    fix login/logout when user click backbutton (Hanchao Liu, Yimeng Gu,Zhiye Zhang, Xingda Jiang)
    Add UI to our main application, connect front-end to back-end. (Hanchao Liu, Yimeng Gu,Zhiye Zhang, Xingda Jiang)
+   Finished and refined club page and event page.
    Release basic version to customer, ask for improvement and modification.
 
-week 8/9/10 
+Week 8
+   Meet with professor to check on the progress and get advice (Team)
+   Implement the rest of UI pages: my page, settings. (Hanchao Liu, Yimeng Gu,Zhiye Zhang, Xingda Jiang)
+   Fix the back-end issues including app crashes, function slows down, and display problem. (CSM, ZXY, QCT)
+
+week 9/10 
+ 
   Test each function
   Fix bugs
   TO BE UPDATED
