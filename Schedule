@@ -28,7 +28,7 @@ Week 6 -
    
 Week 7
    Enable local data storage. So when user post an event, it will show up immediately in event list. (CSM, ZXY, QCT)
-   push notification to user fo those events they followed (CSM, ZXY, QCT)
+   Add time and date choice in new event page, store time and date info on the parse. (CSM, ZXY, QCT)
    fix login/logout when user click backbutton (Hanchao Liu, Yimeng Gu,Zhiye Zhang, Xingda Jiang)
    Add UI to our main application, connect front-end to back-end. (Hanchao Liu, Yimeng Gu,Zhiye Zhang, Xingda Jiang)
    Finished and refined club page and event page.
@@ -38,6 +38,7 @@ Week 8
    Meet with professor to check on the progress and get advice (Team)
    Implement the rest of UI pages: my page, settings. (Hanchao Liu, Yimeng Gu,Zhiye Zhang, Xingda Jiang)
    Fix the back-end issues including app crashes, function slows down, and display problem. (CSM, ZXY, QCT)
+    push notification to user fo those events they followed (CSM, ZXY, QCT)
 
 week 9/10 
  
