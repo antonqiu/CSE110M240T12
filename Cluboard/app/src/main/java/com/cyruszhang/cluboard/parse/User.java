@@ -1,15 +1,9 @@
-package com.cyruszhang.cluboard;
+package com.cyruszhang.cluboard.parse;
 
 import com.parse.ParseClassName;
 import com.parse.ParseQuery;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
-
-import org.json.JSONArray;
-
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Created by zhangxinyuan on 2/4/16.

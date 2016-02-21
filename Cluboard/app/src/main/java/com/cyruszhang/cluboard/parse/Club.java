@@ -1,6 +1,5 @@
-package com.cyruszhang.cluboard;
+package com.cyruszhang.cluboard.parse;
 
-import com.parse.FindCallback;
 import com.parse.ParseClassName;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -9,9 +8,6 @@ import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
 import org.json.JSONArray;
-
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created by AntonioQ on 1/30/16.

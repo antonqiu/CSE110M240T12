@@ -2,7 +2,6 @@ package com.cyruszhang.cluboard;
 
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -15,12 +14,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.cyruszhang.cluboard.parse.Event;
+import com.cyruszhang.cluboard.parse.User;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
 import com.parse.ParseUser;
-
-import java.util.Arrays;
 
 public class MyEvents extends AppCompatActivity {
     ParseQueryAdapter<ParseObject> eventQueryAdapter;

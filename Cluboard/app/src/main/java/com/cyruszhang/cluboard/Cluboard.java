@@ -3,6 +3,9 @@ package com.cyruszhang.cluboard;
 /**
  * Created by zhangxinyuan on 1/27/16.
  */
+import com.cyruszhang.cluboard.parse.Club;
+import com.cyruszhang.cluboard.parse.Event;
+import com.cyruszhang.cluboard.parse.User;
 import com.parse.Parse;
 import com.parse.ParseACL;
 

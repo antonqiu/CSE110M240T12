@@ -1,6 +1,4 @@
-package com.cyruszhang.cluboard;
-
-import android.util.Log;
+package com.cyruszhang.cluboard.parse;
 
 import com.parse.ParseClassName;
 import com.parse.ParseException;

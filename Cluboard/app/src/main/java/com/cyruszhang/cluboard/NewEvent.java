@@ -16,6 +16,8 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.cyruszhang.cluboard.parse.Club;
+import com.cyruszhang.cluboard.parse.Event;
 import com.parse.GetCallback;
 import com.parse.ParseACL;
 import com.parse.ParseException;

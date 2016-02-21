@@ -16,12 +16,12 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.cyruszhang.cluboard.parse.Club;
+import com.cyruszhang.cluboard.parse.User;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
 import com.parse.ParseUser;
-
-import java.util.Arrays;
 
 public class MyBookmark extends AppCompatActivity {
     private static final int MENU_ITEM_LOGOUT = 1001;

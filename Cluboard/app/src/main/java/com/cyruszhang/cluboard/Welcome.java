@@ -18,12 +18,12 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.cyruszhang.cluboard.parse.Club;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
 import com.parse.ParseUser;
 
 import java.util.Arrays;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by zhangxinyuan on 1/27/16.
