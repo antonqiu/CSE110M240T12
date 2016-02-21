@@ -140,7 +140,6 @@ public class NewEvent extends AppCompatActivity {
         }
     }
 
-
     private boolean createEvent() {
         eventNametxt = eventName.getText().toString();
         eventDesctxt = eventDesc.getText().toString();
@@ -173,18 +172,22 @@ public class NewEvent extends AppCompatActivity {
                     ParseACL clubAcl = thisClub.getACL();
                     newEvent.setACL(clubAcl);
                     newEvent.put("club", thisClub);
+
+                    // following event object
                     ParseObject newRelation = new ParseObject("FollowingRelations");
                     newRelation.put("eventObject", newEvent);
+                    newRelation.put("clubObject", thisClub);
                     newRelation.put("count", 0);
-                    if (eventDate != null) {
-                        newEvent.put("eventTime", eventDate.getTime());
-                    } else
-                        Log.d(getClass().getSimpleName(), "eventDate null");
                     ParseACL relationACL = new ParseACL();
                     relationACL.setPublicReadAccess(true);
                     relationACL.setPublicWriteAccess(true);
                     newRelation.setACL(relationACL);
                     newRelation.saveInBackground();
+
+                    if (eventDate != null) {
+                        newEvent.put("eventTime", eventDate.getTime());
+                    } else
+                        Log.d(getClass().getSimpleName(), "eventDate null");
                     newEvent.saveInBackground(new SaveCallback() {
                         @Override
                         public void done(ParseException e) {
