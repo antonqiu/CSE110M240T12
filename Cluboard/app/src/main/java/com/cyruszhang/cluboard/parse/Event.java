@@ -22,6 +22,10 @@ public class Event extends ParseObject {
     public Event() {
     }
 
+    public void setClub(Club club) {
+        put("club", club);
+    }
+
     public String getEventName() {
         return getString("name");
     }

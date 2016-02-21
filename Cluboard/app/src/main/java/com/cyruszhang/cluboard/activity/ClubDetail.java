@@ -181,6 +181,10 @@ public class ClubDetail extends AppCompatActivity {
         // Get List View
         ListView eventList = (ListView) this.findViewById(R.id.event_list_view);
 
+        // get all following relations
+        ParseQuery<ParseObject> queryRelation = ParseQuery.getQuery("FollowingRelations");
+        queryRelation.whereEqualTo("clubObject", thisClub);
+
         ParseQueryAdapter.QueryFactory<Event> factory =
                 new ParseQueryAdapter.QueryFactory<Event>() {
                     public ParseQuery<Event> create() {
@@ -200,8 +204,6 @@ public class ClubDetail extends AppCompatActivity {
                 if (v == null) {
                     Log.d(getClass().getSimpleName(), "inflating item view");
                     v = View.inflate(getContext(), R.layout.event_list_item, null);
-                    // v = LayoutInflater.from(getContext()).
-                    // inflate(R.layout.club_list_item, null, false);
                 }
                 Log.d(getClass().getSimpleName(), "setting up item view");
                 TextView eventName = (TextView) v.findViewById(R.id.event_list_item_name);
@@ -209,7 +211,7 @@ public class ClubDetail extends AppCompatActivity {
                 final TextView eventCount = (TextView) v.findViewById(R.id.event_list_item_count);
                 eventName.setText(object.getEventName());
                 eventLocation.setText(object.getEventLocation());
-                eventCount.setText(String.format("%d", (int) object.findFollowingRelation().get("count")));
+                //eventCount.setText(String.format("%d", (int) object.findFollowingRelation().get("count")));
                 // follow button setup
                 followButton = (ToggleButton) v.findViewById(R.id.event_list_item_follow);
                 User currentUser = (User) ParseUser.getCurrentUser();

@@ -101,10 +101,10 @@ public class NewEvent extends AppCompatActivity {
         int id = item.getItemId();
         switch (id) {
             case MENU_ITEM_CREATE:
+                Log.d(getClass().getSimpleName(), "create button clicked");
                 if (createEvent()) {
                     finish();
                 }
-                break;
             default:
                 break;
 
@@ -118,7 +118,7 @@ public class NewEvent extends AppCompatActivity {
         String dateString = "";
         if (month < 9)
             dateString = "0";
-        dateString += (month+1) + "/";
+        dateString += (month + 1) + "/";
         if (day < 10)
             dateString += "0";
         dateString += day + "/" + year + "/";
@@ -133,8 +133,7 @@ public class NewEvent extends AppCompatActivity {
         formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
         try {
             return formatter.parse(dateString);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             Log.d("NewEvent", "data parse error");
             return null;
         }
@@ -145,7 +144,7 @@ public class NewEvent extends AppCompatActivity {
         eventDesctxt = eventDesc.getText().toString();
         eventLocationtxt = eventLocation.getText().toString();
         //if user does not input name and description
-        if(eventNametxt.equals("") || eventDesctxt.equals("") || eventLocationtxt.equals("")) {
+        if (eventNametxt.equals("") || eventDesctxt.equals("") || eventLocationtxt.equals("")) {
             Toast.makeText(getApplicationContext(),
                     "Please complete the club name and description",
                     Toast.LENGTH_SHORT).show();
@@ -157,43 +156,51 @@ public class NewEvent extends AppCompatActivity {
         newEvent.setEventDesc(eventDesctxt);
         newEvent.setEventLocation(eventLocationtxt);
 
-
-        ParseQuery<Club> query = Club.getQuery();
-        query.getInBackground(getIntent().getStringExtra("OBJECT_ID"), new GetCallback<Club>() {
+        ParseQuery<Club> clubQuery = Club.getQuery();
+        clubQuery.getInBackground(getIntent().getStringExtra("OBJECT_ID"), new GetCallback<Club>() {
             @Override
             public void done(Club object, ParseException e) {
                 if (e == null) {
                     Club thisClub = (Club) object;
-                    Log.d(getClass().getSimpleName(), "got club object" + thisClub.getClubName());
+                    Log.d("NewEvent", "got club object" + thisClub.getClubName());
+
                     Date eventDate = getEventDate(year, month, day, hour, minute);
-
-
-                    // thisClub.addEvent(newEvent);
+                    if (eventDate != null) {
+                        newEvent.put("eventTime", eventDate.getTime());
+                    } else
+                        Log.d("NewEvent", "eventDate null");
+                    // ACL
                     ParseACL clubAcl = thisClub.getACL();
                     newEvent.setACL(clubAcl);
-                    newEvent.put("club", thisClub);
+                    // corresponding club
+                    newEvent.setClub(thisClub);
 
-                    // following event object
-                    ParseObject newRelation = new ParseObject("FollowingRelations");
+                    // setup following relation
+                    final ParseObject newRelation = new ParseObject("FollowingRelations");
                     newRelation.put("eventObject", newEvent);
-                    newRelation.put("clubObject", thisClub);
                     newRelation.put("count", 0);
                     ParseACL relationACL = new ParseACL();
                     relationACL.setPublicReadAccess(true);
                     relationACL.setPublicWriteAccess(true);
                     newRelation.setACL(relationACL);
-                    newRelation.saveInBackground();
-
-                    if (eventDate != null) {
-                        newEvent.put("eventTime", eventDate.getTime());
-                    } else
-                        Log.d(getClass().getSimpleName(), "eventDate null");
-                    newEvent.saveInBackground(new SaveCallback() {
+                    newRelation.saveInBackground(new SaveCallback() {
                         @Override
                         public void done(ParseException e) {
-                            finish();
+                            if (e == null) {
+                                newEvent.put("following", newRelation);
+                                Log.d("NewEvent", "relation should be added");
+                                newEvent.saveInBackground(new SaveCallback() {
+                                    @Override
+                                    public void done(ParseException e) {
+                                        Log.d("NewEvent", "this event was saved");
+                                        finish();
+                                    }
+                                });
+                            }
                         }
                     });
+
+
 
                 } else {
                     Toast.makeText(getApplicationContext(), "Something is wrong", Toast.LENGTH_SHORT).show();
