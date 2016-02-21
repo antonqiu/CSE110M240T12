@@ -26,6 +26,18 @@ public class Event extends ParseObject {
         put("club", club);
     }
 
+    public Club getClub() {
+        return (Club) getParseObject("club");
+    }
+
+    public void setFollowingRelations(ParseObject relation) {
+        put("following", relation);
+    }
+
+    public ParseObject getFollowingRelations() {
+        return getParseObject("following");
+    }
+
     public String getEventName() {
         return getString("name");
     }
@@ -84,6 +96,7 @@ public class Event extends ParseObject {
         }
     }
 
+    // TODO: no repeat following
     public void addFollowingUser(final ParseUser follower) {
         ParseObject relation = findFollowingRelation();
 
@@ -93,24 +106,23 @@ public class Event extends ParseObject {
             ParseRelation<ParseUser> bookmarkRelation = newRelation.getRelation("followingUsers");
             bookmarkRelation.add(follower);
             newRelation.increment("count", 1);
-            newRelation.saveInBackground();
+            relation.saveEventually();
         } else {
             ParseRelation<ParseUser> bookmarkRelation = relation.getRelation("followingUsers");
             bookmarkRelation.add(follower);
             relation.increment("count", 1);
-            relation.saveInBackground();
+            relation.saveEventually();
         }
 
     }
 
     public void removeFollowingUser(final ParseUser follower) {
         ParseObject relation = findFollowingRelation();
-
         if (relation != null) {
             ParseRelation<ParseUser> bookmarkRelation = relation.getRelation("followingUsers");
             bookmarkRelation.remove(follower);
             relation.increment("count", -1);
-            relation.saveInBackground();
+            relation.saveEventually();
         }
 
     }

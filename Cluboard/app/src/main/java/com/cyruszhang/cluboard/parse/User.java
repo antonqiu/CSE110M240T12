@@ -1,6 +1,10 @@
 package com.cyruszhang.cluboard.parse;
 
+import com.parse.CountCallback;
+import com.parse.GetCallback;
 import com.parse.ParseClassName;
+import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
@@ -29,6 +33,7 @@ public class User extends ParseUser {
     }
 
     public boolean checkBookmarkClub(Club club) {
+        // TODO: do the same thing, as to the following
         ParseRelation<ParseUser> bookmarkRelation = club.findBookmarkRelation().getRelation("bookmarkUsers");
         ParseQuery<ParseUser> userQuery = bookmarkRelation.getQuery();
         userQuery.whereEqualTo("objectId", this.getObjectId());
@@ -42,14 +47,15 @@ public class User extends ParseUser {
     }
 
     public boolean checkFollowingEvent(Event event) {
-        ParseRelation<ParseUser> followingRelation = event.findFollowingRelation().getRelation("followingUsers");
-        ParseQuery<ParseUser> userQuery = followingRelation.getQuery();
-        userQuery.whereEqualTo("objectId", this.getObjectId());
         try {
-            userQuery.getFirst();
-            return true;
-        }
-        catch (com.parse.ParseException e) {
+            ParseObject followingRelation = event.getFollowingRelations();
+            followingRelation.fetchIfNeeded();
+            ParseRelation<ParseUser> following = followingRelation.getRelation("followingUsers");
+            ParseQuery<ParseUser> userQuery = following.getQuery();
+            userQuery.whereEqualTo("objectId", getObjectId());
+            return userQuery.count() > 0;
+
+        } catch (Exception e) {
             return false;
         }
     }

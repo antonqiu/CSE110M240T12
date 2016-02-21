@@ -187,7 +187,7 @@ public class NewEvent extends AppCompatActivity {
                         @Override
                         public void done(ParseException e) {
                             if (e == null) {
-                                newEvent.put("following", newRelation);
+                                newEvent.setFollowingRelations(newRelation);
                                 Log.d("NewEvent", "relation should be added");
                                 newEvent.saveInBackground(new SaveCallback() {
                                     @Override

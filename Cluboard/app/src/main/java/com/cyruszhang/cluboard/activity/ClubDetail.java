@@ -22,7 +22,9 @@ import com.cyruszhang.cluboard.R;
 import com.cyruszhang.cluboard.parse.Club;
 import com.cyruszhang.cluboard.parse.Event;
 import com.cyruszhang.cluboard.parse.User;
+import com.parse.CountCallback;
 import com.parse.GetCallback;
+import com.parse.Parse;
 import com.parse.ParseACL;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -191,7 +193,7 @@ public class ClubDetail extends AppCompatActivity {
                         ParseQuery<Event> query = Event.getQuery();
                         query.whereEqualTo("club", thisClub);
                         // only query on two keys to save time
-                        query.selectKeys(Arrays.asList("name", "location", "count"));
+                        query.selectKeys(Arrays.asList("name", "location", "count", "following"));
                         query.orderByDescending("createdAt");
                         Log.d(getClass().getSimpleName(), "factory created");
                         return query;
@@ -201,6 +203,7 @@ public class ClubDetail extends AppCompatActivity {
         eventQueryAdapter = new ParseQueryAdapter<Event>(this, factory) {
             @Override
             public View getItemView(final Event object, View v, ViewGroup parent) {
+                final Event thisEvent = object;
                 if (v == null) {
                     Log.d(getClass().getSimpleName(), "inflating item view");
                     v = View.inflate(getContext(), R.layout.event_list_item, null);
@@ -208,42 +211,58 @@ public class ClubDetail extends AppCompatActivity {
                 Log.d(getClass().getSimpleName(), "setting up item view");
                 TextView eventName = (TextView) v.findViewById(R.id.event_list_item_name);
                 TextView eventLocation = (TextView) v.findViewById(R.id.event_list_item_location);
-                final TextView eventCount = (TextView) v.findViewById(R.id.event_list_item_count);
-                eventName.setText(object.getEventName());
-                eventLocation.setText(object.getEventLocation());
-                //eventCount.setText(String.format("%d", (int) object.findFollowingRelation().get("count")));
-                // follow button setup
-                followButton = (ToggleButton) v.findViewById(R.id.event_list_item_follow);
-                User currentUser = (User) ParseUser.getCurrentUser();
-                if (currentUser.checkFollowingEvent(object)) {
-                    followButton.setChecked(false);
-                } else
-                    followButton.setChecked(true);
-                followButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (followButton.isChecked()) {
-                            object.removeFollowingUser(ParseUser.getCurrentUser());
-                            Snackbar.make(coordinatorLayout,
-                                    "You unfollowed this event", Snackbar.LENGTH_LONG)
-                                    .setAction("Action", null).show();
 
-                        } else {
-                            object.addFollowingUser(ParseUser.getCurrentUser());
-                            Snackbar.make(coordinatorLayout,
-                                    "You followed this event", Snackbar.LENGTH_LONG)
-                                    .setAction("Action", null).show();
-                        }
-                        eventCount.setText(String.format("%d", (int) object.findFollowingRelation().get("count")));
+                eventName.setText(thisEvent.getEventName());
+                eventLocation.setText(thisEvent.getEventLocation());
+
+
+                /* performance is good so far */
+                // following count & following button init
+                final ToggleButton followButton = (ToggleButton) v.findViewById(R.id.event_list_item_follow);
+                final TextView eventCount = (TextView) v.findViewById(R.id.event_list_item_count);
+                thisEvent.getFollowingRelations().fetchIfNeededInBackground(new GetCallback<ParseObject>() {
+                    @Override
+                    public void done(ParseObject object, ParseException e) {
+                        final ParseObject followRelation = object;
+                        eventCount.setText(String.format("%d", followRelation.getInt("count")));
+                        ParseQuery<ParseObject> userQuery = followRelation.getRelation("followingUsers").getQuery();
+                        userQuery.whereEqualTo("objectID", ParseUser.getCurrentUser().getObjectId());
+                        userQuery.countInBackground(new CountCallback() {
+                            @Override
+                            public void done(int count, ParseException e) {
+                                if (count == 1) {
+                                    followButton.setChecked(true);
+                                } else {
+                                    followButton.setChecked(false);
+                                }
+                                followButton.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        if (followButton.isChecked()) {
+                                            thisEvent.removeFollowingUser(ParseUser.getCurrentUser());
+                                            eventCount.setText(String.format("%d", followRelation.getInt("count") - 1));
+                                            Snackbar.make(coordinatorLayout,
+                                                    "You unfollowed this event", Snackbar.LENGTH_LONG)
+                                                    .setAction("Action", null).show();
+                                        } else {
+                                            thisEvent.addFollowingUser(ParseUser.getCurrentUser());
+                                            eventCount.setText(String.format("%d", followRelation.getInt("count") + 1));
+                                            Snackbar.make(coordinatorLayout,
+                                                    "You followed this event", Snackbar.LENGTH_LONG)
+                                                    .setAction("Action", null).show();
+                                        }
+                                    }
+                                });
+                            }
+                        });
                     }
                 });
                 return v;
             }
         };
+
         Log.d(getClass().getSimpleName(), "setting up adapter");
         eventList.setAdapter(eventQueryAdapter);
-
-        // item click listener
 
         eventList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
