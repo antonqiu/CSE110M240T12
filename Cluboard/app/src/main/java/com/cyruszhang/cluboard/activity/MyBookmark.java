@@ -24,6 +24,8 @@ import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
 import com.parse.ParseUser;
 
+import java.util.Arrays;
+
 public class MyBookmark extends AppCompatActivity {
     private static final int MENU_ITEM_LOGOUT = 1001;
     private static final int MENU_ITEM_REFRESH = 1002;
@@ -111,6 +113,8 @@ public class MyBookmark extends AppCompatActivity {
                     public ParseQuery<ParseObject> create() {
                         ParseQuery<ParseObject> query = ParseQuery.getQuery("BookmarkRelations");
                         query.whereEqualTo("bookmarkUsers", currentUser);
+                        query.selectKeys(Arrays.asList("clubObject"));
+                        query.include("clubObject").selectKeys(Arrays.asList("name", "desc"));
                         // only query on two keys to save time
                         query.orderByDescending("createdAt");
                         // Log.d(getClass().getSimpleName(), "factory created");
@@ -132,11 +136,6 @@ public class MyBookmark extends AppCompatActivity {
                 TextView clubName = (TextView) v.findViewById(R.id.club_list_item_name);
                 TextView clubDetail = (TextView) v.findViewById(R.id.club_list_item_desc);
                 Club thisClub = (Club) object.getParseObject("clubObject");
-                try {
-                    thisClub.fetch();
-                } catch (Exception e) {
-                    Log.d(getClass().getSimpleName(), "Something is wrong");
-                }
                 clubName.setText(thisClub.getClubName());
                 clubDetail.setText(thisClub.getClubDetail());
                 return v;

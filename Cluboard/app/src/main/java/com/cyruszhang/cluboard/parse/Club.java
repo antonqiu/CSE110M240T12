@@ -127,4 +127,8 @@ public class Club extends ParseObject{
     public static ParseQuery<Club> getQuery() {
         return ParseQuery.getQuery(Club.class);
     }
+
+    public void setBookmarkRelations(ParseObject relation) {
+        put("bookmark", relation);
+    }
 }
