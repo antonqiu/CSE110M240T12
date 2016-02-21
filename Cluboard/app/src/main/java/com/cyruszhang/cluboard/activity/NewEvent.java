@@ -199,9 +199,6 @@ public class NewEvent extends AppCompatActivity {
                             }
                         }
                     });
-
-
-
                 } else {
                     Toast.makeText(getApplicationContext(), "Something is wrong", Toast.LENGTH_SHORT).show();
                     finish();

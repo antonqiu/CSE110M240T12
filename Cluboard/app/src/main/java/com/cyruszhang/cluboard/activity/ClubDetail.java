@@ -193,7 +193,8 @@ public class ClubDetail extends AppCompatActivity {
                         ParseQuery<Event> query = Event.getQuery();
                         query.whereEqualTo("club", thisClub);
                         // only query on two keys to save time
-                        query.selectKeys(Arrays.asList("name", "location", "count", "following"));
+                        query.selectKeys(Arrays.asList("name", "location"));
+                        query.include("following");
                         query.orderByDescending("createdAt");
                         Log.d(getClass().getSimpleName(), "factory created");
                         return query;
@@ -232,13 +233,16 @@ public class ClubDetail extends AppCompatActivity {
                             public void done(int count, ParseException e) {
                                 if (count == 1) {
                                     followButton.setChecked(true);
+                                    Log.d("ClubDetail", "setChecked(true)");
                                 } else {
                                     followButton.setChecked(false);
+                                    Log.d("ClubDetail", "setChecked(false)");
                                 }
                                 followButton.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
                                         if (followButton.isChecked()) {
+                                            Log.d("ClubDetail", "followed before, removing");
                                             thisEvent.removeFollowingUser(ParseUser.getCurrentUser());
                                             eventCount.setText(String.format("%d", followRelation.getInt("count") - 1));
                                             Snackbar.make(coordinatorLayout,
