@@ -193,6 +193,7 @@ public class NewEvent extends AppCompatActivity {
                                     @Override
                                     public void done(ParseException e) {
                                         Log.d("NewEvent", "this event was saved");
+                                        //TODO improve performance
                                         finish();
                                     }
                                 });

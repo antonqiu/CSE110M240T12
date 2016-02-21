@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,7 +42,7 @@ public class ClubDetail extends AppCompatActivity {
     private static final int IMAGE_VIEW_ID = View.generateViewId();
     private CoordinatorLayout coordinatorLayout;
     private Menu menu;
-    private ToggleButton followButton;
+   // private ToggleButton followButton;
     private Club thisClub;
     private ParseQueryAdapter<Event> eventQueryAdapter;
 
@@ -193,17 +194,17 @@ public class ClubDetail extends AppCompatActivity {
                         ParseQuery<Event> query = Event.getQuery();
                         query.whereEqualTo("club", thisClub);
                         // only query on two keys to save time
-                        query.selectKeys(Arrays.asList("name", "location", "count", "following"));
+                        query.selectKeys(Arrays.asList("name", "location", "following"));
                         query.orderByDescending("createdAt");
-                        Log.d(getClass().getSimpleName(), "factory created");
+                        Log.d("factory", "factory created");
                         return query;
                     }
                 };
-
+        Log.d(getClass().getSimpleName(), "factory created");
+        //set up initial list view
         eventQueryAdapter = new ParseQueryAdapter<Event>(this, factory) {
             @Override
-            public View getItemView(final Event object, View v, ViewGroup parent) {
-                final Event thisEvent = object;
+            public View getItemView(Event thisEvent, View v, ViewGroup parent) {
                 if (v == null) {
                     Log.d(getClass().getSimpleName(), "inflating item view");
                     v = View.inflate(getContext(), R.layout.event_list_item, null);
@@ -222,37 +223,25 @@ public class ClubDetail extends AppCompatActivity {
                 final TextView eventCount = (TextView) v.findViewById(R.id.event_list_item_count);
                 thisEvent.getFollowingRelations().fetchIfNeededInBackground(new GetCallback<ParseObject>() {
                     @Override
-                    public void done(ParseObject object, ParseException e) {
-                        final ParseObject followRelation = object;
+                    public void done(ParseObject followRelation, ParseException e) {
+                        //final ParseObject followRelation = object;
                         eventCount.setText(String.format("%d", followRelation.getInt("count")));
                         ParseQuery<ParseObject> userQuery = followRelation.getRelation("followingUsers").getQuery();
                         userQuery.whereEqualTo("objectID", ParseUser.getCurrentUser().getObjectId());
+
                         userQuery.countInBackground(new CountCallback() {
-                            @Override
                             public void done(int count, ParseException e) {
-                                if (count == 1) {
-                                    followButton.setChecked(true);
-                                } else {
-                                    followButton.setChecked(false);
-                                }
-                                followButton.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        if (followButton.isChecked()) {
-                                            thisEvent.removeFollowingUser(ParseUser.getCurrentUser());
-                                            eventCount.setText(String.format("%d", followRelation.getInt("count") - 1));
-                                            Snackbar.make(coordinatorLayout,
-                                                    "You unfollowed this event", Snackbar.LENGTH_LONG)
-                                                    .setAction("Action", null).show();
-                                        } else {
-                                            thisEvent.addFollowingUser(ParseUser.getCurrentUser());
-                                            eventCount.setText(String.format("%d", followRelation.getInt("count") + 1));
-                                            Snackbar.make(coordinatorLayout,
-                                                    "You followed this event", Snackbar.LENGTH_LONG)
-                                                    .setAction("Action", null).show();
-                                        }
+                                if (e == null) {
+
+                                    if (count != 0) {
+                                        followButton.setChecked(true);
+                                    } else {
+                                        followButton.setChecked(false);
                                     }
-                                });
+                                    Log.d("get count", "objects were successfully counted" + count);
+                                } else {
+                                    Log.d(getClass().getSimpleName(), "objects count failed");
+                                }
                             }
                         });
                     }
@@ -260,10 +249,41 @@ public class ClubDetail extends AppCompatActivity {
                 return v;
             }
         };
+/*
+                                followButton.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        followButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                                            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                                if (isChecked) {
+                                                    // The toggle is enabled
+                                                    thisEvent.removeFollowingUser(ParseUser.getCurrentUser());
+                                                    eventCount.setText(String.format("%d", followRelation.getInt("count") - 1));
+                                                    Snackbar.make(coordinatorLayout,
+                                                            "You unfollowed this event", Snackbar.LENGTH_LONG)
+                                                            .setAction("Action", null).show();
+                                                } else {
+                                                    // The toggle is disabled
+                                                    thisEvent.addFollowingUser(ParseUser.getCurrentUser());
+                                                    eventCount.setText(String.format("%d", followRelation.getInt("count") + 1));
+                                                    Snackbar.make(coordinatorLayout,
+                                                            "You followed this event", Snackbar.LENGTH_LONG)
+                                                            .setAction("Action", null).show();
+                                                }
+                                            }
+                                        });
+                                    }
+                                });
 
+                    }
+                });
+                return v;
+            }
+        };
+*/
         Log.d(getClass().getSimpleName(), "setting up adapter");
         eventList.setAdapter(eventQueryAdapter);
-
+/*
         eventList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -272,10 +292,10 @@ public class ClubDetail extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "You followed this event", Toast.LENGTH_SHORT).show();
                /* Intent intent = new Intent(Welcome.this, ClubDetail.class);
                 intent.putExtra("OBJECT_ID", club.getObjectId());
-                startActivity(intent); */
+                startActivity(intent);
             }
         });
-
+*/
     }
 
     private void initBookmark() {
