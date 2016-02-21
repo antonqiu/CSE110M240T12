@@ -230,10 +230,8 @@ public class ClubDetail extends AppCompatActivity {
                     public void done(int count, ParseException e) {
                         if (count == 1) {
                             followButton.setChecked(true);
-                            Log.d("ClubDetail", "set checked to true");
                         } else {
                             followButton.setChecked(false);
-                            Log.d("ClubDetail", "set checked to false");
                         }
                         followButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                             @Override
@@ -259,7 +257,6 @@ public class ClubDetail extends AppCompatActivity {
                 return v;
             }
         };
-
         Log.d(getClass().getSimpleName(), "setting up adapter");
         eventList.setAdapter(eventQueryAdapter);
     }
