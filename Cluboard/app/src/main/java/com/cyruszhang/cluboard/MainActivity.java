@@ -7,9 +7,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.cyruszhang.cluboard.activity.Login;
+import com.cyruszhang.cluboard.activity.Welcome;
 import com.facebook.appevents.AppEventsLogger;
 import com.parse.ParseAnonymousUtils;
-import com.parse.ParseFacebookUtils;
 import com.parse.ParseUser;
 
 public class MainActivity extends Activity {

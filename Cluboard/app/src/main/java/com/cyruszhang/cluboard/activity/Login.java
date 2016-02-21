@@ -1,4 +1,4 @@
-package com.cyruszhang.cluboard;
+package com.cyruszhang.cluboard.activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.cyruszhang.cluboard.R;
 import com.cyruszhang.cluboard.parse.User;
 import com.parse.LogInCallback;
 import com.parse.ParseException;

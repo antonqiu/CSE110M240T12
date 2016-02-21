@@ -1,4 +1,4 @@
-package com.cyruszhang.cluboard;
+package com.cyruszhang.cluboard.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.cyruszhang.cluboard.R;
 import com.cyruszhang.cluboard.parse.Event;
 import com.cyruszhang.cluboard.parse.User;
 import com.parse.ParseObject;

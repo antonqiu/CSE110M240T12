@@ -1,4 +1,4 @@
-package com.cyruszhang.cluboard;
+package com.cyruszhang.cluboard.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.cyruszhang.cluboard.R;
 import com.cyruszhang.cluboard.parse.Club;
 import com.parse.ParseACL;
 import com.parse.ParseException;

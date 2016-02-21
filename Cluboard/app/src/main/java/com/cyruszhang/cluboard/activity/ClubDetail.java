@@ -1,4 +1,4 @@
-package com.cyruszhang.cluboard;
+package com.cyruszhang.cluboard.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.cyruszhang.cluboard.R;
 import com.cyruszhang.cluboard.parse.Club;
 import com.cyruszhang.cluboard.parse.Event;
 import com.cyruszhang.cluboard.parse.User;

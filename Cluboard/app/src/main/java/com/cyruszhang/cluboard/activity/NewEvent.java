@@ -1,4 +1,4 @@
-package com.cyruszhang.cluboard;
+package com.cyruszhang.cluboard.activity;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.cyruszhang.cluboard.R;
 import com.cyruszhang.cluboard.parse.Club;
 import com.cyruszhang.cluboard.parse.Event;
 import com.parse.GetCallback;
