@@ -32,27 +32,31 @@ public class User extends ParseUser {
         // TODO: check permissions
     }
 
+    // use it only when you have to
     public boolean checkBookmarkClub(Club club) {
         // TODO: do the same thing, as to the following
         ParseRelation<ParseUser> bookmarkRelation = club.findBookmarkRelation().getRelation("bookmarkUsers");
         ParseQuery<ParseUser> userQuery = bookmarkRelation.getQuery();
         userQuery.whereEqualTo("objectId", this.getObjectId());
         try {
-            userQuery.getFirst();
-            return true;
+            // may slow things down!!!
+            return userQuery.count() > 0;
         }
         catch (com.parse.ParseException e) {
             return false;
         }
     }
 
+    // use it only when you have to
     public boolean checkFollowingEvent(Event event) {
         try {
             ParseObject followingRelation = event.getFollowingRelations();
+            // may slow things down
             followingRelation.fetchIfNeeded();
             ParseRelation<ParseUser> following = followingRelation.getRelation("followingUsers");
             ParseQuery<ParseUser> userQuery = following.getQuery();
             userQuery.whereEqualTo("objectId", getObjectId());
+            // may slow things down
             return userQuery.count() > 0;
 
         } catch (Exception e) {

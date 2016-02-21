@@ -44,6 +44,7 @@ public class ClubDetail extends AppCompatActivity {
     private Menu menu;
     // private ToggleButton followButton;
     private Club thisClub;
+    private ParseObject thisClubBookmarkRelation;
     private ParseQueryAdapter<Event> eventQueryAdapter;
 
 
@@ -70,19 +71,25 @@ public class ClubDetail extends AppCompatActivity {
                     @Override
                     public void done(Club object, ParseException e) {
                         thisClub = object;
+                        thisClubBookmarkRelation = thisClub.getBookmarkRelations();
+                        thisClubBookmarkRelation.fetchIfNeededInBackground(new GetCallback<ParseObject>() {
+                            @Override
+                            public void done(ParseObject object, ParseException e) {
+                                thisClubBookmarkRelation = object;
+                                Log.d(getClass().getSimpleName(), "got club object" + thisClub.getClubName());
+                                clubName.setText(thisClub.getClubName());
+                                clubDetail.setText(thisClub.getClubDetail());
 
-                        Log.d(getClass().getSimpleName(), "got club object" + thisClub.getClubName());
-                        clubName.setText(thisClub.getClubName());
-                        clubDetail.setText(thisClub.getClubDetail());
-
-                        User currentUser = (User) ParseUser.getCurrentUser();
-                        ParseACL clubAcl = thisClub.getACL();
-                        //if user is owner, show create event button
-                        if (clubAcl.getWriteAccess(currentUser)) {
-                            createEventBtn.setVisibility(View.VISIBLE);
-                        }
-                        initBookmark();
-                        setupEventList();
+                                User currentUser = (User) ParseUser.getCurrentUser();
+                                ParseACL clubAcl = thisClub.getACL();
+                                //if user is owner, show create event button
+                                if (clubAcl.getWriteAccess(currentUser)) {
+                                    createEventBtn.setVisibility(View.VISIBLE);
+                                }
+                                initBookmark();
+                                setupEventList();
+                            }
+                        });
                     }
                 });
             } catch (Exception e) {
@@ -120,6 +127,12 @@ public class ClubDetail extends AppCompatActivity {
         MenuItem refresh = menu.add(0, MENU_ITEM_REFRESH, 103, "Refresh");
         refresh.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         refresh.setIcon(R.drawable.ic_action_refresh);
+
+        // bookmark placeholder
+        MenuItem bookmark = menu.add(0, MENU_ITEM_BOOKMARK, 104, "Add Bookmark");
+        bookmark.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        bookmark.setCheckable(true);
+        bookmark.setIcon(R.drawable.ic_action_add_bookmark);
 
         // in order to support the native back button
         return super.onCreateOptionsMenu(menu);
@@ -233,11 +246,11 @@ public class ClubDetail extends AppCompatActivity {
                         } else {
                             followButton.setChecked(false);
                         }
-                        followButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                        followButton.setOnClickListener(new View.OnClickListener() {
                             @Override
-                            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                            public void onClick(View v) {
                                 // super counter-intuitive... It's reversed
-                                if (!isChecked) {
+                                if (!followButton.isChecked()) {
                                     int currentCount = followRelation.getInt("count");
                                     thisEvent.removeFollowingUser(ParseUser.getCurrentUser());
                                     eventCount.setText(String.format("%d", currentCount - 1));
@@ -267,9 +280,7 @@ public class ClubDetail extends AppCompatActivity {
         User thisUser = (User) ParseUser.getCurrentUser();
 
         // add bookmark or remove bookmark, + actionbar button
-        MenuItem bookmark = menu.add(0, MENU_ITEM_BOOKMARK, 104, "Add Bookmark");
-        bookmark.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        bookmark.setCheckable(true);
+        MenuItem bookmark = menu.getItem(4);
 
         if (thisUser.checkBookmarkClub(thisClub)) {
             Log.d(getClass().getSimpleName(), "You have bookmarked it before.");
