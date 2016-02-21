@@ -194,7 +194,12 @@ public class ClubDetail extends AppCompatActivity {
                         ParseQuery<Event> query = Event.getQuery();
                         query.whereEqualTo("club", thisClub);
                         // only query on two keys to save time
+
                         query.selectKeys(Arrays.asList("name", "location", "following"));
+
+                     /*   query.selectKeys(Arrays.asList("name", "location"));
+                        query.include("following"); */
+
                         query.orderByDescending("createdAt");
                         Log.d("factory", "factory created");
                         return query;
@@ -231,6 +236,7 @@ public class ClubDetail extends AppCompatActivity {
 
                         userQuery.countInBackground(new CountCallback() {
                             public void done(int count, ParseException e) {
+
                                 if (e == null) {
 
                                     if (count != 0) {
@@ -241,6 +247,7 @@ public class ClubDetail extends AppCompatActivity {
                                     Log.d("get count", "objects were successfully counted" + count);
                                 } else {
                                     Log.d(getClass().getSimpleName(), "objects count failed");
+
                                 }
                             }
                         });
@@ -253,6 +260,7 @@ public class ClubDetail extends AppCompatActivity {
                                 followButton.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
+
                                         followButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                                             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                                                 if (isChecked) {
@@ -272,6 +280,7 @@ public class ClubDetail extends AppCompatActivity {
                                                 }
                                             }
                                         });
+
                                     }
                                 });
 
