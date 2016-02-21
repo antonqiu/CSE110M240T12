@@ -2,6 +2,7 @@ package com.cyruszhang.cluboard.activity;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.DialogFragment;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,8 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.cyruszhang.cluboard.R;
+import com.cyruszhang.cluboard.fragment.DatePickerFragment;
+import com.cyruszhang.cluboard.fragment.TimePickerFragment;
 import com.cyruszhang.cluboard.parse.Club;
 import com.cyruszhang.cluboard.parse.Event;
 import com.parse.GetCallback;
@@ -58,6 +61,7 @@ public class NewEvent extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        TimePickerFragment initTime = new TimePickerFragment();
         eventName = (EditText) findViewById(R.id.new_event_name);
         eventDesc = (EditText) findViewById(R.id.new_event_desc);
         eventLocation = (EditText) findViewById(R.id.new_event_location);
@@ -67,80 +71,22 @@ public class NewEvent extends AppCompatActivity {
         year = calendar.get(Calendar.YEAR);
         month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);
-        showDate(year, month+1, day);
+        dateView.setText(new StringBuilder().append(month + 1).append("/")
+                .append(day).append("/").append(year));
         hour = calendar.get(Calendar.HOUR);
         minute = calendar.get(Calendar.MINUTE);
-        showTime(hour, minute);
+        initTime.initTime(timeView, hour, minute);
     }
 
-    @SuppressWarnings("deprecation")
     public void setDate(View view) {
-        showDialog(999);
+        DialogFragment newFragment = new DatePickerFragment();
+        newFragment.show(getFragmentManager(), "datePicker");
     }
 
-    @SuppressWarnings("deprecation")
     public void setTime(View view) {
-        showDialog(998);
+        DialogFragment newFragment = new TimePickerFragment();
+        newFragment.show(getFragmentManager(), "timePicker");
     }
-
-    @SuppressWarnings("deprecation")
-    @Override
-    protected Dialog onCreateDialog(int id) {
-        // TODO Auto-generated method stub
-        if (id == 999) {
-            return new DatePickerDialog(this, myDateListener, year, month, day);
-        }
-        else if (id == 998) {
-            Log.d("New Event", "998 called");
-            return new TimePickerDialog(this, myTimeListener, hour, minute, false);
-        }
-        return null;
-    }
-
-    private DatePickerDialog.OnDateSetListener myDateListener = new DatePickerDialog.OnDateSetListener() {
-        @Override
-        public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
-            // TODO Auto-generated method stub
-            // arg1 = year
-            // arg2 = month
-            // arg3 = day
-            showDate(arg1, arg2+1, arg3);
-        }
-    };
-
-    private TimePickerDialog.OnTimeSetListener myTimeListener = new TimePickerDialog.OnTimeSetListener() {
-        @Override
-        public void onTimeSet(TimePicker timePicker, int hour, int minute) {
-            // TODO Auto-generated method stub
-            // arg1 = year
-            // arg2 = month
-            // arg3 = day
-            showTime(hour, minute);
-        }
-    };
-
-    private void showDate(int year, int month, int day) {
-        dateView.setText(new StringBuilder().append(month).append("/")
-                        .append(day).append("/").append(year));
-    }
-
-    public void showTime(int hour, int min) {
-        if (hour == 0) {
-            hour += 12;
-            format = "AM";
-        }
-        else if (hour == 12) {
-            format = "PM";
-        } else if (hour > 12) {
-            hour -= 12;
-            format = "PM";
-        } else {
-            format = "AM";
-        }
-        timeView.setText(new StringBuilder().append(hour).append(" : ").append(min)
-                .append(" ").append(format));
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -232,8 +178,7 @@ public class NewEvent extends AppCompatActivity {
                     newRelation.put("count", 0);
                     if (eventDate != null) {
                         newEvent.put("eventTime", eventDate.getTime());
-                    }
-                    else
+                    } else
                         Log.d(getClass().getSimpleName(), "eventDate null");
                     ParseACL relationACL = new ParseACL();
                     relationACL.setPublicReadAccess(true);
@@ -256,5 +201,4 @@ public class NewEvent extends AppCompatActivity {
 
         return true;
     }
-
 }
