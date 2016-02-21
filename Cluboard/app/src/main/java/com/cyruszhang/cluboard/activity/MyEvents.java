@@ -103,14 +103,16 @@ public class MyEvents extends AppCompatActivity {
                             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                                 // super counter-intuitive... It's reversed
                                 if (!isChecked) {
+                                    int currentCount = followRelation.getInt("count");
                                     thisEvent.removeFollowingUser(ParseUser.getCurrentUser());
-                                    eventCount.setText(String.format("%d", followRelation.getInt("count") - 1));
+                                    eventCount.setText(String.format("%d", currentCount - 1));
                                     Snackbar.make(coordinatorLayout,
                                             "You unfollowed this event", Snackbar.LENGTH_LONG)
                                             .setAction("Action", null).show();
                                 } else {
+                                    int currentCount = followRelation.getInt("count");
                                     thisEvent.addFollowingUser(ParseUser.getCurrentUser());
-                                    eventCount.setText(String.format("%d", followRelation.getInt("count") + 1));
+                                    eventCount.setText(String.format("%d", currentCount + 1));
                                     Snackbar.make(coordinatorLayout,
                                             "You followed this event", Snackbar.LENGTH_LONG)
                                             .setAction("Action", null).show();

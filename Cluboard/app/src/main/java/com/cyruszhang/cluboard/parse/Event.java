@@ -1,5 +1,6 @@
 package com.cyruszhang.cluboard.parse;
 
+import com.parse.GetCallback;
 import com.parse.ParseClassName;
 import com.parse.ParseException;
 import com.parse.ParseGeoPoint;
@@ -85,46 +86,20 @@ public class Event extends ParseObject {
         return ParseQuery.getQuery(Event.class);
     }
 
-    public ParseObject findFollowingRelation(){
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("FollowingRelations");
-        query.whereEqualTo("eventObject", this);
-        try {
-            return query.getFirst();
-        }
-        catch(ParseException exception) {
-            return null;
-        }
-    }
-
     // TODO: no repeat following
     public void addFollowingUser(final ParseUser follower) {
-        ParseObject relation = findFollowingRelation();
-
-        if (relation == null) {
-            ParseObject newRelation = new ParseObject("FollowingRelations");
-            newRelation.put("eventObject", this);
-            ParseRelation<ParseUser> bookmarkRelation = newRelation.getRelation("followingUsers");
-            bookmarkRelation.add(follower);
-            newRelation.increment("count", 1);
-            relation.saveEventually();
-        } else {
-            ParseRelation<ParseUser> bookmarkRelation = relation.getRelation("followingUsers");
-            bookmarkRelation.add(follower);
-            relation.increment("count", 1);
-            relation.saveEventually();
-        }
-
+        ParseObject relation = getFollowingRelations();
+        ParseRelation<ParseUser> bookmarkRelation = relation.getRelation("followingUsers");
+        bookmarkRelation.add(follower);
+        relation.increment("count", 1);
+        relation.saveEventually();
     }
 
     public void removeFollowingUser(final ParseUser follower) {
-        ParseObject relation = findFollowingRelation();
-        if (relation != null) {
-            ParseRelation<ParseUser> bookmarkRelation = relation.getRelation("followingUsers");
-            bookmarkRelation.remove(follower);
-            relation.increment("count", -1);
-            relation.saveEventually();
-        }
-
+        ParseObject relation = getFollowingRelations();
+        ParseRelation<ParseUser> bookmarkRelation = relation.getRelation("followingUsers");
+        bookmarkRelation.remove(follower);
+        relation.increment("count", -1);
+        relation.saveEventually();
     }
-
 }
