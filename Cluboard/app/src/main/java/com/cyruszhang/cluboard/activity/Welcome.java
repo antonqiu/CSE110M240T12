@@ -25,6 +25,7 @@ import com.parse.ParseQueryAdapter;
 import com.parse.ParseUser;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by zhangxinyuan on 1/27/16.
@@ -190,6 +191,17 @@ public class Welcome extends AppCompatActivity {
                 return v;
             }
         };
+        clubsQueryAdapter.addOnQueryLoadListener(new ParseQueryAdapter.OnQueryLoadListener<Club>() {
+            @Override
+            public void onLoading() {
+                swipeRefresh.setRefreshing(true);
+            }
+
+            @Override
+            public void onLoaded(List<Club> objects, Exception e) {
+                swipeRefresh.setRefreshing(false);
+            }
+        });
         Log.d(getClass().getSimpleName(), "setting up adapter");
         clubList.setAdapter(clubsQueryAdapter);
 
