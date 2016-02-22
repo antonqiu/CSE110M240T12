@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -43,7 +44,7 @@ public class ClubDetail extends AppCompatActivity {
     private static final int IMAGE_VIEW_ID = View.generateViewId();
     private CoordinatorLayout coordinatorLayout;
     private Menu menu;
-    // private ToggleButton followButton;
+    SwipeRefreshLayout swipeRefresh;
     private Club thisClub;
     private ParseObject thisClubBookmarkRelation;
     private ParseQueryAdapter<Event> eventQueryAdapter;
@@ -62,6 +63,16 @@ public class ClubDetail extends AppCompatActivity {
         final TextView clubName = (TextView) this.findViewById(R.id.club_detail_name);
         final TextView clubDetail = (TextView) this.findViewById(R.id.club_detail_detail);
         final Button createEventBtn = (Button) this.findViewById(R.id.new_event_btn);
+        // swipe refresh
+        swipeRefresh = (SwipeRefreshLayout) findViewById(R.id.club_detail_swiperefresh);
+        // start from the very start
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Log.d(getClass().getSimpleName(), "refresh triggered");
+                refreshEventList();
+            }
+        });
 
         // normal intent starts
         if (thisClub == null) {
@@ -87,6 +98,7 @@ public class ClubDetail extends AppCompatActivity {
                                 if (clubAcl.getWriteAccess(currentUser)) {
                                     createEventBtn.setVisibility(View.VISIBLE);
                                 }
+                                swipeRefresh.setRefreshing(true);
                                 initBookmark();
                                 setupEventList();
                             }
@@ -111,9 +123,8 @@ public class ClubDetail extends AppCompatActivity {
 
     @Override
     protected void onRestart() {
+        refreshEventList();
         super.onRestart();
-        eventQueryAdapter.loadObjects();
-        eventQueryAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -180,8 +191,8 @@ public class ClubDetail extends AppCompatActivity {
                 }
                 break;
             case MENU_ITEM_REFRESH:
-                eventQueryAdapter.loadObjects();
-                eventQueryAdapter.notifyDataSetChanged();
+                swipeRefresh.setRefreshing(true);
+                refreshEventList();
                 break;
             // back button behavior customization
             case android.R.id.home:
@@ -273,6 +284,16 @@ public class ClubDetail extends AppCompatActivity {
                 return v;
             }
         };
+        eventQueryAdapter.addOnQueryLoadListener(new ParseQueryAdapter.OnQueryLoadListener<Event>() {
+            @Override
+            public void onLoading() {
+            }
+
+            @Override
+            public void onLoaded(List<Event> objects, Exception e) {
+                swipeRefresh.setRefreshing(false);
+            }
+        });
         Log.d(getClass().getSimpleName(), "setting up adapter");
         eventList.setAdapter(eventQueryAdapter);
     }
@@ -292,6 +313,12 @@ public class ClubDetail extends AppCompatActivity {
             bookmark.setChecked(false);
             bookmark.setIcon(R.drawable.ic_action_add_bookmark);
         }
+    }
+
+    private void refreshEventList() {
+        eventQueryAdapter.loadObjects();
+        eventQueryAdapter.notifyDataSetChanged();
+        swipeRefresh.setRefreshing(false);
     }
 
 }

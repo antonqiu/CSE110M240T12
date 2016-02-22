@@ -13,55 +13,61 @@
     tools:showIn="@layout/activity_club_detail">
 
     <ImageView
+        android:id="@+id/club_detail_logo"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:id="@+id/club_detail_logo"
-        android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:contentDescription="@string/logo_desc_demo" />
 
     <TextView
+        android:id="@+id/club_detail_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/club_name_demo"
-        android:id="@+id/club_detail_name"
         android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/club_detail_logo" />
+        android:layout_toEndOf="@+id/club_detail_logo"
+        android:text="@string/club_name_demo"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <ScrollView
+        android:id="@+id/club_detail_scroll"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/club_detail_scroll"
-        android:layout_below="@+id/club_detail_logo"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true">
+        android:layout_below="@+id/club_detail_logo">
 
         <TextView
+            android:id="@+id/club_detail_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/club_detail_demo"
-            android:id="@+id/club_detail_detail" />
+            android:text="@string/club_detail_demo" />
     </ScrollView>
 
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/event_list_view"
+    <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/club_detail_swiperefresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginTop="20dp"
-        android:layout_below="@+id/club_detail_scroll"
-        android:layout_alignParentStart="true" />
+        android:layout_below="@id/club_detail_scroll" >
+
+        <ListView
+            android:id="@+id/event_list_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true" />
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <Button
+        android:id="@+id/new_event_btn"
+        style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/new_event_btn"
-        android:id="@+id/new_event_btn"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:visibility="invisible"
-        style="?android:attr/borderlessButtonStyle"
-        android:textColor="@color/colorPrimary" />
+        android:text="@string/new_event_btn"
+        android:textColor="@color/colorPrimary"
+        android:visibility="invisible" />
 
 
 </RelativeLayout>
