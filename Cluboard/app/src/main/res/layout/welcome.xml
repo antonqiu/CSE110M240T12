@@ -10,26 +10,40 @@
     tools:context=".activity.Welcome"
     tools:showIn="@layout/activity_welcome">
 
-    <TextView
-        android:id="@+id/txtuser"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:id="@+id/welcome_recommend_icon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:foregroundGravity="center"
+        android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true" />
+        android:layout_marginLeft="8dp"
+        android:src="@drawable/ic_header_recommend" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:gravity="center_vertical"
+        android:textSize="18sp"
+        android:fontFamily="sans-serif-light"
+        android:text="@string/recommendations"
+        android:id="@+id/welcome_recommend_text"
+        android:layout_above="@+id/welcome_swiperefresh"
+        android:layout_toEndOf="@+id/welcome_recommend_icon" />
 
     <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/welcome_swiperefresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/txtuser">
+        android:layout_below="@id/welcome_recommend_icon" >
 
         <ListView
             android:id="@+id/club_list_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="10dp"
-            android:dividerHeight="0dp" />
+            android:headerDividersEnabled="true"
+            android:layout_alignParentStart="true" />
 
     </android.support.v4.widget.SwipeRefreshLayout>
 

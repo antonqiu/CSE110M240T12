@@ -59,10 +59,6 @@ public class Welcome extends AppCompatActivity {
         final ParseUser currentUser = ParseUser.getCurrentUser();
         // Convert currentUser into String
         String struser = currentUser.getUsername();
-        // Locate TextView in welcome.xml
-        TextView txtuser = (TextView) findViewById(R.id.txtuser);
-        // Set the currentUser String into TextView
-        txtuser.setText(getString(R.string.logged_in_as) + struser);
 
         // add new club floating button
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.welcome_fab);
@@ -178,10 +174,7 @@ public class Welcome extends AppCompatActivity {
                 // Local DataStore
 
                 if (v == null) {
-                    Log.d(getClass().getSimpleName(), "inflating item view");
                     v = View.inflate(getContext(), R.layout.club_list_item, null);
-                    // v = LayoutInflater.from(getContext()).
-                    // inflate(R.layout.club_list_item, null, false);
                 }
                 Log.d(getClass().getSimpleName(), "setting up item view");
                 TextView clubName = (TextView) v.findViewById(R.id.club_list_item_name);
