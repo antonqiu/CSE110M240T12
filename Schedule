@@ -35,10 +35,16 @@ Week 7
    Release basic version to customer, ask for improvement and modification.
 
 Week 8
-   Meet with professor to check on the progress and get advice (Team)
-   Implement the rest of UI pages: my page, settings. (Hanchao Liu, Yimeng Gu,Zhiye Zhang, Xingda Jiang)
+   Meet with professor to check on the progress and get advice (Team) Status: Done
+   Replace the background images of the current UI pages upon customers' request/ according to the minimalist principle. 
+   (Hanchao Liu, Yimeng Gu,Zhiye Zhang, Xingda Jiang) Time estimate: 2 days
+   Apply grid and card view (optional) to the previous design (Hanchao Liu, Yimeng Gu,Zhiye Zhang, Xingda Jiang) 
+   Time estimate: 2 days
+   Implement the rest of UI pages: my page, settings, etc. (Hanchao Liu, Yimeng Gu,Zhiye Zhang, Xingda Jiang)
+   Time estimate: 5 days
    Fix the back-end issues including app crashes, function slows down, and display problem. (CSM, ZXY, QCT)
-    push notification to user fo those events they followed (CSM, ZXY, QCT)
+   Time estimate: 3 days
+   push notification to user fo those events they followed (CSM, ZXY, QCT) Time estimate: 4 days
 
 week 9/10 
  
