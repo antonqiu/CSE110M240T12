@@ -1,4 +1,4 @@
-package com.cyruszhang.cluboard;
+package com.cyruszhang.cluboard.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,12 +18,14 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.cyruszhang.cluboard.R;
+import com.cyruszhang.cluboard.parse.Club;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
 import com.parse.ParseUser;
 
 import java.util.Arrays;
-import java.util.concurrent.TimeUnit;
+import java.util.List;
 
 /**
  * Created by zhangxinyuan on 1/27/16.
@@ -57,10 +59,6 @@ public class Welcome extends AppCompatActivity {
         final ParseUser currentUser = ParseUser.getCurrentUser();
         // Convert currentUser into String
         String struser = currentUser.getUsername();
-        // Locate TextView in welcome.xml
-        TextView txtuser = (TextView) findViewById(R.id.txtuser);
-        // Set the currentUser String into TextView
-        txtuser.setText(getString(R.string.logged_in_as) + struser);
 
         // add new club floating button
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.welcome_fab);
@@ -176,10 +174,7 @@ public class Welcome extends AppCompatActivity {
                 // Local DataStore
 
                 if (v == null) {
-                    Log.d(getClass().getSimpleName(), "inflating item view");
                     v = View.inflate(getContext(), R.layout.club_list_item, null);
-                    // v = LayoutInflater.from(getContext()).
-                    // inflate(R.layout.club_list_item, null, false);
                 }
                 Log.d(getClass().getSimpleName(), "setting up item view");
                 TextView clubName = (TextView) v.findViewById(R.id.club_list_item_name);
@@ -189,6 +184,17 @@ public class Welcome extends AppCompatActivity {
                 return v;
             }
         };
+        clubsQueryAdapter.addOnQueryLoadListener(new ParseQueryAdapter.OnQueryLoadListener<Club>() {
+            @Override
+            public void onLoading() {
+                swipeRefresh.setRefreshing(true);
+            }
+
+            @Override
+            public void onLoaded(List<Club> objects, Exception e) {
+                swipeRefresh.setRefreshing(false);
+            }
+        });
         Log.d(getClass().getSimpleName(), "setting up adapter");
         clubList.setAdapter(clubsQueryAdapter);
 

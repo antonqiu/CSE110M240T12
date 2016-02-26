@@ -8,13 +8,21 @@
     android:paddingBottom="8dp"
     android:paddingTop="8dp">
 
+
+    <TextClock
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/event_list_item_time_from"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="16dp"/>
+
     <TextView
         android:id="@+id/event_list_item_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="start"
         android:paddingTop="20dp"
-        android:paddingLeft="72dp"
+        android:paddingLeft="92dp"
         android:paddingRight="16dp"
         android:fontFamily="sans-serif-light"
         android:singleLine="true"
@@ -29,7 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="start"
-        android:paddingLeft="72dp"
+        android:paddingLeft="92dp"
         android:paddingRight="16dp"
         android:paddingBottom="20dp"
         android:singleLine="true"

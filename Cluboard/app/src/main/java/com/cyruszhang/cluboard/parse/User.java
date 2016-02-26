@@ -1,15 +1,13 @@
-package com.cyruszhang.cluboard;
+package com.cyruszhang.cluboard.parse;
 
+import com.parse.CountCallback;
+import com.parse.GetCallback;
 import com.parse.ParseClassName;
+import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
-
-import org.json.JSONArray;
-
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Created by zhangxinyuan on 2/4/16.
@@ -34,28 +32,34 @@ public class User extends ParseUser {
         // TODO: check permissions
     }
 
+    // use it only when you have to
     public boolean checkBookmarkClub(Club club) {
+        // TODO: do the same thing, as to the following
         ParseRelation<ParseUser> bookmarkRelation = club.findBookmarkRelation().getRelation("bookmarkUsers");
         ParseQuery<ParseUser> userQuery = bookmarkRelation.getQuery();
         userQuery.whereEqualTo("objectId", this.getObjectId());
         try {
-            userQuery.getFirst();
-            return true;
+            // may slow things down!!!
+            return userQuery.count() > 0;
         }
         catch (com.parse.ParseException e) {
             return false;
         }
     }
 
+    // use it only when you have to
     public boolean checkFollowingEvent(Event event) {
-        ParseRelation<ParseUser> followingRelation = event.findFollowingRelation().getRelation("followingUsers");
-        ParseQuery<ParseUser> userQuery = followingRelation.getQuery();
-        userQuery.whereEqualTo("objectId", this.getObjectId());
         try {
-            userQuery.getFirst();
-            return true;
-        }
-        catch (com.parse.ParseException e) {
+            ParseObject followingRelation = event.getFollowingRelations();
+            // may slow things down
+            followingRelation.fetchIfNeeded();
+            ParseRelation<ParseUser> following = followingRelation.getRelation("followingUsers");
+            ParseQuery<ParseUser> userQuery = following.getQuery();
+            userQuery.whereEqualTo("objectId", getObjectId());
+            // may slow things down
+            return userQuery.count() > 0;
+
+        } catch (Exception e) {
             return false;
         }
     }

@@ -5,7 +5,7 @@ Priority 1 Estimate Time: 2 days  Status: Done
 Priority 1 Estimate Time: 1 day  Status: Done
 
 3. As a student, I want to know whoelse is going to the events so that I can meet with more people who share same interest with me.
-Priority 3 (optional) Time: 5 days Status: In progress
+Priority 3 (optional) Time: 5 days Status: Done
 
 4. As a student, I want to get notifications about upcoming events so that I don't miss them.
 Priority 2  Time: 7 days Status: In progress
@@ -26,9 +26,9 @@ Priority 3 Estimate Time: 5 days  Status: In progress
 Priority 3 Estimate Time: 3 day  Status: In progress
 
 10. As an organization leader, I want to attach tags to my events so that people who have certain interests can find us easily.
-Priority 4 (optinal)
+Priority 4 (optinal) Pending
 
 11. As an organization leader, I want to know how many are following the event so that we can estimate how many people will come to the event.
 Priority 2
-Estimate Time: 5 days  Status: In progress
+Estimate Time: 5 days  Status: Done
 

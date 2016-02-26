@@ -1,4 +1,4 @@
-package com.cyruszhang.cluboard;
+package com.cyruszhang.cluboard.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +16,9 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.cyruszhang.cluboard.R;
+import com.cyruszhang.cluboard.parse.Club;
+import com.cyruszhang.cluboard.parse.User;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
@@ -110,6 +113,8 @@ public class MyBookmark extends AppCompatActivity {
                     public ParseQuery<ParseObject> create() {
                         ParseQuery<ParseObject> query = ParseQuery.getQuery("BookmarkRelations");
                         query.whereEqualTo("bookmarkUsers", currentUser);
+                        query.selectKeys(Arrays.asList("clubObject"));
+                        query.include("clubObject").selectKeys(Arrays.asList("name", "desc"));
                         // only query on two keys to save time
                         query.orderByDescending("createdAt");
                         // Log.d(getClass().getSimpleName(), "factory created");
@@ -131,11 +136,6 @@ public class MyBookmark extends AppCompatActivity {
                 TextView clubName = (TextView) v.findViewById(R.id.club_list_item_name);
                 TextView clubDetail = (TextView) v.findViewById(R.id.club_list_item_desc);
                 Club thisClub = (Club) object.getParseObject("clubObject");
-                try {
-                    thisClub.fetch();
-                } catch (Exception e) {
-                    Log.d(getClass().getSimpleName(), "Something is wrong");
-                }
                 clubName.setText(thisClub.getClubName());
                 clubDetail.setText(thisClub.getClubDetail());
                 return v;

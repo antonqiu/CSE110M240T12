@@ -36,59 +36,59 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Login" />
+        <activity android:name=".activity.Login" />
         <activity
-            android:name=".Welcome"
+            android:name=".activity.Welcome"
             android:label="@string/title_activity_welcome"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ClubDetail"
+            android:name=".activity.ClubDetail"
             android:label="@string/title_activity_club_detail"
-            android:parentActivityName=".Welcome"
+            android:parentActivityName=".activity.Welcome"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.cyruszhang.cluboard.Welcome" />
+                android:value=".activity.Welcome" />
         </activity>
         <activity
-            android:name=".NewClub"
+            android:name=".activity.NewClub"
                 android:label="@string/title_activity_new_club"
-                android:parentActivityName=".Welcome"
+                android:parentActivityName=".activity.Welcome"
                 android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.cyruszhang.cluboard.Welcome" />
+                android:value=".activity.Welcome" />
         </activity>
         <activity
-            android:name=".Setting"
+            android:name=".activity.Setting"
             android:label="@string/title_activity_setting"
-            android:parentActivityName=".Welcome"
+            android:parentActivityName=".activity.Welcome"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.cyruszhang.cluboard.Welcome" />
+                android:value=".activity.Welcome" />
         </activity>
         <activity
-            android:name=".NewEvent"
+            android:name=".activity.NewEvent"
             android:label="@string/title_activity_new_event"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".MyBookmark"
+            android:name=".activity.MyBookmark"
             android:label="@string/title_activity_my_bookmark"
-            android:parentActivityName=".Welcome"
+            android:parentActivityName=".activity.Welcome"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.cyruszhang.cluboard.Welcome" />
+                android:value=".activity.Welcome" />
         </activity>
         <activity
-            android:name=".MyEvents"
+            android:name=".activity.MyEvents"
             android:label="@string/title_activity_my_events"
-            android:parentActivityName=".Welcome"
+            android:parentActivityName=".activity.Welcome"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.cyruszhang.cluboard.Welcome" />
+                android:value=".activity.Welcome" />
         </activity>
     </application>
 

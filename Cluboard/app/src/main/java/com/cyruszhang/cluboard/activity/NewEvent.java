@@ -1,7 +1,8 @@
-package com.cyruszhang.cluboard;
+package com.cyruszhang.cluboard.activity;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.DialogFragment;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,11 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.cyruszhang.cluboard.R;
+import com.cyruszhang.cluboard.fragment.DatePickerFragment;
+import com.cyruszhang.cluboard.fragment.TimePickerFragment;
+import com.cyruszhang.cluboard.parse.Club;
+import com.cyruszhang.cluboard.parse.Event;
 import com.parse.GetCallback;
 import com.parse.ParseACL;
 import com.parse.ParseException;
@@ -43,7 +49,7 @@ public class NewEvent extends AppCompatActivity {
     TextView dateView;
     TextView timeView;
     int year, month, day;
-    int hour, minute;
+    int hour, minute, am_pm;
     String format = "";
 
     @Override
@@ -64,80 +70,23 @@ public class NewEvent extends AppCompatActivity {
         year = calendar.get(Calendar.YEAR);
         month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);
-        showDate(year, month+1, day);
+        dateView.setText(new StringBuilder().append(month + 1).append("/")
+                .append(day).append("/").append(year));
         hour = calendar.get(Calendar.HOUR);
         minute = calendar.get(Calendar.MINUTE);
-        showTime(hour, minute);
+        am_pm = calendar.get(Calendar.AM_PM);
+        TimePickerFragment.initTime(timeView, hour, minute, am_pm);
     }
 
-    @SuppressWarnings("deprecation")
     public void setDate(View view) {
-        showDialog(999);
+        DialogFragment newFragment = new DatePickerFragment();
+        newFragment.show(getFragmentManager(), "datePicker");
     }
 
-    @SuppressWarnings("deprecation")
     public void setTime(View view) {
-        showDialog(998);
+        DialogFragment newFragment = new TimePickerFragment();
+        newFragment.show(getFragmentManager(), "timePicker");
     }
-
-    @SuppressWarnings("deprecation")
-    @Override
-    protected Dialog onCreateDialog(int id) {
-        // TODO Auto-generated method stub
-        if (id == 999) {
-            return new DatePickerDialog(this, myDateListener, year, month, day);
-        }
-        else if (id == 998) {
-            Log.d("New Event", "998 called");
-            return new TimePickerDialog(this, myTimeListener, hour, minute, false);
-        }
-        return null;
-    }
-
-    private DatePickerDialog.OnDateSetListener myDateListener = new DatePickerDialog.OnDateSetListener() {
-        @Override
-        public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
-            // TODO Auto-generated method stub
-            // arg1 = year
-            // arg2 = month
-            // arg3 = day
-            showDate(arg1, arg2+1, arg3);
-        }
-    };
-
-    private TimePickerDialog.OnTimeSetListener myTimeListener = new TimePickerDialog.OnTimeSetListener() {
-        @Override
-        public void onTimeSet(TimePicker timePicker, int hour, int minute) {
-            // TODO Auto-generated method stub
-            // arg1 = year
-            // arg2 = month
-            // arg3 = day
-            showTime(hour, minute);
-        }
-    };
-
-    private void showDate(int year, int month, int day) {
-        dateView.setText(new StringBuilder().append(month).append("/")
-                        .append(day).append("/").append(year));
-    }
-
-    public void showTime(int hour, int min) {
-        if (hour == 0) {
-            hour += 12;
-            format = "AM";
-        }
-        else if (hour == 12) {
-            format = "PM";
-        } else if (hour > 12) {
-            hour -= 12;
-            format = "PM";
-        } else {
-            format = "AM";
-        }
-        timeView.setText(new StringBuilder().append(hour).append(" : ").append(min)
-                .append(" ").append(format));
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -152,10 +101,10 @@ public class NewEvent extends AppCompatActivity {
         int id = item.getItemId();
         switch (id) {
             case MENU_ITEM_CREATE:
+                Log.d(getClass().getSimpleName(), "create button clicked");
                 if (createEvent()) {
                     finish();
                 }
-                break;
             default:
                 break;
 
@@ -169,7 +118,7 @@ public class NewEvent extends AppCompatActivity {
         String dateString = "";
         if (month < 9)
             dateString = "0";
-        dateString += (month+1) + "/";
+        dateString += (month + 1) + "/";
         if (day < 10)
             dateString += "0";
         dateString += day + "/" + year + "/";
@@ -184,20 +133,18 @@ public class NewEvent extends AppCompatActivity {
         formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
         try {
             return formatter.parse(dateString);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             Log.d("NewEvent", "data parse error");
             return null;
         }
     }
-
 
     private boolean createEvent() {
         eventNametxt = eventName.getText().toString();
         eventDesctxt = eventDesc.getText().toString();
         eventLocationtxt = eventLocation.getText().toString();
         //if user does not input name and description
-        if(eventNametxt.equals("") || eventDesctxt.equals("") || eventLocationtxt.equals("")) {
+        if (eventNametxt.equals("") || eventDesctxt.equals("") || eventLocationtxt.equals("")) {
             Toast.makeText(getApplicationContext(),
                     "Please complete the club name and description",
                     Toast.LENGTH_SHORT).show();
@@ -209,41 +156,50 @@ public class NewEvent extends AppCompatActivity {
         newEvent.setEventDesc(eventDesctxt);
         newEvent.setEventLocation(eventLocationtxt);
 
-
-        ParseQuery<Club> query = Club.getQuery();
-        query.getInBackground(getIntent().getStringExtra("OBJECT_ID"), new GetCallback<Club>() {
+        ParseQuery<Club> clubQuery = Club.getQuery();
+        clubQuery.getInBackground(getIntent().getStringExtra("OBJECT_ID"), new GetCallback<Club>() {
             @Override
             public void done(Club object, ParseException e) {
                 if (e == null) {
                     Club thisClub = (Club) object;
-                    Log.d(getClass().getSimpleName(), "got club object" + thisClub.getClubName());
+                    Log.d("NewEvent", "got club object" + thisClub.getClubName());
+
                     Date eventDate = getEventDate(year, month, day, hour, minute);
-
-
-                    // thisClub.addEvent(newEvent);
-                    ParseACL clubAcl = thisClub.getACL();
-                    newEvent.setACL(clubAcl);
-                    newEvent.put("club", thisClub);
-                    ParseObject newRelation = new ParseObject("FollowingRelations");
-                    newRelation.put("eventObject", newEvent);
-                    newRelation.put("count", 0);
                     if (eventDate != null) {
                         newEvent.put("eventTime", eventDate.getTime());
-                    }
-                    else
-                        Log.d(getClass().getSimpleName(), "eventDate null");
+                    } else
+                        Log.d("NewEvent", "eventDate null");
+                    // ACL
+                    ParseACL clubAcl = thisClub.getACL();
+                    newEvent.setACL(clubAcl);
+                    // corresponding club
+                    newEvent.setClub(thisClub);
+
+                    // setup following relation
+                    final ParseObject newRelation = new ParseObject("FollowingRelations");
+                    newRelation.put("eventObject", newEvent);
+                    newRelation.put("count", 0);
                     ParseACL relationACL = new ParseACL();
                     relationACL.setPublicReadAccess(true);
                     relationACL.setPublicWriteAccess(true);
                     newRelation.setACL(relationACL);
-                    newRelation.saveInBackground();
-                    newEvent.saveInBackground(new SaveCallback() {
+                    newRelation.saveInBackground(new SaveCallback() {
                         @Override
                         public void done(ParseException e) {
-                            finish();
+                            if (e == null) {
+                                newEvent.setFollowingRelations(newRelation);
+                                Log.d("NewEvent", "relation should be added");
+                                newEvent.saveInBackground(new SaveCallback() {
+                                    @Override
+                                    public void done(ParseException e) {
+                                        Log.d("NewEvent", "this event was saved");
+                                        //TODO improve performance
+                                        finish();
+                                    }
+                                });
+                            }
                         }
                     });
-
                 } else {
                     Toast.makeText(getApplicationContext(), "Something is wrong", Toast.LENGTH_SHORT).show();
                     finish();
@@ -253,5 +209,4 @@ public class NewEvent extends AppCompatActivity {
 
         return true;
     }
-
 }

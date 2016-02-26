@@ -1,23 +1,20 @@
-package com.cyruszhang.cluboard;
+package com.cyruszhang.cluboard.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.cyruszhang.cluboard.R;
+import com.cyruszhang.cluboard.parse.Club;
 import com.parse.ParseACL;
 import com.parse.ParseException;
 import com.parse.ParseObject;
-import com.parse.ParseQueryAdapter;
-import com.parse.ParseRelation;
 import com.parse.ParseRole;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
@@ -92,19 +89,35 @@ public class NewClub extends AppCompatActivity {
             return false;
         }
 
-        Club newClub = new Club();
+        final Club newClub = new Club();
         newClub.setClubName(clubNametxt);
         newClub.setClubDesc(clubDesctxt);
         newClub.setClubDetail(clubDetailtxt);
         newClub.setOwner(ParseUser.getCurrentUser());
-        ParseObject newRelation = new ParseObject("BookmarkRelations");
+        final ParseObject newRelation = new ParseObject("BookmarkRelations");
         newRelation.put("clubObject", newClub);
         ParseACL relationACL = new ParseACL();
         relationACL.setPublicReadAccess(true);
         relationACL.setPublicWriteAccess(true);
         newRelation.setACL(relationACL);
         //ParseRelation<ParseUser> bookmarkRelation = newRelation.getRelation("bookmarkUsers");
-        newRelation.saveInBackground();
+        newRelation.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e == null) {
+                    newClub.setBookmarkRelations(newRelation);
+                    Log.d("NewClub", "relation should be added");
+                    newClub.saveInBackground(new SaveCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                            Log.d("NewClub", "this event was saved");
+
+                            finish();
+                        }
+                    });
+                }
+            }
+        });
 
         /* set acl for the club
         write and read access for owner

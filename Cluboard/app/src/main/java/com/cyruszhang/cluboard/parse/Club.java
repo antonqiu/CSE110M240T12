@@ -1,6 +1,5 @@
-package com.cyruszhang.cluboard;
+package com.cyruszhang.cluboard.parse;
 
-import com.parse.FindCallback;
 import com.parse.ParseClassName;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -9,9 +8,6 @@ import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
 import org.json.JSONArray;
-
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created by AntonioQ on 1/30/16.
@@ -74,30 +70,25 @@ public class Club extends ParseObject{
         return getParseUser("owner");
     }
 
-    /* add event to the events col in club */
-    // TODO: add vs. put?
-    public void addEvent(Event event) {
-        add("events", event);
-    }
-
-    /* get all event in a JsonArray from the club */
-    // TODO: remove this field, entirely
-    public JSONArray getEventList() {
-        return (JSONArray)get("events");
-    }
-
     public void setOwner(ParseUser owner) {
         //this.owner = owner;
         put("owner", owner);
     }
 
+    public void setBookmarkRelations(ParseObject relations) {
+        put("bookmark", relations);
+    }
+    public ParseObject getBookmarkRelations() {
+        return getParseObject("bookmark");
+    }
+
     public ParseObject findBookmarkRelation(){
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("BookmarkRelations");
-        query.whereEqualTo("clubObject", this);
         try {
-            return query.getFirst();
-        }
-        catch(ParseException exception) {
+            ParseObject relation = getBookmarkRelations();
+            // A safety feature that prevents unfilled relation; may slow things down
+            relation.fetchIfNeeded();
+            return relation;
+        } catch (Exception e) {
             return null;
         }
     }
@@ -114,7 +105,7 @@ public class Club extends ParseObject{
         } else {
             ParseRelation<ParseUser> bookmarkRelation = relation.getRelation("bookmarkUsers");
             bookmarkRelation.add(bookmarker);
-            relation.saveInBackground();
+            relation.saveEventually();
         }
     }
 
@@ -124,7 +115,7 @@ public class Club extends ParseObject{
         if (relation != null) {
             ParseRelation<ParseUser> bookmarkRelation = relation.getRelation("bookmarkUsers");
             bookmarkRelation.remove(bookmarker);
-            relation.saveInBackground();
+            relation.saveEventually();
         }
     }
 
