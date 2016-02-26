@@ -9,13 +9,21 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.cyruszhang.cluboard.MainActivity;
 import com.cyruszhang.cluboard.R;
 import com.cyruszhang.cluboard.parse.User;
+import com.facebook.AccessToken;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseFacebookUtils;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 import com.parse.SignUpCallback;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Arrays;
 import java.util.List;
@@ -29,6 +37,9 @@ public class Login extends AppCompatActivity {
     String passwordtxt;
     EditText password;
     EditText username;
+
+    String fbName;
+    String fbEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,16 +97,14 @@ public class Login extends AppCompatActivity {
                             Log.d("MyApp", "Uh oh. The user cancelled the Facebook login.");
                         } else if (user.isNew()) {
 
+                            getUserDetailsFromFB();
                             Log.d("MyApp", "User signed up and logged in through Facebook!");
                             Intent intent = new Intent(
                                     Login.this,
                                     Welcome.class);
                             startActivity(intent);
-                            Toast.makeText(getApplicationContext(),
-                                    "Successfully signed up and logged in through Facebook!",
-                                    Toast.LENGTH_LONG).show();
                             finish();
-                            // getUserDetailsFromFB();
+
                         } else {
 
                             Log.d("MyApp", "User logged in through Facebook!");
@@ -160,5 +169,42 @@ public class Login extends AppCompatActivity {
         ParseFacebookUtils.onActivityResult(requestCode, resultCode, data);
     }
 
+    private void getUserDetailsFromFB() {
+        GraphRequest request = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+            @Override
+            public void onCompleted(JSONObject object, GraphResponse response) {
+                try {
+                    fbName = object.getString("name");
+                }
+                catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    fbEmail = object.getString("email");
+                }
+                catch(JSONException e) {
+                    e.printStackTrace();
+                }
+                saveNewFBUser();
+            }
+        });
+        Bundle parameter = new Bundle();
+        parameter.putString("fields", "name, email");
+        request.setParameters(parameter);
+        request.executeAsync();
+    }
+
+    private void saveNewFBUser() {
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        currentUser.setUsername(fbName);
+        currentUser.setEmail(fbEmail);
+        currentUser.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                Toast.makeText(getApplicationContext(), "New User " + fbName + " Signed Up", Toast.LENGTH_LONG).show();
+            }
+        });
+
+    }
 
 }
