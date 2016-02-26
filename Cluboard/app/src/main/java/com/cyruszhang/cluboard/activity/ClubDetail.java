@@ -223,8 +223,7 @@ public class ClubDetail extends AppCompatActivity {
                         ParseQuery<Event> query = Event.getQuery();
                         query.whereEqualTo("club", thisClub);
                         // only query on two keys to save time
-                        query.selectKeys(Arrays.asList("objectId", "name", "fromTime", "toTime", "desc", "location"));
-                        query.include("following");
+                        query.selectKeys(Arrays.asList("objectId", "name", "following", "fromTime", "toTime", "desc", "location"));
                         query.include("following").include("followingUsers");
                         query.include("following").include("count");
                         query.orderByDescending("createdAt");
