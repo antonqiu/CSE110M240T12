@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 import com.cyruszhang.cluboard.R;
 import com.cyruszhang.cluboard.fragment.DatePickerFragment;
-import com.cyruszhang.cluboard.fragment.TimePickerFragment;
+import com.cyruszhang.cluboard.fragment.FromTimePickerFragment;
 import com.cyruszhang.cluboard.parse.Club;
 import com.cyruszhang.cluboard.parse.Event;
 import com.parse.GetCallback;
@@ -123,7 +123,7 @@ public class NewEvent extends AppCompatActivity {
     }
 
     public void setFromTime(View view) {
-        DialogFragment newFragment = new TimePickerFragment();
+        DialogFragment newFragment = new FromTimePickerFragment();
         newFragment.show(getFragmentManager(), "timePicker");
     }
 

@@ -18,9 +18,9 @@ import java.util.Calendar;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TimePickerFragment extends DialogFragment{
+public class FromTimePickerFragment extends DialogFragment{
 
-    public TimePickerFragment() {
+    public FromTimePickerFragment() {
         // Required empty public constructor
     }
 
