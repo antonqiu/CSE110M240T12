@@ -86,6 +86,7 @@ public class Login extends AppCompatActivity {
                             Log.d("MyApp", "Uh oh. The user cancelled the Facebook login.");
                         } else if (user.isNew()) {
 
+
                             Log.d("MyApp", "User signed up and logged in through Facebook!");
                             Intent intent = new Intent(
                                     Login.this,
