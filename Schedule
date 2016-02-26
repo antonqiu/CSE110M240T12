@@ -37,17 +37,22 @@ Week 7
 Week 8
    Meet with professor to check on the progress and get advice (Team) Status: Done
    Replace the background images of the current UI pages upon customers' request/ according to the minimalist principle. 
-   (Hanchao Liu, Yimeng Gu,Zhiye Zhang, Xingda Jiang) Time estimate: 2 days (Done)
+   (Hanchao Liu, Yimeng Gu,Zhiye Zhang, Xingda Jiang) Time estimate: 2 days. Status: Done
    Apply grid and card view (optional) to the previous design (Hanchao Liu, Yimeng Gu,Zhiye Zhang, Xingda Jiang) 
-   Time estimate: 2 days
+   Time estimate: 2 days. Status: Pending
    Implement the rest of UI pages: my page, settings, etc. (Hanchao Liu, Yimeng Gu,Zhiye Zhang, Xingda Jiang)
-   Time estimate: 5 days
+   Time estimate: 5 days Status: In progress
    Fix the back-end issues including app crashes, function slows down, and display problem. (CSM, ZXY, QCT)
-   Time estimate: 3 days (Half-way done)
-   push notification to user fo those events they followed (CSM, ZXY, QCT) Time estimate: 4 days
+   Time estimate: 3 days Status: Half-way done
 
-week 9/10 
- 
+week 9
+   Push notification to user for the events they followed (CSM, ZXY, QCT) Time estimate: 5 days
+   Create sidebar based on the drawer provided by android studio. (CSM) Time estimate: 4 days
+   Implement the rest of UI pages: My Page II, creat_event, create_club (Hanchao Liu, Yimeng Gu, Zhiye Zhang, Xingda Jiang)
+   Time estimate: 5 days
+   Merge the UI design into the main project. i.e. replace the xml files. (Team)
+
+week 10 
   Test each function
   Fix bugs
   TO BE UPDATED
