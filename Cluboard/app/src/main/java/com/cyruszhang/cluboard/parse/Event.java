@@ -35,8 +35,13 @@ public class Event extends ParseObject {
         put("following", relation);
     }
 
+    // TODO: sometimes it just doesn't have it !!!
     public ParseObject getFollowingRelations() {
-        return getParseObject("following");
+        ParseObject result = getParseObject("following");
+        try {
+            result.fetchIfNeeded();
+        } catch (Exception e) {}
+        return result;
     }
 
     public String getEventName() {
@@ -48,12 +53,20 @@ public class Event extends ParseObject {
     }
 
     /* include date and time */
-    public Date getEventTime() {
-        return getDate("datetime");
+    public Date getFromTime() {
+        return getDate("fromTime");
     }
 
-    public void setEventTime(Date eventTime) {
-        put("datetime", eventTime);
+    public void setFromTime(Date eventTime) {
+        put("fromTime", eventTime);
+    }
+
+    public Date getToTime() {
+        return getDate("toTime");
+    }
+
+    public void setToTime(Date eventTime) {
+        put("toTime", eventTime);
     }
 
     // let's use a GeoPoint type to store a 2nd location

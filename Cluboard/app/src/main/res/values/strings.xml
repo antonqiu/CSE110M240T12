@@ -40,9 +40,9 @@
     <string name="title_activity_my_bookmark">My Bookmark</string>
     <string name="title_activity_my_events">myEvents</string>
     <string name="hello_world">Hello world!</string>
-    <string name="event_date_label_set">Event date</string>
-    <string name="event_date_selected"></string>
-    <string name="event_time_label_set">Event time</string>
+    <string name="event_date_label_set">Event Date</string>
+    <string name="event_from_time_label_set">From</string>
+    <string name="event_to_time_label_set">To</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
