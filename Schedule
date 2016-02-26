@@ -48,10 +48,11 @@ Week 8
 week 9
    Push notification to user for the events they followed (CSM, ZXY, QCT) Time estimate: 5 days
    Create sidebar based on the drawer provided by android studio. (CSM) Time estimate: 4 days
+   Implement the rest of UI pages: My Page II, creat_event, create_club (Hanchao Liu, Yimeng Gu, Zhiye Zhang, Xingda Jiang)
+   Time estimate: 5 days
    Merge the UI design into the main project. i.e. replace the xml files. (Team)
 
 week 10 
- 
   Test each function
   Fix bugs
   TO BE UPDATED
