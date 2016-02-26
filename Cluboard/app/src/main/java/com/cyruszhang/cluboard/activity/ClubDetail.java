@@ -125,11 +125,11 @@ public class ClubDetail extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onRestart() {
-        refreshEventList();
-        super.onRestart();
-    }
+//    @Override
+//    protected void onRestart() {
+//        refreshEventList();
+//        super.onRestart();
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
