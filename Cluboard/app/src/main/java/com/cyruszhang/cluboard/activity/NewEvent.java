@@ -49,7 +49,7 @@ public class NewEvent extends AppCompatActivity {
     TextView dateView;
     TextView timeView;
     int year, month, day;
-    int hour, minute;
+    int hour, minute, am_pm;
     String format = "";
 
     @Override
@@ -61,7 +61,6 @@ public class NewEvent extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        TimePickerFragment initTime = new TimePickerFragment();
         eventName = (EditText) findViewById(R.id.new_event_name);
         eventDesc = (EditText) findViewById(R.id.new_event_desc);
         eventLocation = (EditText) findViewById(R.id.new_event_location);
@@ -75,7 +74,8 @@ public class NewEvent extends AppCompatActivity {
                 .append(day).append("/").append(year));
         hour = calendar.get(Calendar.HOUR);
         minute = calendar.get(Calendar.MINUTE);
-        initTime.initTime(timeView, hour, minute);
+        am_pm = calendar.get(Calendar.AM_PM);
+        TimePickerFragment.initTime(timeView, hour, minute, am_pm);
     }
 
     public void setDate(View view) {
