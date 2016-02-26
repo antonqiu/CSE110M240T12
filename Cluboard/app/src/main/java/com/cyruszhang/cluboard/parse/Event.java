@@ -37,7 +37,11 @@ public class Event extends ParseObject {
 
     // TODO: sometimes it just doesn't have it !!!
     public ParseObject getFollowingRelations() {
-        return getParseObject("following");
+        ParseObject result = getParseObject("following");
+        try {
+            result.fetchIfNeeded();
+        } catch (Exception e) {}
+        return result;
     }
 
     public String getEventName() {

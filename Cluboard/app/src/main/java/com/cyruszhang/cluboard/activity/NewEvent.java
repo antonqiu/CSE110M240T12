@@ -73,15 +73,16 @@ public class NewEvent extends AppCompatActivity {
         fromTimeView = (TextView) findViewById(R.id.new_from_time_selected);
         toTimeView = (TextView) findViewById(R.id.new_to_time_selected);
         calendar = Calendar.getInstance();
-        fromEventYear = calendar.get(Calendar.YEAR);
-        fromEventMonth = calendar.get(Calendar.MONTH);
-        fromEventDay = calendar.get(Calendar.DAY_OF_MONTH);
+        fromEventYear = toEventYear = calendar.get(Calendar.YEAR);
+        fromEventMonth = toEventMonth = calendar.get(Calendar.MONTH);
+        fromEventDay = toEventDay = calendar.get(Calendar.DAY_OF_MONTH);
         dateView.setText(new StringBuilder().append(fromEventMonth + 1).append("/")
                 .append(fromEventDay).append("/").append(fromEventYear));
-        fromHour = calendar.get(Calendar.HOUR);
-        fromMinute = calendar.get(Calendar.MINUTE);
-        fromAM_PM = calendar.get(Calendar.AM_PM);
+        fromHour = toHour = calendar.get(Calendar.HOUR);
+        fromMinute = toMinute = calendar.get(Calendar.MINUTE);
+        fromAM_PM = toAM_PM = calendar.get(Calendar.AM_PM);
         initTime(fromTimeView, fromHour, fromMinute, fromAM_PM);
+        initTime(toTimeView, toHour, toMinute, toAM_PM);
     }
 
     private void initTime(TextView timeView, int hourOfDay, int minute, int am_pm) {
@@ -220,6 +221,8 @@ public class NewEvent extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 fromEventYear = year; fromEventMonth = monthOfYear; fromEventDay = dayOfMonth;
+                // TODO: event that lasts long!
+                toEventYear = year; toEventMonth = monthOfYear; toEventDay = dayOfMonth;
                 dateView.setText(new StringBuilder().append(monthOfYear+1).append("/")
                         .append(dayOfMonth).append("/").append(year));
             }

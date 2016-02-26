@@ -223,7 +223,10 @@ public class ClubDetail extends AppCompatActivity {
                         ParseQuery<Event> query = Event.getQuery();
                         query.whereEqualTo("club", thisClub);
                         // only query on two keys to save time
+                        query.selectKeys(Arrays.asList("objectId", "name", "fromTime", "toTime", "desc", "location"));
                         query.include("following");
+                        query.include("following").include("followingUsers");
+                        query.include("following").include("count");
                         query.orderByDescending("createdAt");
                         Log.d("factory", "factory created");
                         return query;
@@ -252,6 +255,7 @@ public class ClubDetail extends AppCompatActivity {
                 DateFormat formatter = DateFormat.getTimeInstance(DateFormat.SHORT);
                 formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
                 fromTime.setText(formatter.format(thisEvent.getFromTime()));
+                toTime.setText(formatter.format(thisEvent.getToTime()));
 
                 // following count & following button init
                 final ToggleButton followButton = (ToggleButton) v.findViewById(R.id.event_list_item_follow);
