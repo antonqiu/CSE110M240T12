@@ -1,9 +1,6 @@
 package com.cyruszhang.cluboard.activity;
 
-import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.app.DialogFragment;
-import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -14,7 +11,6 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.cyruszhang.cluboard.R;
@@ -166,7 +162,7 @@ public class NewEvent extends AppCompatActivity {
 
                     Date eventDate = getEventDate(year, month, day, hour, minute);
                     if (eventDate != null) {
-                        newEvent.put("eventTime", eventDate.getTime());
+                        newEvent.put("eventTime", eventDate);
                     } else
                         Log.d("NewEvent", "eventDate null");
                     // ACL

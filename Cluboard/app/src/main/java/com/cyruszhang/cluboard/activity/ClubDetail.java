@@ -220,7 +220,7 @@ public class ClubDetail extends AppCompatActivity {
                         query.whereEqualTo("club", thisClub);
                         // only query on two keys to save time
                         query.selectKeys(Arrays.asList("name", "location", "following"));
-                        query.include("following").selectKeys(Arrays.asList("count", "followingUsers"));
+                        query.include("following");
                         query.orderByDescending("createdAt");
                         Log.d("factory", "factory created");
                         return query;
