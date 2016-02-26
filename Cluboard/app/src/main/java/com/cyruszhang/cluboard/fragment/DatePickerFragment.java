@@ -13,15 +13,14 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 
 import com.cyruszhang.cluboard.R;
+import com.cyruszhang.cluboard.activity.NewEvent;
 
 import java.util.Calendar;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener{
-
-    TextView dateView;
+public class DatePickerFragment extends DialogFragment{
 
     public DatePickerFragment() {
         // Required empty public constructor
@@ -36,20 +35,6 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
         int day = c.get(Calendar.DAY_OF_MONTH);
 
         // Create a new instance of DatePickerDialog and return it
-        return new DatePickerDialog(getActivity(), this, year, month, day);
-    }
-
-    /**
-     * @param view        The view associated with this listener.
-     * @param year        The year that was set.
-     * @param monthOfYear The month that was set (0-11) for compatibility
-     *                    with {@link Calendar}.
-     * @param dayOfMonth  The day of the month that was set.
-     */
-    @Override
-    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-        dateView = (TextView) getActivity().findViewById(R.id.new_date_selected);
-        dateView.setText(new StringBuilder().append(monthOfYear+1).append("/")
-                .append(dayOfMonth).append("/").append(year));
+        return new DatePickerDialog(getActivity(), NewEvent.DateListener, year, month, day);
     }
 }

@@ -1,6 +1,8 @@
 package com.cyruszhang.cluboard.activity;
 
+import android.app.DatePickerDialog;
 import android.app.DialogFragment;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -11,6 +13,7 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.cyruszhang.cluboard.R;
@@ -43,10 +46,12 @@ public class NewEvent extends AppCompatActivity {
     DatePicker datePicker;
     Calendar calendar;
     TextView dateView;
-    TextView timeView;
-    int year, month, day;
-    int hour, minute, am_pm;
-    String format = "";
+    TextView fromTimeView;
+    int eventYear, eventMonth, eventDay;
+    int fromHour, fromMinute, fromAM_PM;
+    public static TimePickerDialog.OnTimeSetListener fromTimeListener;
+    public static TimePickerDialog.OnTimeSetListener toTimeListener;
+    public static DatePickerDialog.OnDateSetListener DateListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,17 +66,55 @@ public class NewEvent extends AppCompatActivity {
         eventDesc = (EditText) findViewById(R.id.new_event_desc);
         eventLocation = (EditText) findViewById(R.id.new_event_location);
         dateView = (TextView) findViewById(R.id.new_date_selected);
-        timeView = (TextView) findViewById(R.id.new_time_selected);
+        fromTimeView = (TextView) findViewById(R.id.new_from_time_selected);
         calendar = Calendar.getInstance();
-        year = calendar.get(Calendar.YEAR);
-        month = calendar.get(Calendar.MONTH);
-        day = calendar.get(Calendar.DAY_OF_MONTH);
-        dateView.setText(new StringBuilder().append(month + 1).append("/")
-                .append(day).append("/").append(year));
-        hour = calendar.get(Calendar.HOUR);
-        minute = calendar.get(Calendar.MINUTE);
-        am_pm = calendar.get(Calendar.AM_PM);
-        TimePickerFragment.initTime(timeView, hour, minute, am_pm);
+        eventYear = calendar.get(Calendar.YEAR);
+        eventMonth = calendar.get(Calendar.MONTH);
+        eventDay = calendar.get(Calendar.DAY_OF_MONTH);
+        dateView.setText(new StringBuilder().append(eventMonth + 1).append("/")
+                .append(eventDay).append("/").append(eventYear));
+        fromHour = calendar.get(Calendar.HOUR);
+        fromMinute = calendar.get(Calendar.MINUTE);
+        fromAM_PM = calendar.get(Calendar.AM_PM);
+        initTime(fromTimeView, fromHour, fromMinute, fromAM_PM);
+
+        fromTimeListener = new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                fromHour = hourOfDay; fromMinute = minute;
+                String format;
+                if (hourOfDay == 0) {
+                    hourOfDay += 12;
+                    format = "AM";
+                }
+                else if (hourOfDay == 12) {
+                    format = "PM";
+                } else if (hourOfDay > 12) {
+                    hourOfDay -= 12;
+                    format = "PM";
+                } else {
+                    format = "AM";
+                }
+                fromTimeView.setText(new StringBuilder().append(hourOfDay).append(" : ").append(minute)
+                        .append(" ").append(format));
+            }
+        };
+
+        DateListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                eventYear = year; eventMonth = monthOfYear; eventDay = dayOfMonth;
+                dateView.setText(new StringBuilder().append(monthOfYear+1).append("/")
+                        .append(dayOfMonth).append("/").append(year));
+            }
+        };
+    }
+
+    private void initTime(TextView timeView, int hourOfDay, int minute, int am_pm) {
+        timeView.setText(new StringBuilder().append(hourOfDay).append(" : ").append(minute)
+                .append(" ").append(
+                        am_pm == Calendar.AM ? "AM" : "PM"
+                ));
     }
 
     public void setDate(View view) {
@@ -79,7 +122,7 @@ public class NewEvent extends AppCompatActivity {
         newFragment.show(getFragmentManager(), "datePicker");
     }
 
-    public void setTime(View view) {
+    public void setFromTime(View view) {
         DialogFragment newFragment = new TimePickerFragment();
         newFragment.show(getFragmentManager(), "timePicker");
     }
@@ -109,8 +152,6 @@ public class NewEvent extends AppCompatActivity {
     }
 
     private Date getEventDate(int year, int month, int day, int hour, int minute) {
-        Log.d(getClass().getSimpleName(), Integer.toString(year));
-
         String dateString = "";
         if (month < 9)
             dateString = "0";
@@ -127,6 +168,7 @@ public class NewEvent extends AppCompatActivity {
         Log.d(getClass().getSimpleName(), dateString);
         DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy/hh:mm");
         formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+
         try {
             return formatter.parse(dateString);
         } catch (Exception e) {
@@ -153,6 +195,7 @@ public class NewEvent extends AppCompatActivity {
         newEvent.setEventLocation(eventLocationtxt);
 
         ParseQuery<Club> clubQuery = Club.getQuery();
+        // TODO: this is totally not necessary
         clubQuery.getInBackground(getIntent().getStringExtra("OBJECT_ID"), new GetCallback<Club>() {
             @Override
             public void done(Club object, ParseException e) {
@@ -160,9 +203,9 @@ public class NewEvent extends AppCompatActivity {
                     Club thisClub = (Club) object;
                     Log.d("NewEvent", "got club object" + thisClub.getClubName());
 
-                    Date eventDate = getEventDate(year, month, day, hour, minute);
-                    if (eventDate != null) {
-                        newEvent.put("eventTime", eventDate);
+                    Date fromDate = getEventDate(eventYear, eventMonth, eventDay, fromHour, fromMinute);
+                    if (fromDate != null) {
+                        newEvent.put("fromTime", fromDate);
                     } else
                         Log.d("NewEvent", "eventDate null");
                     // ACL

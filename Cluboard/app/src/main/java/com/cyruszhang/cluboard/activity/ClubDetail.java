@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ListView;
+import android.widget.TextClock;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -34,8 +35,11 @@ import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
 import com.parse.ParseUser;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.List;
+import java.util.TimeZone;
 
 public class ClubDetail extends AppCompatActivity {
     private static final int MENU_ITEM_LOGOUT = 1001;
@@ -219,7 +223,6 @@ public class ClubDetail extends AppCompatActivity {
                         ParseQuery<Event> query = Event.getQuery();
                         query.whereEqualTo("club", thisClub);
                         // only query on two keys to save time
-                        query.selectKeys(Arrays.asList("name", "location", "following"));
                         query.include("following");
                         query.orderByDescending("createdAt");
                         Log.d("factory", "factory created");
@@ -242,6 +245,13 @@ public class ClubDetail extends AppCompatActivity {
 
                 eventName.setText(thisEvent.getEventName());
                 eventLocation.setText(thisEvent.getEventLocation());
+
+                // date time setup
+                TextView fromTime = (TextView) v.findViewById(R.id.event_list_item_time_from);
+                TextView toTime = (TextView) v.findViewById(R.id.event_list_item_time_to);
+                DateFormat formatter = DateFormat.getTimeInstance(DateFormat.SHORT);
+                formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+                fromTime.setText(formatter.format(thisEvent.getFromTime()));
 
                 // following count & following button init
                 final ToggleButton followButton = (ToggleButton) v.findViewById(R.id.event_list_item_follow);
