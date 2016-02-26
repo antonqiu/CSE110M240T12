@@ -121,7 +121,7 @@
         android:layout_height="wrap_content"
         android:ems="20"
         android:id="@+id/new_to_time_selected"
-        android:onClick="setFromTime"
+        android:onClick="setToTime"
         android:layout_marginTop="20dp"
         android:layout_below="@+id/new_from_time_selected"
         android:layout_toEndOf="@+id/new_event_desc_label" />

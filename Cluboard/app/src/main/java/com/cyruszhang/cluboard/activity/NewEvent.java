@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.cyruszhang.cluboard.R;
 import com.cyruszhang.cluboard.fragment.DatePickerFragment;
 import com.cyruszhang.cluboard.fragment.FromTimePickerFragment;
+import com.cyruszhang.cluboard.fragment.ToTimePickerFragment;
 import com.cyruszhang.cluboard.parse.Club;
 import com.cyruszhang.cluboard.parse.Event;
 import com.parse.GetCallback;
@@ -47,8 +48,11 @@ public class NewEvent extends AppCompatActivity {
     Calendar calendar;
     TextView dateView;
     TextView fromTimeView;
-    int eventYear, eventMonth, eventDay;
+    TextView toTimeView;
+    int fromEventYear, fromEventMonth, fromEventDay;
+    int toEventYear, toEventMonth, toEventDay;
     int fromHour, fromMinute, fromAM_PM;
+    int toHour, toMinute, toAM_PM;
     public static TimePickerDialog.OnTimeSetListener fromTimeListener;
     public static TimePickerDialog.OnTimeSetListener toTimeListener;
     public static DatePickerDialog.OnDateSetListener DateListener;
@@ -67,47 +71,17 @@ public class NewEvent extends AppCompatActivity {
         eventLocation = (EditText) findViewById(R.id.new_event_location);
         dateView = (TextView) findViewById(R.id.new_date_selected);
         fromTimeView = (TextView) findViewById(R.id.new_from_time_selected);
+        toTimeView = (TextView) findViewById(R.id.new_to_time_selected);
         calendar = Calendar.getInstance();
-        eventYear = calendar.get(Calendar.YEAR);
-        eventMonth = calendar.get(Calendar.MONTH);
-        eventDay = calendar.get(Calendar.DAY_OF_MONTH);
-        dateView.setText(new StringBuilder().append(eventMonth + 1).append("/")
-                .append(eventDay).append("/").append(eventYear));
+        fromEventYear = calendar.get(Calendar.YEAR);
+        fromEventMonth = calendar.get(Calendar.MONTH);
+        fromEventDay = calendar.get(Calendar.DAY_OF_MONTH);
+        dateView.setText(new StringBuilder().append(fromEventMonth + 1).append("/")
+                .append(fromEventDay).append("/").append(fromEventYear));
         fromHour = calendar.get(Calendar.HOUR);
         fromMinute = calendar.get(Calendar.MINUTE);
         fromAM_PM = calendar.get(Calendar.AM_PM);
         initTime(fromTimeView, fromHour, fromMinute, fromAM_PM);
-
-        fromTimeListener = new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                fromHour = hourOfDay; fromMinute = minute;
-                String format;
-                if (hourOfDay == 0) {
-                    hourOfDay += 12;
-                    format = "AM";
-                }
-                else if (hourOfDay == 12) {
-                    format = "PM";
-                } else if (hourOfDay > 12) {
-                    hourOfDay -= 12;
-                    format = "PM";
-                } else {
-                    format = "AM";
-                }
-                fromTimeView.setText(new StringBuilder().append(hourOfDay).append(" : ").append(minute)
-                        .append(" ").append(format));
-            }
-        };
-
-        DateListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                eventYear = year; eventMonth = monthOfYear; eventDay = dayOfMonth;
-                dateView.setText(new StringBuilder().append(monthOfYear+1).append("/")
-                        .append(dayOfMonth).append("/").append(year));
-            }
-        };
     }
 
     private void initTime(TextView timeView, int hourOfDay, int minute, int am_pm) {
@@ -115,16 +89,6 @@ public class NewEvent extends AppCompatActivity {
                 .append(" ").append(
                         am_pm == Calendar.AM ? "AM" : "PM"
                 ));
-    }
-
-    public void setDate(View view) {
-        DialogFragment newFragment = new DatePickerFragment();
-        newFragment.show(getFragmentManager(), "datePicker");
-    }
-
-    public void setFromTime(View view) {
-        DialogFragment newFragment = new FromTimePickerFragment();
-        newFragment.show(getFragmentManager(), "timePicker");
     }
 
     @Override
@@ -203,9 +167,11 @@ public class NewEvent extends AppCompatActivity {
                     Club thisClub = (Club) object;
                     Log.d("NewEvent", "got club object" + thisClub.getClubName());
 
-                    Date fromDate = getEventDate(eventYear, eventMonth, eventDay, fromHour, fromMinute);
-                    if (fromDate != null) {
-                        newEvent.put("fromTime", fromDate);
+                    Date fromDate = getEventDate(fromEventYear, fromEventMonth, fromEventDay, fromHour, fromMinute);
+                    Date toDate = getEventDate(toEventYear, toEventMonth, toEventDay, toHour, toMinute);
+                    if (fromDate != null && toDate != null) {
+                        newEvent.setFromTime(fromDate);
+                        newEvent.setToTime(toDate);
                     } else
                         Log.d("NewEvent", "eventDate null");
                     // ACL
@@ -247,5 +213,72 @@ public class NewEvent extends AppCompatActivity {
         });
 
         return true;
+    }
+
+    public void setDate(View view) {
+        DateListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                fromEventYear = year; fromEventMonth = monthOfYear; fromEventDay = dayOfMonth;
+                dateView.setText(new StringBuilder().append(monthOfYear+1).append("/")
+                        .append(dayOfMonth).append("/").append(year));
+            }
+        };
+
+        DialogFragment newFragment = new DatePickerFragment();
+        newFragment.show(getFragmentManager(), "datePicker");
+    }
+
+    public void setFromTime(View view) {
+        fromTimeListener = new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                fromHour = hourOfDay; fromMinute = minute;
+                String format;
+                if (hourOfDay == 0) {
+                    hourOfDay += 12;
+                    format = "AM";
+                }
+                else if (hourOfDay == 12) {
+                    format = "PM";
+                } else if (hourOfDay > 12) {
+                    hourOfDay -= 12;
+                    format = "PM";
+                } else {
+                    format = "AM";
+                }
+                fromTimeView.setText(new StringBuilder().append(hourOfDay).append(" : ").append(minute)
+                        .append(" ").append(format));
+            }
+        };
+
+        DialogFragment newFragment = new FromTimePickerFragment();
+        newFragment.show(getFragmentManager(), "fromTimePicker");
+    }
+
+    public void setToTime(View view) {
+        toTimeListener = new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                toHour = hourOfDay; toMinute = minute;
+                String format;
+                if (hourOfDay == 0) {
+                    hourOfDay += 12;
+                    format = "AM";
+                }
+                else if (hourOfDay == 12) {
+                    format = "PM";
+                } else if (hourOfDay > 12) {
+                    hourOfDay -= 12;
+                    format = "PM";
+                } else {
+                    format = "AM";
+                }
+                toTimeView.setText(new StringBuilder().append(hourOfDay).append(" : ").append(minute)
+                        .append(" ").append(format));
+            }
+        };
+        DialogFragment newFragment = new ToTimePickerFragment();
+        newFragment.show(getFragmentManager(), "toTimePicker");
     }
 }
