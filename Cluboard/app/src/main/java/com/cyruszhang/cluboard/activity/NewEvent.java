@@ -86,7 +86,7 @@ public class NewEvent extends AppCompatActivity {
     }
 
     private void initTime(TextView timeView, int hourOfDay, int minute, int am_pm) {
-        timeView.setText(new StringBuilder().append(hourOfDay).append(" : ").append(minute)
+        timeView.setText(new StringBuilder().append(hourOfDay).append(" : ").append(String.format("%02d",minute))
                 .append(" ").append(
                         am_pm == Calendar.AM ? "AM" : "PM"
                 ));
@@ -250,7 +250,7 @@ public class NewEvent extends AppCompatActivity {
                 } else {
                     format = "AM";
                 }
-                fromTimeView.setText(new StringBuilder().append(hourOfDay).append(" : ").append(minute)
+                fromTimeView.setText(new StringBuilder().append(hourOfDay).append(" : ").append(String.format("%02d", minute))
                         .append(" ").append(format));
             }
         };
@@ -277,7 +277,7 @@ public class NewEvent extends AppCompatActivity {
                 } else {
                     format = "AM";
                 }
-                toTimeView.setText(new StringBuilder().append(hourOfDay).append(" : ").append(minute)
+                toTimeView.setText(new StringBuilder().append(hourOfDay).append(" : ").append(String.format("%02d",minute))
                         .append(" ").append(format));
             }
         };
