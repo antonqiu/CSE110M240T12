@@ -1,9 +1,12 @@
 package com.cyruszhang.cluboard.parse;
 
+import android.util.Log;
+
 import com.parse.GetCallback;
 import com.parse.ParseClassName;
 import com.parse.ParseException;
 import com.parse.ParseGeoPoint;
+import com.parse.ParseInstallation;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseRelation;
@@ -115,4 +118,6 @@ public class Event extends ParseObject {
         relation.increment("count", -1);
         relation.saveEventually();
     }
+
+
 }

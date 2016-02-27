@@ -30,6 +30,7 @@ import com.parse.GetCallback;
 import com.parse.Parse;
 import com.parse.ParseACL;
 import com.parse.ParseException;
+import com.parse.ParseInstallation;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
@@ -278,6 +279,7 @@ public class ClubDetail extends AppCompatActivity {
                                 if (!followButton.isChecked()) {
                                     int currentCount = followRelation.getInt("count");
                                     thisEvent.removeFollowingUser(ParseUser.getCurrentUser());
+
                                     eventCount.setText(String.format("%d", currentCount - 1));
                                     Snackbar.make(coordinatorLayout,
                                             "You unfollowed this event", Snackbar.LENGTH_LONG)
@@ -285,6 +287,7 @@ public class ClubDetail extends AppCompatActivity {
                                 } else {
                                     int currentCount = followRelation.getInt("count");
                                     thisEvent.addFollowingUser(ParseUser.getCurrentUser());
+
                                     eventCount.setText(String.format("%d", currentCount + 1));
                                     Snackbar.make(coordinatorLayout,
                                             "You followed this event", Snackbar.LENGTH_LONG)

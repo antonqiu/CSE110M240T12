@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.cyruszhang.cluboard.R;
 import com.cyruszhang.cluboard.parse.Club;
+import com.parse.ParseInstallation;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
 import com.parse.ParseUser;
@@ -57,6 +58,9 @@ public class Welcome extends AppCompatActivity {
 //        });
         // Retrieve current user from Parse.com
         final ParseUser currentUser = ParseUser.getCurrentUser();
+        ParseInstallation installation = ParseInstallation.getCurrentInstallation();
+        installation.put("user",currentUser);
+        installation.saveInBackground();
         // Convert currentUser into String
         String struser = currentUser.getUsername();
 
