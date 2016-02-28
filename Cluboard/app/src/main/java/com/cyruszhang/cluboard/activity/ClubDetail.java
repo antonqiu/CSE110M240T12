@@ -121,6 +121,7 @@ public class ClubDetail extends AppCompatActivity {
         }
 
         //Testing notification
+        /*
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
         Intent notificationIntent = new Intent("android.media.action.DISPLAY_NOTIFICATION");
@@ -131,7 +132,7 @@ public class ClubDetail extends AppCompatActivity {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.SECOND, 15);
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), broadcast);
-
+        */
         //ENDING test notification
 
         createEventBtn.setOnClickListener(new View.OnClickListener() {

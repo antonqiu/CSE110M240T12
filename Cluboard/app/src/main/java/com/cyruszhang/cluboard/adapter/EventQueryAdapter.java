@@ -1,6 +1,9 @@
 package com.cyruszhang.cluboard.adapter;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
@@ -21,9 +24,11 @@ import com.parse.ParseUser;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by AntonioQ on 2/26/16.
@@ -146,6 +151,10 @@ public class EventQueryAdapter<T extends ParseObject> extends ParseQueryAdapter<
                         } else {
                             int currentCount = followRelation.getInt("count");
                             thisEvent.addFollowingUser(ParseUser.getCurrentUser());
+                            //schedule notification if user follow event
+                            Log.e("notification", "scheduleNotification: call function");
+                            scheduleNotification(thisEvent.getFromTime());
+                            Log.e("notification", "scheduleNotification: after call function");
                             eventCount.setText(String.format("%d", currentCount + 1));
                             Snackbar.make(coordinatorLayout,
                                     "You followed this event", Snackbar.LENGTH_LONG)
@@ -164,4 +173,31 @@ public class EventQueryAdapter<T extends ParseObject> extends ParseQueryAdapter<
         headerSwitch.clear();;
         super.notifyDataSetChanged();
     }
+
+    private void scheduleNotification(Date date) {
+        //notify 30 mins before event start time
+        final long TIME_AHEAD = TimeUnit.MINUTES.toMillis(30);
+
+        //if event start time is in the past or less then 30mins in future, do not schedule an alarm
+        if(date.getTime()-TIME_AHEAD <= System.currentTimeMillis()) return;
+        Log.e("notification", "scheduleNotification: enter function");
+        AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
+
+        Intent notificationIntent = new Intent("android.media.action.DISPLAY_NOTIFICATION");
+        notificationIntent.addCategory("android.intent.category.DEFAULT");
+
+        PendingIntent broadcast = PendingIntent.getBroadcast(getContext(), 100, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.SECOND, 15);
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), broadcast);
+        /*
+        long eventTime = date.getTime();
+        long alarmTime = eventTime-TIME_AHEAD;
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime, broadcast);
+        */
+        Log.e("notification", "scheduleNotification: scheduled a notification");
+    }
+
+
 }
