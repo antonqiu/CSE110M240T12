@@ -1,5 +1,8 @@
 package com.cyruszhang.cluboard.activity;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
@@ -116,6 +119,21 @@ public class ClubDetail extends AppCompatActivity {
                 Log.d(getClass().getSimpleName(), "fetch failed" + thisClub.getClubName());
             }
         }
+
+        //Testing notification
+        /*
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        Intent notificationIntent = new Intent("android.media.action.DISPLAY_NOTIFICATION");
+        notificationIntent.addCategory("android.intent.category.DEFAULT");
+
+        PendingIntent broadcast = PendingIntent.getBroadcast(this, 100, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.SECOND, 15);
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), broadcast);
+        */
+        //ENDING test notification
 
         createEventBtn.setOnClickListener(new View.OnClickListener() {
             //click and go to create club view

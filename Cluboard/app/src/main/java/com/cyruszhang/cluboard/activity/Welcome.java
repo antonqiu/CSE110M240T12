@@ -1,8 +1,5 @@
 package com.cyruszhang.cluboard.activity;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.SearchManager;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -38,6 +35,7 @@ import com.parse.ParseQueryAdapter;
 import com.parse.ParseUser;
 
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -117,6 +115,9 @@ public class Welcome extends AppCompatActivity {
 //            }
 //        });
         // Retrieve current user from Parse.com
+
+
+
         final ParseUser currentUser = ParseUser.getCurrentUser();
         ParseInstallation installation = ParseInstallation.getCurrentInstallation();
         installation.put("user",currentUser);
