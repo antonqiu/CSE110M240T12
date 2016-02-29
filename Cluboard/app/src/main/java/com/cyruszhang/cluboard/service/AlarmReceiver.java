@@ -1,4 +1,4 @@
-package com.cyruszhang.cluboard.activity;
+package com.cyruszhang.cluboard.service;
 
 /**
  * Created by zhangxinyuan on 2/27/16.
