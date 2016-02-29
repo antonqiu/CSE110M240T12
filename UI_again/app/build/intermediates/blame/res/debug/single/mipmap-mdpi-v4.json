@@ -1,6 +1,10 @@
 [
     {
-        "merged": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/UI_again/app/build/intermediates/res/merged/debug/mipmap-mdpi-v4/ic_launcher.png",
-        "source": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/UI_again/app/src/main/res/mipmap-mdpi/ic_launcher.png"
+        "merged": "C:\\Users\\Yimeng\\Documents\\CSE110M240T12\\UI_again\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi-v4\\ic_launcher.png",
+        "source": "C:\\Users\\Yimeng\\Documents\\CSE110M240T12\\UI_again\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\Yimeng\\Documents\\copy of old UI\\UI_again\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi-v4\\ic_launcher.png",
+        "source": "C:\\Users\\Yimeng\\Documents\\copy of old UI\\UI_again\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher.png"
     }
 ]

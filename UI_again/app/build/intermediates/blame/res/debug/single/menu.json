@@ -1,10 +1,18 @@
 [
     {
-        "merged": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/UI_again/app/build/intermediates/res/merged/debug/menu/activity_create_event_drawer.xml",
-        "source": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/UI_again/app/src/main/res/menu/activity_create_event_drawer.xml"
+        "merged": "C:\\Users\\Yimeng\\Documents\\copy of old UI\\UI_again\\app\\build\\intermediates\\res\\merged\\debug\\menu\\activity_create_event_drawer.xml",
+        "source": "C:\\Users\\Yimeng\\Documents\\copy of old UI\\UI_again\\app\\src\\main\\res\\menu\\activity_create_event_drawer.xml"
     },
     {
-        "merged": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/UI_again/app/build/intermediates/res/merged/debug/menu/create_event.xml",
-        "source": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/UI_again/app/src/main/res/menu/create_event.xml"
+        "merged": "C:\\Users\\Yimeng\\Documents\\copy of old UI\\UI_again\\app\\build\\intermediates\\res\\merged\\debug\\menu\\create_event.xml",
+        "source": "C:\\Users\\Yimeng\\Documents\\copy of old UI\\UI_again\\app\\src\\main\\res\\menu\\create_event.xml"
+    },
+    {
+        "merged": "C:\\Users\\Yimeng\\Documents\\CSE110M240T12\\UI_again\\app\\build\\intermediates\\res\\merged\\debug\\menu\\activity_create_event_drawer.xml",
+        "source": "C:\\Users\\Yimeng\\Documents\\CSE110M240T12\\UI_again\\app\\src\\main\\res\\menu\\activity_create_event_drawer.xml"
+    },
+    {
+        "merged": "C:\\Users\\Yimeng\\Documents\\CSE110M240T12\\UI_again\\app\\build\\intermediates\\res\\merged\\debug\\menu\\create_event.xml",
+        "source": "C:\\Users\\Yimeng\\Documents\\CSE110M240T12\\UI_again\\app\\src\\main\\res\\menu\\create_event.xml"
     }
 ]
