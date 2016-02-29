@@ -144,6 +144,9 @@ public class EventQueryAdapter<T extends ParseObject> extends ParseQueryAdapter<
                         if (!followButton.isChecked()) {
                             int currentCount = followRelation.getInt("count");
                             thisEvent.removeFollowingUser(ParseUser.getCurrentUser());
+                            Log.e("notification", "cancelNotification: call function");
+                            cancelNotification(thisEvent.getFromTime(), thisEvent.getCreatedAt());
+                            Log.e("notification", "cancelNotification: after call function");
                             eventCount.setText(String.format("%d", currentCount - 1));
                             Snackbar.make(coordinatorLayout,
                                     "You unfollowed this event", Snackbar.LENGTH_LONG)
@@ -153,7 +156,7 @@ public class EventQueryAdapter<T extends ParseObject> extends ParseQueryAdapter<
                             thisEvent.addFollowingUser(ParseUser.getCurrentUser());
                             //schedule notification if user follow event
                             Log.e("notification", "scheduleNotification: call function");
-                            scheduleNotification(thisEvent.getFromTime());
+                            scheduleNotification(thisEvent.getFromTime(), thisEvent.getCreatedAt());
                             Log.e("notification", "scheduleNotification: after call function");
                             eventCount.setText(String.format("%d", currentCount + 1));
                             Snackbar.make(coordinatorLayout,
@@ -174,22 +177,22 @@ public class EventQueryAdapter<T extends ParseObject> extends ParseQueryAdapter<
         super.notifyDataSetChanged();
     }
 
-    private void scheduleNotification(Date date) {
+    private void scheduleNotification(Date startTime, Date id) {
         //notify 30 mins before event start time
         final long TIME_AHEAD = TimeUnit.MINUTES.toMillis(30);
 
         //if event start time is in the past or less then 30mins in future, do not schedule an alarm
-        if(date.getTime()-TIME_AHEAD <= System.currentTimeMillis()) return;
+        //if(startTime.getTime()-TIME_AHEAD <= System.currentTimeMillis()) return;
         Log.e("notification", "scheduleNotification: enter function");
         AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
 
         Intent notificationIntent = new Intent("android.media.action.DISPLAY_NOTIFICATION");
         notificationIntent.addCategory("android.intent.category.DEFAULT");
-
-        PendingIntent broadcast = PendingIntent.getBroadcast(getContext(), 100, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        int eventID = (int)(id.getTime()/1000);
+        PendingIntent broadcast = PendingIntent.getBroadcast(getContext(), eventID, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.SECOND, 15);
+        cal.add(Calendar.SECOND, 5);
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), broadcast);
         /*
         long eventTime = date.getTime();
@@ -199,5 +202,30 @@ public class EventQueryAdapter<T extends ParseObject> extends ParseQueryAdapter<
         Log.e("notification", "scheduleNotification: scheduled a notification");
     }
 
+    private void cancelNotification(Date startTime, Date id) {
+        //notify 30 mins before event start time
+        final long TIME_AHEAD = TimeUnit.MINUTES.toMillis(30);
+
+        //if event start time is in the past or less then 30mins in future, no need to cancel an alarm
+        //if(startTime.getTime()-TIME_AHEAD <= System.currentTimeMillis()) return;
+        Log.e("notification", "cancelNotification: enter cancel function");
+        AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
+
+        Intent notificationIntent = new Intent("android.media.action.DISPLAY_NOTIFICATION");
+        notificationIntent.addCategory("android.intent.category.DEFAULT");
+        int eventID = (int)(id.getTime()/1000);
+        PendingIntent broadcast = PendingIntent.getBroadcast(getContext(), eventID, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        // If the alarm has been set, cancel it.
+        if(alarmManager != null) {
+            alarmManager.cancel(broadcast);
+            Log.e("notification", "cancelNotification: canceled a notification");
+        }
+        /*
+        long eventTime = date.getTime();
+        long alarmTime = eventTime-TIME_AHEAD;
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime, broadcast);
+        */
+
+    }
 
 }
