@@ -1,5 +1,8 @@
 package com.cyruszhang.cluboard.activity;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
@@ -16,11 +19,13 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ListView;
+import android.widget.TextClock;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.cyruszhang.cluboard.R;
+import com.cyruszhang.cluboard.adapter.EventQueryAdapter;
 import com.cyruszhang.cluboard.parse.Club;
 import com.cyruszhang.cluboard.parse.Event;
 import com.cyruszhang.cluboard.parse.User;
@@ -34,8 +39,13 @@ import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
 import com.parse.ParseUser;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 public class ClubDetail extends AppCompatActivity {
     private static final int MENU_ITEM_LOGOUT = 1001;
@@ -44,7 +54,7 @@ public class ClubDetail extends AppCompatActivity {
     private static final int IMAGE_VIEW_ID = View.generateViewId();
     private CoordinatorLayout coordinatorLayout;
     private Menu menu;
-    SwipeRefreshLayout swipeRefresh;
+    private SwipeRefreshLayout swipeRefresh;
     private Club thisClub;
     private ParseObject thisClubBookmarkRelation;
     private ParseQueryAdapter<Event> eventQueryAdapter;
@@ -110,6 +120,21 @@ public class ClubDetail extends AppCompatActivity {
             }
         }
 
+        //Testing notification
+        /*
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        Intent notificationIntent = new Intent("android.media.action.DISPLAY_NOTIFICATION");
+        notificationIntent.addCategory("android.intent.category.DEFAULT");
+
+        PendingIntent broadcast = PendingIntent.getBroadcast(this, 100, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.SECOND, 15);
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), broadcast);
+        */
+        //ENDING test notification
+
         createEventBtn.setOnClickListener(new View.OnClickListener() {
             //click and go to create club view
             public void onClick(View arg0) {
@@ -121,11 +146,11 @@ public class ClubDetail extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onRestart() {
-        refreshEventList();
-        super.onRestart();
-    }
+//    @Override
+//    protected void onRestart() {
+//        refreshEventList();
+//        super.onRestart();
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -219,71 +244,17 @@ public class ClubDetail extends AppCompatActivity {
                         ParseQuery<Event> query = Event.getQuery();
                         query.whereEqualTo("club", thisClub);
                         // only query on two keys to save time
-                        query.selectKeys(Arrays.asList("name", "location", "following"));
-                        query.include("following").selectKeys(Arrays.asList("count", "followingUsers"));
-                        query.orderByDescending("createdAt");
+                        query.selectKeys(Arrays.asList("objectId", "name", "following", "fromTime", "toTime", "desc", "location"));
+                        query.include("following").include("followingUsers");
+                        query.include("following").include("count");
+                        query.orderByAscending("fromTime");
                         Log.d("factory", "factory created");
                         return query;
                     }
                 };
         Log.d(getClass().getSimpleName(), "factory created");
         //set up initial list view
-        eventQueryAdapter = new ParseQueryAdapter<Event>(this, factory) {
-            @Override
-            public View getItemView(Event object, View v, ViewGroup parent) {
-                final Event thisEvent = object;
-                if (v == null) {
-                    Log.d(getClass().getSimpleName(), "inflating item view");
-                    v = View.inflate(getContext(), R.layout.event_list_item, null);
-                }
-                Log.d(getClass().getSimpleName(), "setting up item view");
-                TextView eventName = (TextView) v.findViewById(R.id.event_list_item_name);
-                TextView eventLocation = (TextView) v.findViewById(R.id.event_list_item_location);
-
-                eventName.setText(thisEvent.getEventName());
-                eventLocation.setText(thisEvent.getEventLocation());
-
-                // following count & following button init
-                final ToggleButton followButton = (ToggleButton) v.findViewById(R.id.event_list_item_follow);
-                final TextView eventCount = (TextView) v.findViewById(R.id.event_list_item_count);
-                final ParseObject followRelation = thisEvent.getFollowingRelations();
-                eventCount.setText(String.format("%d", followRelation.getInt("count")));
-                ParseQuery<ParseObject> userQuery = followRelation.getRelation("followingUsers").getQuery();
-                userQuery.whereEqualTo("objectId", ParseUser.getCurrentUser().getObjectId());
-                userQuery.countInBackground(new CountCallback() {
-                    @Override
-                    public void done(int count, ParseException e) {
-                        if (count == 1) {
-                            followButton.setChecked(true);
-                        } else {
-                            followButton.setChecked(false);
-                        }
-                        followButton.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                // super counter-intuitive... It's reversed
-                                if (!followButton.isChecked()) {
-                                    int currentCount = followRelation.getInt("count");
-                                    thisEvent.removeFollowingUser(ParseUser.getCurrentUser());
-                                    eventCount.setText(String.format("%d", currentCount - 1));
-                                    Snackbar.make(coordinatorLayout,
-                                            "You unfollowed this event", Snackbar.LENGTH_LONG)
-                                            .setAction("Action", null).show();
-                                } else {
-                                    int currentCount = followRelation.getInt("count");
-                                    thisEvent.addFollowingUser(ParseUser.getCurrentUser());
-                                    eventCount.setText(String.format("%d", currentCount + 1));
-                                    Snackbar.make(coordinatorLayout,
-                                            "You followed this event", Snackbar.LENGTH_LONG)
-                                            .setAction("Action", null).show();
-                                }
-                            }
-                        });
-                    }
-                });
-                return v;
-            }
-        };
+        eventQueryAdapter = new EventQueryAdapter<>(this, factory, coordinatorLayout);
         eventQueryAdapter.addOnQueryLoadListener(new ParseQueryAdapter.OnQueryLoadListener<Event>() {
             @Override
             public void onLoading() {

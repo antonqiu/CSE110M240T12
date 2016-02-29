@@ -40,13 +40,28 @@
     <string name="title_activity_my_bookmark">My Bookmark</string>
     <string name="title_activity_my_events">myEvents</string>
     <string name="hello_world">Hello world!</string>
-    <string name="event_date_label_set">Event date</string>
-    <string name="event_date_selected"></string>
-    <string name="event_time_label_set">Event time</string>
+    <string name="event_date_label_set">Event Date</string>
+    <string name="event_from_time_label_set">From</string>
+    <string name="event_to_time_label_set">To</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="recommendations">Recommendations</string>
     <string name="upcoming_events">Upcoming Events</string>
+
+    <string-array name="planets_array">
+        <item>Mercury</item>
+        <item>Venus</item>
+        <item>Earth</item>
+        <item>Mars</item>
+        <item>Jupiter</item>
+        <item>Saturn</item>
+        <item>Uranus</item>
+        <item>Neptune</item>
+    </string-array>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="action_websearch">Web search</string>
+    <string name="app_not_available">Sorry, there\'s no web browser available</string>
 
 </resources>
