@@ -76,13 +76,15 @@ public class Home extends AppCompatActivity {
         drawerName.setText(struser);
         setupDrawerContent(nvDrawer);
 
-        // TODO: setChecked
+
         // Begin the transaction
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         // Replace the contents of the container with the new fragment
         ft.add(R.id.main_fragment_placeholder, new HomeFragment());
         // Complete the changes added above
         ft.commit();
+        // set checked
+        nvDrawer.getMenu().getItem(0).setChecked(true);
 
 //        // add new club floating button
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.welcome_fab);
