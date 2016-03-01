@@ -3,6 +3,7 @@ package com.cyruszhang.cluboard.activity;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -16,6 +17,8 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.cyruszhang.cluboard.R;
+import com.cyruszhang.cluboard.adapter.EventQueryAdapter;
+import com.cyruszhang.cluboard.adapter.MyEventsQueryAdapter;
 import com.cyruszhang.cluboard.parse.Event;
 import com.cyruszhang.cluboard.parse.User;
 import com.parse.CountCallback;
@@ -25,9 +28,12 @@ import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
 import com.parse.ParseUser;
 
+import java.util.List;
+
 public class MyEvents extends AppCompatActivity {
     ParseQueryAdapter<ParseObject> eventQueryAdapter;
     private CoordinatorLayout coordinatorLayout;
+    private SwipeRefreshLayout swipeRefresh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +43,16 @@ public class MyEvents extends AppCompatActivity {
         setSupportActionBar(toolbar);
         coordinatorLayout = (CoordinatorLayout) this.findViewById(R.id.coordinator);
         setupMyEvents();
+        // swipe refresh
+        swipeRefresh = (SwipeRefreshLayout) findViewById(R.id.my_events_swiperefresh);
+        // start from the very start
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Log.d(getClass().getSimpleName(), "refresh triggered");
+                refreshEventList();
+            }
+        });
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -66,68 +82,30 @@ public class MyEvents extends AppCompatActivity {
                         return relationQuery;
                     }
                 };
-
-        eventQueryAdapter = new ParseQueryAdapter<ParseObject>(this, factory) {
+        eventQueryAdapter = new MyEventsQueryAdapter<ParseObject>(this, factory, coordinatorLayout);
+        eventQueryAdapter.addOnQueryLoadListener(new ParseQueryAdapter.OnQueryLoadListener<ParseObject>() {
             @Override
-            public View getItemView(final ParseObject object, View v, ViewGroup parent) {
-                final ParseObject followRelation = object;
-                if (v == null) {
-                    v = View.inflate(getContext(), R.layout.event_list_item, null);
-                }
-                Log.d(getClass().getSimpleName(), "item retrieved");
-                final Event thisEvent = (Event) followRelation.getParseObject("eventObject");
-                Log.d(getClass().getSimpleName(), "setting up item view");
-                TextView eventName = (TextView) v.findViewById(R.id.event_list_item_name);
-                TextView eventLocation = (TextView) v.findViewById(R.id.event_list_item_location);
-                eventName.setText(thisEvent.getEventName());
-                eventLocation.setText(thisEvent.getEventLocation());
-
-                // event count
-                final TextView eventCount = (TextView) v.findViewById(R.id.event_list_item_count);
-                eventCount.setText(String.format("%d", followRelation.getInt("count")));
-
-                // follow button setup
-                final ToggleButton followButton = (ToggleButton) v.findViewById(R.id.event_list_item_follow);
-                ParseQuery<ParseObject> userQuery = followRelation.getRelation("followingUsers").getQuery();
-                userQuery.whereEqualTo("objectId", ParseUser.getCurrentUser().getObjectId());
-                userQuery.countInBackground(new CountCallback() {
-                    @Override
-                    public void done(int count, ParseException e) {
-                        if (count == 1) {
-                            followButton.setChecked(true);
-                        } else {
-                            followButton.setChecked(false);
-                        }
-                        followButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                            @Override
-                            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                // super counter-intuitive... It's reversed
-                                int currentCount = followRelation.getInt("count");
-                                if (!isChecked) {
-
-                                    thisEvent.removeFollowingUser(ParseUser.getCurrentUser());
-                                    eventCount.setText(String.format("%d", currentCount - 1));
-                                    Snackbar.make(coordinatorLayout,
-                                            "You unfollowed this event", Snackbar.LENGTH_LONG)
-                                            .setAction("Action", null).show();
-                                } else {
-                                    thisEvent.addFollowingUser(ParseUser.getCurrentUser());
-                                    eventCount.setText(String.format("%d", currentCount));
-                                    Snackbar.make(coordinatorLayout,
-                                            "You followed this event", Snackbar.LENGTH_LONG)
-                                            .setAction("Action", null).show();
-                                }
-                            }
-                        });
-                    }
-                });
-
-
-                return v;
+            public void onLoading() {
             }
-        };
+
+            @Override
+            public void onLoaded(List<ParseObject> objects, Exception e) {
+                swipeRefresh.setRefreshing(false);
+            }
+        });
         Log.d(getClass().getSimpleName(), "setting up adapter");
         eventList.setAdapter(eventQueryAdapter);
+
+
+        Log.d(getClass().getSimpleName(), "setting up adapter");
+        eventList.setAdapter(eventQueryAdapter);
+    }
+
+
+    private void refreshEventList() {
+        eventQueryAdapter.loadObjects();
+        eventQueryAdapter.notifyDataSetChanged();
+        swipeRefresh.setRefreshing(false);
     }
 
 }

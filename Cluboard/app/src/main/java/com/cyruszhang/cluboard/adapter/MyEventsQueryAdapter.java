@@ -31,43 +31,43 @@ import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Created by AntonioQ on 2/26/16.
+ * Created by Xinyuan Zhang on 2/27/16.
  */
-public class EventQueryAdapter<T extends ParseObject> extends ParseQueryAdapter<T>{
+public class MyEventsQueryAdapter<T extends ParseObject> extends ParseQueryAdapter<T>{
 
     private static final int WITHIN_THREE_DAYS = 0;
     private static final int MORE = 1;
     private CoordinatorLayout coordinatorLayout;
     Map<Integer, Event> headerSwitch = new HashMap<>(2);
 
-    public EventQueryAdapter(Context context, QueryFactory<T> queryFactory, CoordinatorLayout c) {
+    public MyEventsQueryAdapter(Context context, QueryFactory<T> queryFactory, CoordinatorLayout c) {
         super(context, queryFactory);
         this.coordinatorLayout = c;
 //        headerSwitch.put(WITHIN_THREE_DAYS, null);
 //        headerSwitch.put(MORE, null);
     }
 
-    public EventQueryAdapter(Context context, QueryFactory<T> queryFactory, int itemViewResource) {
+    public MyEventsQueryAdapter(Context context, QueryFactory<T> queryFactory, int itemViewResource) {
         super(context, queryFactory, itemViewResource);
     }
 
-    public EventQueryAdapter(Context context, Class<? extends ParseObject> clazz) {
+    public MyEventsQueryAdapter(Context context, Class<? extends ParseObject> clazz) {
         super(context, clazz);
     }
 
-    public EventQueryAdapter(Context context, String className) {
+    public MyEventsQueryAdapter(Context context, String className) {
         super(context, className);
     }
 
-    public EventQueryAdapter(Context context, Class<? extends ParseObject> clazz, int itemViewResource) {
+    public MyEventsQueryAdapter(Context context, Class<? extends ParseObject> clazz, int itemViewResource) {
         super(context, clazz, itemViewResource);
     }
 
-    public EventQueryAdapter(Context context, String className, int itemViewResource) {
+    public MyEventsQueryAdapter(Context context, String className, int itemViewResource) {
         super(context, className, itemViewResource);
     }
 
-    public EventQueryAdapter(Context context, QueryFactory<T> queryFactory) {
+    public MyEventsQueryAdapter(Context context, QueryFactory<T> queryFactory) {
         super(context, queryFactory);
     }
 
@@ -77,8 +77,8 @@ public class EventQueryAdapter<T extends ParseObject> extends ParseQueryAdapter<
         TextView fromTime; TextView toTime; TextView eventDate;
         TextView timeHeader;
         final ToggleButton followButton; final TextView eventCount;
-        final ParseObject followRelation;
-        final Event thisEvent = (Event) object;
+        final ParseObject followRelation = object;
+        final Event thisEvent = (Event) followRelation.getParseObject("eventObject");
 
         if (v == null) {
             Log.d(getClass().getSimpleName(), "inflating item view");
@@ -125,7 +125,7 @@ public class EventQueryAdapter<T extends ParseObject> extends ParseQueryAdapter<
         // following count & following button init
         followButton = (ToggleButton) v.findViewById(R.id.event_list_item_follow);
         eventCount = (TextView) v.findViewById(R.id.event_list_item_count);
-        followRelation = thisEvent.getFollowingRelations();
+        //followRelation = thisEvent.getFollowingRelations();
         eventCount.setText(String.format("%d", followRelation.getInt("count")));
         ParseQuery<ParseObject> userQuery = followRelation.getRelation("followingUsers").getQuery();
         userQuery.whereEqualTo("objectId", ParseUser.getCurrentUser().getObjectId());
