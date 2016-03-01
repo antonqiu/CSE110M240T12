@@ -6,50 +6,39 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import com.cyruszhang.cluboard.R;
 import com.cyruszhang.cluboard.SampleDispatchActivity;
 import com.cyruszhang.cluboard.fragment.ClubCatalogFragment;
+import com.cyruszhang.cluboard.fragment.HomeFragment;
 import com.cyruszhang.cluboard.parse.Club;
 import com.parse.ParseInstallation;
-import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
 import com.parse.ParseUser;
-
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created by zhangxinyuan on 1/27/16.
  */
 public class Home extends AppCompatActivity implements ClubCatalogFragment.OnFragmentInteractionListener {
-    private static final int MENU_ITEM_LOGOUT = 1001;
-    private static final int MENU_ITEM_REFRESH = 1002;
+    public static final int MENU_ITEM_LOGOUT = 1001;
+    public static final int MENU_ITEM_REFRESH = 1002;
     private DrawerLayout mDrawer;
     private NavigationView nvDrawer;
     private ActionBarDrawerToggle drawerToggle;
 
-    Button myEvents;
     SwipeRefreshLayout swipeRefresh;
     ParseQueryAdapter<Club> clubsQueryAdapter;
 
@@ -81,53 +70,27 @@ public class Home extends AppCompatActivity implements ClubCatalogFragment.OnFra
         // Convert currentUser into String
         String struser = currentUser.getUsername();
 
-        // add new club floating button
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.welcome_fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Home.this, NewClub.class);
-                startActivity(intent);
-            }
-        });
+        // TODO: setChecked
+        // Begin the transaction
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        // Replace the contents of the container with the new fragment
+        ft.add(R.id.main_fragment_placeholder, new HomeFragment());
+        // Complete the changes added above
+        ft.commit();
 
-        // swipe refresh
-        swipeRefresh = (SwipeRefreshLayout) findViewById(R.id.welcome_swiperefresh);
-        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                Log.d(getClass().getSimpleName(), "refresh triggered");
-                refreshClubList();
-            }
-        });
-
-        myEvents = (Button) findViewById(R.id.my_events);
-        myEvents.setOnClickListener(new View.OnClickListener() {
-            //click and go to create club view
-            public void onClick(View arg0) {
-                Intent intent = new Intent(Home.this, MyEvents.class);
-                startActivity(intent);
-            }
-        });
-        Button bookmark = (Button) findViewById(R.id.my_bookmark);
-        bookmark.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View arg0) {
-                Intent intent = new Intent(Home.this, MyBookmark.class);
-                startActivity(intent);
-            }
-        });
-        setupClubList();
+//        // add new club floating button
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.welcome_fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(Home.this, NewClub.class);
+//                startActivity(intent);
+//            }
+//        });
     }
 
     private ActionBarDrawerToggle setupDrawerToggle(Toolbar toolbar) {
         return new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open, R.string.drawer_close);
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        swipeRefresh.setRefreshing(true);
-        refreshClubList();
     }
 
     @Override
@@ -172,9 +135,7 @@ public class Home extends AppCompatActivity implements ClubCatalogFragment.OnFra
                         .setAction("Action", null).show();
                 Intent intent = new Intent(Home.this, Setting.class);
                 startActivity(intent);
-
                 return true;
-
             case R.id.action_about:
                 Snackbar.make(coordinatorLayout,
                         "You selected About", Snackbar.LENGTH_LONG)
@@ -182,11 +143,7 @@ public class Home extends AppCompatActivity implements ClubCatalogFragment.OnFra
                 break;
             case MENU_ITEM_LOGOUT:
                 logout();
-                break;
-            case MENU_ITEM_REFRESH:
-                swipeRefresh.setRefreshing(true);
-                refreshClubList();
-                break;
+                return true;
             default:
                 break;
         }
@@ -210,70 +167,6 @@ public class Home extends AppCompatActivity implements ClubCatalogFragment.OnFra
                 .setAction("Action", null).show();
     }
 
-    private void setupClubList() {
-        // Get List View
-        ListView clubList = (ListView) this.findViewById(R.id.club_list_view);
-
-        ParseQueryAdapter.QueryFactory<Club> factory =
-                new ParseQueryAdapter.QueryFactory<Club>() {
-                    public ParseQuery<Club> create() {
-                        ParseQuery<Club> query = Club.getQuery();
-                        // only query on two keys to save time
-                        query.selectKeys(Arrays.asList("name", "desc"));
-                        query.orderByDescending("createdAt");
-                        Log.d(getClass().getSimpleName(), "factory created");
-                        return query;
-                    }
-                };
-
-        clubsQueryAdapter = new ParseQueryAdapter<Club>(this, factory) {
-            @Override
-            public View getItemView(Club object, View v, ViewGroup parent) {
-                // Local DataStore
-
-                if (v == null) {
-                    v = View.inflate(getContext(), R.layout.club_list_item, null);
-                }
-                Log.d(getClass().getSimpleName(), "setting up item view");
-                TextView clubName = (TextView) v.findViewById(R.id.club_list_item_name);
-                TextView clubDetail = (TextView) v.findViewById(R.id.club_list_item_desc);
-                clubName.setText(object.getClubName());
-                clubDetail.setText(object.getClubDesc());
-                return v;
-            }
-        };
-        clubsQueryAdapter.addOnQueryLoadListener(new ParseQueryAdapter.OnQueryLoadListener<Club>() {
-            @Override
-            public void onLoading() {
-                swipeRefresh.setRefreshing(true);
-            }
-
-            @Override
-            public void onLoaded(List<Club> objects, Exception e) {
-                swipeRefresh.setRefreshing(false);
-            }
-        });
-        Log.d(getClass().getSimpleName(), "setting up adapter");
-        clubList.setAdapter(clubsQueryAdapter);
-
-        // item click listener
-        clubList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                final Club club = clubsQueryAdapter.getItem(position);
-                Intent intent = new Intent(Home.this, ClubDetail.class);
-                intent.putExtra("OBJECT_ID", club.getObjectId());
-                startActivity(intent);
-            }
-        });
-    }
-
-    private void refreshClubList() {
-        clubsQueryAdapter.loadObjects();
-        clubsQueryAdapter.notifyDataSetChanged();
-        swipeRefresh.setRefreshing(false);
-    }
-
     private void setupDrawerContent(NavigationView navigationView) {
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
@@ -292,9 +185,9 @@ public class Home extends AppCompatActivity implements ClubCatalogFragment.OnFra
 
         Class fragmentClass;
         switch (menuItem.getItemId()) {
-//            case R.id.nav_home:
-//                fragmentClass = ClubCatalogFragment.class;
-//                break;
+            case R.id.nav_home:
+                fragmentClass = HomeFragment.class;
+                break;
             case R.id.nav_all_clubs:
                 fragmentClass = ClubCatalogFragment.class;
                 break;
@@ -302,8 +195,9 @@ public class Home extends AppCompatActivity implements ClubCatalogFragment.OnFra
 //                break;
 //            case R.id.nav_bookmark:
 //                break;
-//            case R.id.nav_new_club:
-//                break;
+            case R.id.nav_new_club:
+                Intent intent = new Intent(Home.this, NewClub.class);
+                startActivity(intent);
 //            case R.id.nav_manage_clubs:
 //                break;
 //            case R.id.nav_setting:
@@ -313,7 +207,7 @@ public class Home extends AppCompatActivity implements ClubCatalogFragment.OnFra
 //            case R.id.nav_about:
 //                break;
             default:
-                fragmentClass = ClubCatalogFragment.class;
+                fragmentClass = HomeFragment.class;
         }
 
         try {
@@ -324,7 +218,15 @@ public class Home extends AppCompatActivity implements ClubCatalogFragment.OnFra
 
         // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.main_fragment_placeholder, fragment).commit();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.main_fragment_placeholder, fragment);
+        //TODO: go back to one stack won't change the title
+//        // stack check
+//        if (!menuItem.isChecked() && menuItem.getItemId() != R.id.nav_home) {
+//            transaction.addToBackStack(null);
+//        }
+        // Commit the transaction
+        transaction.commit();
 
         // Highlight the selected item, update the title, and close the drawer
         menuItem.setChecked(true);

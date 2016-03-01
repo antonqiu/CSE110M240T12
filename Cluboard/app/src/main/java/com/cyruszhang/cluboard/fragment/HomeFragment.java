@@ -4,25 +4,26 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.cyruszhang.cluboard.R;
 import com.cyruszhang.cluboard.activity.ClubDetail;
 import com.cyruszhang.cluboard.activity.Home;
-import com.cyruszhang.cluboard.activity.Setting;
+import com.cyruszhang.cluboard.activity.MyBookmark;
+import com.cyruszhang.cluboard.activity.MyEvents;
 import com.cyruszhang.cluboard.parse.Club;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
@@ -33,19 +34,16 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link ClubCatalogFragment.OnFragmentInteractionListener} interface
+ * {@link HomeFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link ClubCatalogFragment#newInstance} factory method to
+ * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ClubCatalogFragment extends Fragment {
+public class HomeFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-    SwipeRefreshLayout swipeRefresh;
-    ParseQueryAdapter<Club> clubsQueryAdapter;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -53,7 +51,15 @@ public class ClubCatalogFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public ClubCatalogFragment() {
+    private DrawerLayout mDrawer;
+    private NavigationView nvDrawer;
+    private ActionBarDrawerToggle drawerToggle;
+
+    Button myEvents;
+    SwipeRefreshLayout swipeRefresh;
+    ParseQueryAdapter<Club> clubsQueryAdapter;
+
+    public HomeFragment() {
         // Required empty public constructor
     }
 
@@ -63,11 +69,11 @@ public class ClubCatalogFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment ClubCatalogFragment.
+     * @return A new instance of fragment HomeFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ClubCatalogFragment newInstance(String param1, String param2) {
-        ClubCatalogFragment fragment = new ClubCatalogFragment();
+    public static HomeFragment newInstance(String param1, String param2) {
+        HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -78,9 +84,6 @@ public class ClubCatalogFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setHasOptionsMenu(true);
-
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -92,15 +95,15 @@ public class ClubCatalogFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_club_catalog, container, false);
+        return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        // swipe refresh
 
-        swipeRefresh = (SwipeRefreshLayout) view.findViewById(R.id.fragment_club_catablog_swiperefresh);
+        // swipe refresh
+        swipeRefresh = (SwipeRefreshLayout) view.findViewById(R.id.home_swiperefresh);
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -109,12 +112,23 @@ public class ClubCatalogFragment extends Fragment {
             }
         });
 
-        setupClubListview(view);
-    }
+        myEvents = (Button) view.findViewById(R.id.my_events);
+        myEvents.setOnClickListener(new View.OnClickListener() {
+            //click and go to create club view
+            public void onClick(View arg0) {
+                Intent intent = new Intent(getActivity(), MyEvents.class);
+                startActivity(intent);
+            }
+        });
+        Button bookmark = (Button) view.findViewById(R.id.my_bookmark);
+        bookmark.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0) {
+                Intent intent = new Intent(getActivity(), MyBookmark.class);
+                startActivity(intent);
+            }
+        });
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
+        setupClubListview(view);
     }
 
     @Override
@@ -141,12 +155,12 @@ public class ClubCatalogFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
+//        if (context instanceof OnFragmentInteractionListener) {
+//            mListener = (OnFragmentInteractionListener) context;
+//        } else {
+//            throw new RuntimeException(context.toString()
+//                    + " must implement OnFragmentInteractionListener");
+//        }
     }
 
     @Override
@@ -214,7 +228,7 @@ public class ClubCatalogFragment extends Fragment {
             }
         });
 
-        ListView clubList = (ListView) view.findViewById(R.id.fragment_club_catablog_list);
+        ListView clubList = (ListView) view.findViewById(R.id.home_club_list_view);
         clubList.setAdapter(clubsQueryAdapter);
 
         clubList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
