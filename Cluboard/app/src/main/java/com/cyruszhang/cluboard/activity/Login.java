@@ -2,8 +2,6 @@ package com.cyruszhang.cluboard.activity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,7 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.cyruszhang.cluboard.MainActivity;
 import com.cyruszhang.cluboard.R;
 import com.cyruszhang.cluboard.parse.User;
 import com.facebook.AccessToken;
@@ -21,7 +18,6 @@ import com.facebook.GraphResponse;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseFacebookUtils;
-import com.parse.ParseFile;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.parse.SignUpCallback;
@@ -29,12 +25,6 @@ import com.parse.SignUpCallback;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.Arrays;
 import java.util.List;
 
@@ -78,10 +68,10 @@ public class Login extends AppCompatActivity {
                         new LogInCallback() {
                             public void done(ParseUser user, ParseException e) {
                                 if (user != null) {
-                                    // If user exist and authenticated, send user to Welcome.class
+                                    // If user exist and authenticated, send user to Home.class
                                     Intent intent = new Intent(
                                             Login.this,
-                                            Welcome.class);
+                                            Home.class);
                                     startActivity(intent);
                                     Toast.makeText(getApplicationContext(),
                                             "Successfully Logged in",
@@ -113,7 +103,7 @@ public class Login extends AppCompatActivity {
                             Log.d("MyApp", "User signed up and logged in through Facebook!");
                             Intent intent = new Intent(
                                     Login.this,
-                                    Welcome.class);
+                                    Home.class);
                             startActivity(intent);
                             finish();
 
@@ -122,7 +112,7 @@ public class Login extends AppCompatActivity {
                             Log.d("MyApp", "User logged in through Facebook!");
                             Intent intent = new Intent(
                                     Login.this,
-                                    Welcome.class);
+                                    Home.class);
                             startActivity(intent);
                             Toast.makeText(getApplicationContext(),
                                     "Successfully Logged in through Facebook!",

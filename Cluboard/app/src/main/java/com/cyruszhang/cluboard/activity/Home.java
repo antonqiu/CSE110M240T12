@@ -36,7 +36,7 @@ import java.util.List;
 /**
  * Created by zhangxinyuan on 1/27/16.
  */
-public class Welcome extends AppCompatActivity {
+public class Home extends AppCompatActivity {
     private static final int MENU_ITEM_LOGOUT = 1001;
     private static final int MENU_ITEM_REFRESH = 1002;
     private DrawerLayout mDrawer;
@@ -81,7 +81,7 @@ public class Welcome extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Welcome.this, NewClub.class);
+                Intent intent = new Intent(Home.this, NewClub.class);
                 startActivity(intent);
             }
         });
@@ -100,14 +100,14 @@ public class Welcome extends AppCompatActivity {
         myEvents.setOnClickListener(new View.OnClickListener() {
             //click and go to create club view
             public void onClick(View arg0) {
-                Intent intent = new Intent(Welcome.this, MyEvents.class);
+                Intent intent = new Intent(Home.this, MyEvents.class);
                 startActivity(intent);
             }
         });
         Button bookmark = (Button) findViewById(R.id.my_bookmark);
         bookmark.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
-                Intent intent = new Intent(Welcome.this, MyBookmark.class);
+                Intent intent = new Intent(Home.this, MyBookmark.class);
                 startActivity(intent);
             }
         });
@@ -165,7 +165,7 @@ public class Welcome extends AppCompatActivity {
                 Snackbar.make(coordinatorLayout,
                         "You selected settings", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-                Intent intent = new Intent(Welcome.this, Setting.class);
+                Intent intent = new Intent(Home.this, Setting.class);
                 startActivity(intent);
 
                 return true;
@@ -177,7 +177,7 @@ public class Welcome extends AppCompatActivity {
             case MENU_ITEM_LOGOUT:
                 // Logout current user
                 ParseUser.logOut();
-                intent = new Intent(Welcome.this, Login.class);
+                intent = new Intent(Home.this, Login.class);
                 startActivity(intent);
                 Snackbar.make(coordinatorLayout,
                         "You are logged out", Snackbar.LENGTH_LONG)
@@ -244,7 +244,7 @@ public class Welcome extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 final Club club = clubsQueryAdapter.getItem(position);
-                Intent intent = new Intent(Welcome.this, ClubDetail.class);
+                Intent intent = new Intent(Home.this, ClubDetail.class);
                 intent.putExtra("OBJECT_ID", club.getObjectId());
                 startActivity(intent);
             }
