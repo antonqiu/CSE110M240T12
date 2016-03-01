@@ -28,7 +28,7 @@ public class Cluboard extends Application {
         ParseObject.registerSubclass(Event.class);
         Parse.initialize(this, YOUR_APPLICATION_ID, YOUR_CLIENT_KEY);
         ParseFacebookUtils.initialize(this);
-        ParseUser.enableAutomaticUser();
+        //ParseUser.enableAutomaticUser();
         ParseACL defaultACL = new ParseACL();
 
         // If you would like all objects to be private by default, remove this

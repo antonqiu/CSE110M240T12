@@ -2,6 +2,7 @@ package com.cyruszhang.cluboard.activity;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -28,6 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cyruszhang.cluboard.R;
+import com.cyruszhang.cluboard.SampleDispatchActivity;
 import com.cyruszhang.cluboard.parse.Club;
 import com.parse.ParseInstallation;
 import com.parse.ParseQuery;
@@ -193,6 +195,7 @@ public class Welcome extends AppCompatActivity {
                 startActivity(intent);
 
                 return true;
+
             case R.id.action_about:
                 Snackbar.make(coordinatorLayout,
                         "You selected About", Snackbar.LENGTH_LONG)
@@ -201,8 +204,15 @@ public class Welcome extends AppCompatActivity {
             case MENU_ITEM_LOGOUT:
                 // Logout current user
                 ParseUser.logOut();
-                intent = new Intent(Welcome.this, Login.class);
-                startActivity(intent);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                    Intent intentLogout = new Intent(Welcome.this,
+                            SampleDispatchActivity.class);
+                    intentLogout.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK
+                            | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intentLogout);
+                } else {
+                    finish();
+                }
                 Snackbar.make(coordinatorLayout,
                         "You are logged out", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();

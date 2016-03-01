@@ -25,6 +25,7 @@ import com.parse.ParseFile;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.parse.SignUpCallback;
+import com.parse.ui.ParseLoginBuilder;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -55,6 +56,8 @@ public class Login extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ParseLoginBuilder builder = new ParseLoginBuilder(Login.this);
+        startActivityForResult(builder.build(), 0);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
