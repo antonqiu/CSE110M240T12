@@ -31,7 +31,7 @@
                     android:icon="@drawable/ic_calendar_events"
                     android:title="New Club" />
                 <item
-                    android:id="@+id/nav_manage_club"
+                    android:id="@+id/nav_manage_clubs"
                     android:icon="@drawable/ic_calendar_events"
                     android:title="Manage Clubs" />
             </menu>

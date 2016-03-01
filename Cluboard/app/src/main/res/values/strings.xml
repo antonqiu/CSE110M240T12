@@ -55,10 +55,10 @@
     <string name="app_not_available">Sorry, there\'s no web browser available</string>
 
 
-        <string-array name="my_facebook_permissions">
-            <item>public_profile</item>
-            <item>email</item>
-        </string-array>
+    <string-array name="my_facebook_permissions">
+        <item>public_profile</item>
+        <item>email</item>
+    </string-array>
 
 
 </resources>

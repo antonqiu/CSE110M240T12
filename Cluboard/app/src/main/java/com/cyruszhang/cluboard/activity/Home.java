@@ -2,12 +2,15 @@ package com.cyruszhang.cluboard.activity;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -26,6 +29,7 @@ import android.widget.TextView;
 
 import com.cyruszhang.cluboard.R;
 import com.cyruszhang.cluboard.SampleDispatchActivity;
+import com.cyruszhang.cluboard.fragment.ClubCatalogFragment;
 import com.cyruszhang.cluboard.parse.Club;
 import com.parse.ParseInstallation;
 import com.parse.ParseQuery;
@@ -38,16 +42,12 @@ import java.util.List;
 /**
  * Created by zhangxinyuan on 1/27/16.
  */
-public class Home extends AppCompatActivity {
+public class Home extends AppCompatActivity implements ClubCatalogFragment.OnFragmentInteractionListener {
     private static final int MENU_ITEM_LOGOUT = 1001;
     private static final int MENU_ITEM_REFRESH = 1002;
     private DrawerLayout mDrawer;
+    private NavigationView nvDrawer;
     private ActionBarDrawerToggle drawerToggle;
-
-    private CharSequence mDrawerTitle;
-    private CharSequence mTitle;
-    private String[] mPlanetTitles;
-
 
     Button myEvents;
     SwipeRefreshLayout swipeRefresh;
@@ -69,11 +69,14 @@ public class Home extends AppCompatActivity {
         drawerToggle = setupDrawerToggle(toolbar);
         // Tie DrawerLayout events to the ActionBarToggle
         mDrawer.addDrawerListener(drawerToggle);
+        // Find NavigationView
+        nvDrawer = (NavigationView) findViewById(R.id.home_navigation_view);
+        setupDrawerContent(nvDrawer);
 
         // Retrieve current user from Parse.com
         final ParseUser currentUser = ParseUser.getCurrentUser();
         ParseInstallation installation = ParseInstallation.getCurrentInstallation();
-        installation.put("user",currentUser);
+        installation.put("user", currentUser);
         installation.saveInBackground();
         // Convert currentUser into String
         String struser = currentUser.getUsername();
@@ -117,7 +120,7 @@ public class Home extends AppCompatActivity {
     }
 
     private ActionBarDrawerToggle setupDrawerToggle(Toolbar toolbar) {
-        return new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open,  R.string.drawer_close);
+        return new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open, R.string.drawer_close);
     }
 
     @Override
@@ -178,21 +181,7 @@ public class Home extends AppCompatActivity {
                         .setAction("Action", null).show();
                 break;
             case MENU_ITEM_LOGOUT:
-                // Logout current user
-                ParseUser.logOut();
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                    Intent intentLogout = new Intent(Home.this,
-                            SampleDispatchActivity.class);
-                    intentLogout.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK
-                            | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intentLogout);
-                } else {
-                    finish();
-                }
-
-                Snackbar.make(coordinatorLayout,
-                        "You are logged out", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                logout();
                 break;
             case MENU_ITEM_REFRESH:
                 swipeRefresh.setRefreshing(true);
@@ -202,6 +191,23 @@ public class Home extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void logout() {
+        // Logout current user
+        ParseUser.logOut();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            Intent intentLogout = new Intent(Home.this,
+                    SampleDispatchActivity.class);
+            intentLogout.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intentLogout);
+        } else {
+            finish();
+        }
+        Snackbar.make(coordinatorLayout,
+                "You are logged out", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
     }
 
     private void setupClubList() {
@@ -273,46 +279,61 @@ public class Home extends AppCompatActivity {
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
-//                        selectDrawerItem(menuItem);
+                        selectDrawerItem(menuItem);
                         return true;
                     }
                 });
     }
 
-//    public void selectDrawerItem(MenuItem menuItem) {
-//        // Create a new fragment and specify the planet to show based on
-//        // position
-//        Fragment fragment = null;
-//
-//        Class fragmentClass;
-//        switch(menuItem.getItemId()) {
-//            case R.id.nav_first_fragment:
-//                fragmentClass = FirstFragment.class;
-//                break;
-//            case R.id.nav_second_fragment:
-//                fragmentClass = SecondFragment.class;
-//                break;
-//            case R.id.nav_third_fragment:
-//                fragmentClass = ThirdFragment.class;
-//                break;
-//            default:
-//                fragmentClass = FirstFragment.class;
-//        }
-//
-//        try {
-//            fragment = (Fragment) fragmentClass.newInstance();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        // Insert the fragment by replacing any existing fragment
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
-//
-//        // Highlight the selected item, update the title, and close the drawer
-//        menuItem.setChecked(true);
-//        setTitle(menuItem.getTitle());
-//        mDrawer.closeDrawers();
-//    }
+    public void selectDrawerItem(MenuItem menuItem) {
+        // Create a new fragment and specify the planet to show based on
+        // position
+        Fragment fragment = null;
 
+        Class fragmentClass;
+        switch (menuItem.getItemId()) {
+//            case R.id.nav_home:
+//                fragmentClass = ClubCatalogFragment.class;
+//                break;
+            case R.id.nav_all_clubs:
+                fragmentClass = ClubCatalogFragment.class;
+                break;
+//            case R.id.nav_followed:
+//                break;
+//            case R.id.nav_bookmark:
+//                break;
+//            case R.id.nav_new_club:
+//                break;
+//            case R.id.nav_manage_clubs:
+//                break;
+//            case R.id.nav_setting:
+//                break;
+//            case R.id.nav_logout:
+//                break;
+//            case R.id.nav_about:
+//                break;
+            default:
+                fragmentClass = ClubCatalogFragment.class;
+        }
+
+        try {
+            fragment = (Fragment) fragmentClass.newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // Insert the fragment by replacing any existing fragment
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.main_fragment_placeholder, fragment).commit();
+
+        // Highlight the selected item, update the title, and close the drawer
+        menuItem.setChecked(true);
+        setTitle(menuItem.getTitle());
+        mDrawer.closeDrawers();
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
 }
