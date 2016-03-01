@@ -3,7 +3,7 @@ package com.cyruszhang.cluboard;
 /**
  * Created by zhangxinyuan on 2/29/16.
  */
-import com.cyruszhang.cluboard.activity.Welcome;
+import com.cyruszhang.cluboard.activity.Home;
 import com.parse.ui.ParseLoginBuilder;
 import com.parse.ui.ParseLoginDispatchActivity;
 
@@ -16,7 +16,7 @@ public class SampleDispatchActivity extends ParseLoginDispatchActivity {
                 SampleDispatchActivity.this);
         startActivityForResult(loginBuilder.build(), LOGIN_REQUEST);
         */
-        return Welcome.class;
+        return Home.class;
 
     }
 }
