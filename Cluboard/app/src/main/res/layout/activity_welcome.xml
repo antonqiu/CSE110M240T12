@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -28,8 +28,6 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <include layout="@layout/welcome" />
-
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/welcome_fab"
             android:layout_width="wrap_content"
@@ -38,16 +36,18 @@
             android:layout_margin="@dimen/fab_margin"
             android:src="@drawable/ic_add_white_24px" />
 
+        <include layout="@layout/welcome" />
+
     </android.support.design.widget.CoordinatorLayout>
     <!-- The navigation drawer -->
-    <ListView android:id="@+id/left_drawer"
-        android:layout_width="240dp"
+    <android.support.design.widget.NavigationView
+        android:id="@+id/navigation_view"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:choiceMode="singleChoice"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="0dp"
-        android:background="#111"/>
+        android:background="@android:color/white"
+        app:menu="@menu/drawer_view"
+        app:headerLayout="@layout/drawer_nav_header" />
 </android.support.v4.widget.DrawerLayout>
 
 
