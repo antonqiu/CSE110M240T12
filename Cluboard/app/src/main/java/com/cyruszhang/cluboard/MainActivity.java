@@ -7,8 +7,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.cyruszhang.cluboard.activity.Home;
 import com.cyruszhang.cluboard.activity.Login;
-import com.cyruszhang.cluboard.activity.Welcome;
 import com.facebook.appevents.AppEventsLogger;
 import com.parse.ParseAnonymousUtils;
 import com.parse.ParseUser;
@@ -30,8 +30,8 @@ public class MainActivity extends Activity {
             // Get current user data from Parse.com
             ParseUser currentUser = ParseUser.getCurrentUser();
             if (currentUser != null) {
-                // Send logged in users to Welcome.class
-                Intent intent = new Intent(MainActivity.this, Welcome.class);
+                // Send logged in users to Home.class
+                Intent intent = new Intent(MainActivity.this, Home.class);
                 startActivity(intent);
                 finish();
             } else {

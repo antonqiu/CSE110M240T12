@@ -26,7 +26,7 @@
     <string name="club_desc">Club Description</string>
     <string name="club_detail">Club Detail</string>
     <string name="title_activity_new_club">New Club</string>
-    <string name="title_activity_welcome">Clubs</string>
+    <string name="title_activity_home">Home</string>
     <string name="action_about">About</string>
     <string name="new_club_create_button">CREATE</string>
     <string name="action_create_club">CREATE CLUB</string>
@@ -49,16 +49,6 @@
     <string name="recommendations">Recommendations</string>
     <string name="upcoming_events">Upcoming Events</string>
 
-    <string-array name="planets_array">
-        <item>Mercury</item>
-        <item>Venus</item>
-        <item>Earth</item>
-        <item>Mars</item>
-        <item>Jupiter</item>
-        <item>Saturn</item>
-        <item>Uranus</item>
-        <item>Neptune</item>
-    </string-array>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="action_websearch">Web search</string>

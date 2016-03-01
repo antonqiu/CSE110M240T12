@@ -56,36 +56,36 @@
         </activity>
         <activity android:name=".activity.Login" />
         <activity
-            android:name=".activity.Welcome"
-            android:label="@string/title_activity_welcome"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:launchMode="singleTop" />
+            android:name=".activity.Home"
+            android:label="@string/title_activity_home"
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".activity.ClubDetail"
             android:label="@string/title_activity_club_detail"
-            android:parentActivityName=".activity.Welcome"
+            android:parentActivityName=".activity.Home"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.Welcome" />
+                android:value=".activity.Home" />
         </activity>
         <activity
             android:name=".activity.NewClub"
                 android:label="@string/title_activity_new_club"
-                android:parentActivityName=".activity.Welcome"
+                android:parentActivityName=".activity.Home"
                 android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.Welcome" />
+                android:value=".activity.Home" />
         </activity>
         <activity
             android:name=".activity.Setting"
             android:label="@string/title_activity_setting"
-            android:parentActivityName=".activity.Welcome"
+            android:parentActivityName=".activity.Home"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.Welcome" />
+                android:value=".activity.Home" />
         </activity>
         <activity
             android:name=".activity.NewEvent"
@@ -94,20 +94,20 @@
         <activity
             android:name=".activity.MyBookmark"
             android:label="@string/title_activity_my_bookmark"
-            android:parentActivityName=".activity.Welcome"
+            android:parentActivityName=".activity.Home"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.Welcome" />
+                android:value=".activity.Home" />
         </activity>
         <activity
             android:name=".activity.MyEvents"
             android:label="@string/title_activity_my_events"
-            android:parentActivityName=".activity.Welcome"
+            android:parentActivityName=".activity.Home"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.Welcome" />
+                android:value=".activity.Home" />
         </activity>
 
         <service android:name="com.parse.PushService" />
