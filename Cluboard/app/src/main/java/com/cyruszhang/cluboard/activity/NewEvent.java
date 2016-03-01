@@ -104,6 +104,9 @@ public class NewEvent extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
+            case android.R.id.home:
+                finish();
+                return true;
             case MENU_ITEM_CREATE:
                 Log.d(getClass().getSimpleName(), "create button clicked");
                 if (createEvent()) {
