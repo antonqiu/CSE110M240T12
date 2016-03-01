@@ -229,11 +229,13 @@ public class Home extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.main_fragment_placeholder, fragment);
-        //TODO: go back to one stack won't change the title
-//        // stack check
-//        if (!menuItem.isChecked() && menuItem.getItemId() != R.id.nav_home) {
-//            transaction.addToBackStack(null);
-//        }
+        //TODO: go back to one stack won't change the checked status
+        // stack check
+        if (menuItem.getItemId() == R.id.nav_home)
+            fragmentManager.popBackStack();
+        else if (!menuItem.isChecked())
+            transaction.addToBackStack(null);
+
         // Commit the transaction
         transaction.commit();
 

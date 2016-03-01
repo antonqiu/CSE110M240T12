@@ -80,6 +80,7 @@ public class ClubCatalogFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         setHasOptionsMenu(true);
+        getActivity().setTitle("All Clubs");
 
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
