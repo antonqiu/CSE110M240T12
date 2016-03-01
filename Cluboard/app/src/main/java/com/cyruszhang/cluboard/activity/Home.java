@@ -32,7 +32,7 @@ import com.parse.ParseUser;
 /**
  * Created by zhangxinyuan on 1/27/16.
  */
-public class Home extends AppCompatActivity implements ClubCatalogFragment.OnFragmentInteractionListener {
+public class Home extends AppCompatActivity {
     public static final int MENU_ITEM_LOGOUT = 1001;
     public static final int MENU_ITEM_REFRESH = 1002;
     private DrawerLayout mDrawer;
@@ -232,10 +232,5 @@ public class Home extends AppCompatActivity implements ClubCatalogFragment.OnFra
         menuItem.setChecked(true);
         setTitle(menuItem.getTitle());
         mDrawer.closeDrawers();
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
     }
 }
