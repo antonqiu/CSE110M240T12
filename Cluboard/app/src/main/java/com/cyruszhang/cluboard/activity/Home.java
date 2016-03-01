@@ -19,6 +19,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.cyruszhang.cluboard.R;
 import com.cyruszhang.cluboard.SampleDispatchActivity;
@@ -53,15 +55,6 @@ public class Home extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        // Find drawer view
-        mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawerToggle = setupDrawerToggle(toolbar);
-        // Tie DrawerLayout events to the ActionBarToggle
-        mDrawer.addDrawerListener(drawerToggle);
-        // Find NavigationView
-        nvDrawer = (NavigationView) findViewById(R.id.home_navigation_view);
-        setupDrawerContent(nvDrawer);
-
         // Retrieve current user from Parse.com
         final ParseUser currentUser = ParseUser.getCurrentUser();
         ParseInstallation installation = ParseInstallation.getCurrentInstallation();
@@ -69,6 +62,19 @@ public class Home extends AppCompatActivity {
         installation.saveInBackground();
         // Convert currentUser into String
         String struser = currentUser.getUsername();
+
+        // Find drawer view
+        mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawerToggle = setupDrawerToggle(toolbar);
+        // Tie DrawerLayout events to the ActionBarToggle
+        mDrawer.addDrawerListener(drawerToggle);
+        // Find NavigationView
+        nvDrawer = (NavigationView) findViewById(R.id.home_navigation_view);
+        // Find name field
+        View navHeader = nvDrawer.getHeaderView(0);
+        TextView drawerName = (TextView) navHeader.findViewById(R.id.drawer_nav_header_name);
+        drawerName.setText(struser);
+        setupDrawerContent(nvDrawer);
 
         // TODO: setChecked
         // Begin the transaction
@@ -198,6 +204,7 @@ public class Home extends AppCompatActivity {
             case R.id.nav_new_club:
                 Intent intent = new Intent(Home.this, NewClub.class);
                 startActivity(intent);
+                return;
 //            case R.id.nav_manage_clubs:
 //                break;
 //            case R.id.nav_setting:
