@@ -80,7 +80,7 @@ public class Home extends AppCompatActivity {
         // Begin the transaction
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         // Replace the contents of the container with the new fragment
-        ft.add(R.id.main_fragment_placeholder, new HomeFragment());
+        ft.replace(R.id.main_fragment_placeholder, new HomeFragment());
         // Complete the changes added above
         ft.commit();
         // set checked
@@ -225,22 +225,23 @@ public class Home extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        // Insert the fragment by replacing any existing fragment
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.main_fragment_placeholder, fragment);
-        //TODO: go back to one stack won't change the checked status
-        // stack check
-        if (menuItem.getItemId() == R.id.nav_home)
-            fragmentManager.popBackStack();
-        else if (!menuItem.isChecked())
-            transaction.addToBackStack(null);
+        if (!menuItem.isChecked()) {
+            // Insert the fragment by replacing any existing fragment
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.replace(R.id.main_fragment_placeholder, fragment);
+            //TODO: go back to one stack won't change the checked status
+            // stack check
+            if (fragmentManager.getBackStackEntryCount() == 0
+                    && menuItem.getItemId() != R.id.nav_home)
+                transaction.addToBackStack(null);
 
-        // Commit the transaction
-        transaction.commit();
+            // Commit the transaction
+            transaction.commit();
 
-        // Highlight the selected item, update the title, and close the drawer
-        menuItem.setChecked(true);
+            // Highlight the selected item, update the title, and close the drawer
+            menuItem.setChecked(true);
+        }
         setTitle(menuItem.getTitle());
         mDrawer.closeDrawers();
     }
