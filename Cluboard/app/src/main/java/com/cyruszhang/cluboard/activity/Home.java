@@ -179,6 +179,9 @@ public class Home extends AppCompatActivity {
     }
 
     private void setupDrawerContent(NavigationView navigationView) {
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        fragmentManager.addOnBackStackChangedListener(new );
+
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override

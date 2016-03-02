@@ -1,5 +1,9 @@
 [
     {
+        "merged": "/Users/AntonioQ/Dropbox/CSE110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/res/merged/androidTest/debug/drawable/com_parse_ui_twitter_login_button_background_selector.xml",
+        "source": "/Users/AntonioQ/Dropbox/CSE110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/drawable/com_parse_ui_twitter_login_button_background_selector.xml"
+    },
+    {
         "merged": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/res/merged/androidTest/debug/drawable/com_parse_ui_parse_login_button_background_selector.xml",
         "source": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/drawable/com_parse_ui_parse_login_button_background_selector.xml"
     },
@@ -10,5 +14,13 @@
     {
         "merged": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/res/merged/androidTest/debug/drawable/com_parse_ui_facebook_login_button_background_selector.xml",
         "source": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/drawable/com_parse_ui_facebook_login_button_background_selector.xml"
+    },
+    {
+        "merged": "/Users/AntonioQ/Dropbox/CSE110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/res/merged/androidTest/debug/drawable/com_parse_ui_facebook_login_button_background_selector.xml",
+        "source": "/Users/AntonioQ/Dropbox/CSE110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/drawable/com_parse_ui_facebook_login_button_background_selector.xml"
+    },
+    {
+        "merged": "/Users/AntonioQ/Dropbox/CSE110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/res/merged/androidTest/debug/drawable/com_parse_ui_parse_login_button_background_selector.xml",
+        "source": "/Users/AntonioQ/Dropbox/CSE110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/drawable/com_parse_ui_parse_login_button_background_selector.xml"
     }
 ]
