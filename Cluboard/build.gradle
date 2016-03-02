@@ -22,4 +22,19 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
+ext {
+    compileSdkVersion = 23
+    buildToolsVersion = "23.0.1"
+
+    minSdkVersion = 15
+    targetSdkVersion = 23
+
+    androidSupport = 'com.android.support:support-v4:23.2.0'
+
+    parse = 'com.parse:parse-android:1.12.0'
+    facebookSDK = 'com.facebook.android:facebook-android-sdk:4.9.0'
+    parseFacebookUtils = 'com.parse:parsefacebookutils-v4-android:1.10.4@aar'
+    parseTwitterUtils = 'com.parse:parsetwitterutils-android:1.10.4'
+}
+
 
