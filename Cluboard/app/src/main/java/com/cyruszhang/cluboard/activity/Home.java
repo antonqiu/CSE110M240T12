@@ -17,6 +17,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -105,6 +106,7 @@ public class Home extends AppCompatActivity {
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         // Sync the toggle state after onRestoreInstanceState has occurred.
+        Log.d(getClass().getSimpleName(), "onPostCreate");
         drawerToggle.syncState();
     }
 
@@ -112,6 +114,7 @@ public class Home extends AppCompatActivity {
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         // Pass any configuration change to the drawer toggles
+        Log.d(getClass().getSimpleName(), "onConfigurationChanged");
         drawerToggle.onConfigurationChanged(newConfig);
     }
 
@@ -232,9 +235,8 @@ public class Home extends AppCompatActivity {
             transaction.replace(R.id.main_fragment_placeholder, fragment);
             //TODO: go back to one stack won't change the checked status
             // stack check
-            if (fragmentManager.getBackStackEntryCount() == 0
-                    && menuItem.getItemId() != R.id.nav_home)
-                transaction.addToBackStack(null);
+            fragmentManager.popBackStack();
+            transaction.addToBackStack(null);
 
             // Commit the transaction
             transaction.commit();

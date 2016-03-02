@@ -78,9 +78,7 @@ public class ClubCatalogFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setHasOptionsMenu(true);
-        getActivity().setTitle("All Clubs");
 
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
@@ -98,6 +96,7 @@ public class ClubCatalogFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
+        getActivity().setTitle("All Clubs");
         super.onViewCreated(view, savedInstanceState);
         // swipe refresh
 
