@@ -70,6 +70,9 @@ public class NewClub extends AppCompatActivity {
                     finish();
                 }
                 break;
+            case android.R.id.home:
+                finish();
+                return true;
             default:
                 break;
 
