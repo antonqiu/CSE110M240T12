@@ -53,6 +53,9 @@
     <string name="drawer_close">Close navigation drawer</string>
     <string name="action_websearch">Web search</string>
     <string name="app_not_available">Sorry, there\'s no web browser available</string>
+    <string name="new_club_name">Club name</string>
+    <string name="new_club_desc">Description (e.g. full name)</string>
+    <string name="new_club_detail">Detail</string>
 
 
     <string-array name="my_facebook_permissions">
