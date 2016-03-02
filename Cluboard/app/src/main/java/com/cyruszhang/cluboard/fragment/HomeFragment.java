@@ -101,7 +101,6 @@ public class HomeFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        getActivity().setTitle("Home");
         super.onViewCreated(view, savedInstanceState);
 
         // swipe refresh

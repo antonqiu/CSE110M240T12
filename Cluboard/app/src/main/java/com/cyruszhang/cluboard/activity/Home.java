@@ -179,8 +179,16 @@ public class Home extends AppCompatActivity {
     }
 
     private void setupDrawerContent(NavigationView navigationView) {
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        fragmentManager.addOnBackStackChangedListener(new );
+        final FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+            @Override
+            public void onBackStackChanged() {
+                Fragment f = getSupportFragmentManager().findFragmentById(R.id.main_fragment_placeholder);
+                if (f != null) {
+                    updateTitleAndDrawer(f);
+                }
+            }
+        });
 
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
@@ -190,6 +198,20 @@ public class Home extends AppCompatActivity {
                         return true;
                     }
                 });
+    }
+
+    private void updateTitleAndDrawer(Fragment f) {
+        String fragClassName = f.getClass().getName();
+        Menu navMenu = nvDrawer.getMenu();
+        if (fragClassName.equals(HomeFragment.class.getName())){
+            setTitle ("Home");
+            navMenu.findItem(R.id.nav_home).setChecked(true);
+        }
+        else if (fragClassName.equals(ClubCatalogFragment.class.getName())){
+            setTitle ("All Clubs");
+            navMenu.findItem(R.id.nav_all_clubs).setChecked(true);
+        }
+        //TODO: for other items
     }
 
     public void selectDrawerItem(MenuItem menuItem) {
