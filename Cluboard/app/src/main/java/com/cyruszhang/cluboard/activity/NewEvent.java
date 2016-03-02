@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -46,9 +47,9 @@ public class NewEvent extends AppCompatActivity {
     String eventLocationtxt;
     DatePicker datePicker;
     Calendar calendar;
-    TextView dateView;
-    TextView fromTimeView;
-    TextView toTimeView;
+    Button dateView;
+    Button fromTimeView;
+    Button toTimeView;
     int fromEventYear, fromEventMonth, fromEventDay;
     int toEventYear, toEventMonth, toEventDay;
     int fromHour, fromMinute, fromAM_PM;
@@ -69,20 +70,30 @@ public class NewEvent extends AppCompatActivity {
         eventName = (EditText) findViewById(R.id.new_event_name);
         eventDesc = (EditText) findViewById(R.id.new_event_desc);
         eventLocation = (EditText) findViewById(R.id.new_event_location);
-        dateView = (TextView) findViewById(R.id.new_date_selected);
-        fromTimeView = (TextView) findViewById(R.id.new_from_time_selected);
-        toTimeView = (TextView) findViewById(R.id.new_to_time_selected);
+        dateView = (Button) findViewById(R.id.new_date_selected);
+        fromTimeView = (Button) findViewById(R.id.new_from_time_selected);
+        toTimeView = (Button) findViewById(R.id.new_to_time_selected);
         calendar = Calendar.getInstance();
         fromEventYear = toEventYear = calendar.get(Calendar.YEAR);
         fromEventMonth = toEventMonth = calendar.get(Calendar.MONTH);
         fromEventDay = toEventDay = calendar.get(Calendar.DAY_OF_MONTH);
-        dateView.setText(new StringBuilder().append(fromEventMonth + 1).append("/")
-                .append(fromEventDay).append("/").append(fromEventYear));
+//        dateView.setText(new StringBuilder().append(fromEventMonth + 1).append("/")
+//                .append(fromEventDay).append("/").append(fromEventYear));
         fromHour = toHour = calendar.get(Calendar.HOUR);
         fromMinute = toMinute = calendar.get(Calendar.MINUTE);
         fromAM_PM = toAM_PM = calendar.get(Calendar.AM_PM);
-        initTime(fromTimeView, fromHour, fromMinute, fromAM_PM);
-        initTime(toTimeView, toHour, toMinute, toAM_PM);
+
+        //TODO: could be much shorter right?
+        Date rightNow = calendar.getTime();
+        DateFormat formatter = DateFormat.getDateInstance(DateFormat.FULL);
+        dateView.setText(formatter.format(rightNow));
+        formatter = DateFormat.getTimeInstance(DateFormat.SHORT);
+        fromTimeView.setText(formatter.format(rightNow));
+        toTimeView.setText(formatter.format(rightNow));
+
+        getEventDate(fromEventYear, fromEventMonth, fromEventDay, fromHour, fromMinute);
+//        initTime(fromTimeView, fromHour, fromMinute, fromAM_PM);
+//        initTime(toTimeView, toHour, toMinute, toAM_PM);
     }
 
     private void initTime(TextView timeView, int hourOfDay, int minute, int am_pm) {

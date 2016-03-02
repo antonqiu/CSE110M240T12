@@ -32,10 +32,10 @@
     <string name="action_create_club">CREATE CLUB</string>
     <string name="title_activity_setting">Setting</string>
     <string name="new_event_btn">+ New Event</string>
-    <string name="title_activity_new_event">NewEvent</string>
-    <string name="new_event_location">Event Location</string>
-    <string name="new_event_name">Event Name</string>
-    <string name="new_event_desc">Event Description</string>
+    <string name="title_activity_new_event">New Event</string>
+    <string name="new_event_location">Location</string>
+    <string name="new_event_name">Name</string>
+    <string name="new_event_desc">Description</string>
     <string name="new_event_creat_btn">Create Event</string>
     <string name="title_activity_my_bookmark">My Bookmark</string>
     <string name="title_activity_my_events">myEvents</string>
