@@ -22,6 +22,7 @@
 package com.parse.ui;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.LayoutInflater;
@@ -85,6 +86,7 @@ public class ParseSignupFragment extends ParseLoginFragmentBase implements OnCli
 
     View v = inflater.inflate(R.layout.com_parse_ui_parse_signup_fragment,
         parent, false);
+    v.setBackgroundColor(Color.parseColor("#FFFFFF"));
     ImageView appLogo = (ImageView) v.findViewById(R.id.app_logo);
     usernameField = (EditText) v.findViewById(R.id.signup_username_input);
     passwordField = (EditText) v.findViewById(R.id.signup_password_input);
