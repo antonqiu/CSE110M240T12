@@ -14,14 +14,15 @@ import android.support.v4.app.TaskStackBuilder;
 
 import com.cyruszhang.cluboard.MainActivity;
 import com.cyruszhang.cluboard.R;
+import com.cyruszhang.cluboard.SampleDispatchActivity;
 
 public class AlarmReceiver extends BroadcastReceiver{
     @Override
     public void onReceive(Context context, Intent intent) {
-        Intent notificationIntent = new Intent(context, MainActivity.class);
+        Intent notificationIntent = new Intent(context, SampleDispatchActivity.class);
 
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
-        stackBuilder.addParentStack(MainActivity.class);
+        stackBuilder.addParentStack(SampleDispatchActivity.class);
         stackBuilder.addNextIntent(notificationIntent);
 
         PendingIntent pendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
