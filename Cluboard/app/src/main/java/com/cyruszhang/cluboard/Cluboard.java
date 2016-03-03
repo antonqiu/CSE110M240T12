@@ -3,6 +3,9 @@ package com.cyruszhang.cluboard;
 /**
  * Created by zhangxinyuan on 1/27/16.
  */
+import com.cyruszhang.cluboard.parse.Club;
+import com.cyruszhang.cluboard.parse.Event;
+import com.cyruszhang.cluboard.parse.User;
 import com.parse.Parse;
 import com.parse.ParseACL;
 
@@ -25,7 +28,7 @@ public class Cluboard extends Application {
         ParseObject.registerSubclass(Event.class);
         Parse.initialize(this, YOUR_APPLICATION_ID, YOUR_CLIENT_KEY);
         ParseFacebookUtils.initialize(this);
-        ParseUser.enableAutomaticUser();
+        //ParseUser.enableAutomaticUser();
         ParseACL defaultACL = new ParseACL();
 
         // If you would like all objects to be private by default, remove this

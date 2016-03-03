@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+        android:id="@+id/nav_group_universal_controls"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_circle_star"
+            android:title="Home" />
+        <item
+            android:id="@+id/nav_all_clubs"
+            android:icon="@drawable/ic_circle_star"
+            android:title="All Clubs" />
+        <item
+            android:id="@+id/nav_followed"
+            android:icon="@drawable/ic_circle_star"
+            android:title="Followed Events" />
+        <item
+            android:id="@+id/nav_bookmark"
+            android:icon="@drawable/ic_circle_star"
+            android:title="Bookmarked Clubs" />
+    </group>
+
+    <group
+        android:id="@+id/nav_group_club_management"
+        android:checkableBehavior="none">
+        <item android:title="Management">
+            <menu>
+                <item
+                    android:id="@+id/nav_new_club"
+                    android:icon="@drawable/ic_calendar_events"
+                    android:title="New Club" />
+                <item
+                    android:id="@+id/nav_manage_clubs"
+                    android:icon="@drawable/ic_calendar_events"
+                    android:title="Manage Clubs" />
+            </menu>
+        </item>
+    </group>
+
+    <group
+        android:id="@+id/nav_group_app_controls"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_setting"
+            android:title="Setting" />
+        <item
+            android:id="@+id/nav_logout"
+            android:title="Logout" />
+        <item
+            android:id="@+id/nav_about"
+            android:title="About" />
+    </group>
+
+</menu>

@@ -9,101 +9,123 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.cyruszhang.cluboard.NewEvent"
+    tools:context=".activity.NewEvent"
     tools:showIn="@layout/activity_new_event">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/new_event_name_text_input_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/new_event_name"
-        android:id="@+id/new_event_name_label"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/new_event_name"
-        android:layout_below="@id/new_event_name_label"
         android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:inputType="text" />
+        android:layout_alignParentTop="true">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/new_event_desc"
-        android:id="@+id/new_event_desc_label"
-        android:layout_below="@+id/new_event_name"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="20dp" />
+        <EditText
+            android:id="@+id/new_event_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
+            android:ems="20"
+            android:singleLine="true"
+            android:hint="@string/new_event_name"
+            android:inputType="text" />
+    </android.support.design.widget.TextInputLayout>
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
-        android:id="@+id/new_event_desc"
-        android:layout_below="@+id/new_event_desc_label"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/new_event_location"
-        android:id="@+id/new_event_location_label"
-        android:layout_below="@id/new_event_desc"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="20dp" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
-        android:ems="20"
-        android:id="@+id/new_event_location"
-        android:layout_below="@id/new_event_location_label"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="20"
         android:id="@+id/new_event_date_label"
-        android:onClick="setDate"
-        android:layout_below="@+id/new_event_location"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="20dp"
-        android:text="@string/event_date_label_set"/>
-
-    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="20"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/new_event_name_text_input_layout"
+        android:layout_marginTop="16dp"
+        android:ems="17"
+        android:onClick="setDate"
+        android:text="@string/event_date_label_set" />
+
+    <Button
         android:id="@+id/new_date_selected"
-        android:onClick="setDate"
-        android:layout_below="@+id/new_event_location"
-        android:layout_marginTop="20dp"
-        android:layout_toEndOf="@+id/new_event_desc_label" />
-
-    <TextView
+        style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="20"
-        android:id="@+id/new_event_time_label"
-        android:layout_alignParentStart="true"
         android:layout_below="@+id/new_event_date_label"
-        android:layout_marginTop="20dp"
-        android:text="@string/event_time_label_set"/>
+        android:onClick="setDate"
+        android:paddingTop="8dp"
+        android:textColor="@color/colorPrimaryText"
+        android:textSize="@dimen/club_name_size" />
 
     <TextView
+        android:id="@+id/new_event_from_time_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="20"
-        android:id="@+id/new_time_selected"
-        android:onClick="setTime"
-        android:layout_marginTop="20dp"
-        android:layout_below="@+id/new_date_selected"
-        android:layout_toEndOf="@+id/new_event_desc_label"
-         />
+        android:layout_below="@+id/new_event_name_text_input_layout"
+        android:layout_marginTop="16dp"
+        android:layout_toEndOf="@+id/new_event_date_label"
+        android:text="@string/event_from_time_label_set" />
+
+    <Button
+        android:id="@+id/new_from_time_selected"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@id/new_event_from_time_label"
+        android:layout_below="@id/new_event_from_time_label"
+        android:onClick="setFromTime"
+        android:paddingTop="8dp"
+        android:textColor="@color/colorPrimaryText"
+        android:textSize="@dimen/club_name_size" />
+
+    <TextView
+        android:id="@+id/new_event_to_time_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@id/new_from_time_selected"
+        android:layout_below="@id/new_from_time_selected"
+        android:layout_marginTop="16dp"
+        android:text="@string/event_to_time_label_set" />
+
+    <Button
+        android:id="@+id/new_to_time_selected"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@id/new_event_to_time_label"
+        android:layout_below="@id/new_event_to_time_label"
+        android:onClick="setToTime"
+        android:textColor="@color/colorPrimaryText"
+        android:textSize="@dimen/club_name_size" />
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/new_event_location_text_input_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/new_to_time_selected">
+
+        <EditText
+            android:id="@+id/new_event_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:ems="20"
+            android:hint="@string/new_event_location"
+            android:inputType="textPostalAddress"
+            android:singleLine="true"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/new_event_desc_text_input_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/new_event_location_text_input_layout">
+
+        <EditText
+            android:id="@+id/new_event_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/new_event_desc_label"
+            android:ems="20"
+            android:hint="@string/new_event_desc"
+            android:inputType="textMultiLine" />
+    </android.support.design.widget.TextInputLayout>
 </RelativeLayout>

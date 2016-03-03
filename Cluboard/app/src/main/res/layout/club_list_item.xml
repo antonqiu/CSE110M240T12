@@ -18,8 +18,8 @@
         android:gravity="center"
         android:layout_marginLeft="16dp"
         android:foregroundGravity="center"
-        android:src="@drawable/ic_stars_48dp"
-        android:contentDescription="Alt" />
+        android:src="@drawable/ic_circle_star"
+        android:contentDescription="Club Icon" />
 
     <TextView
         android:id="@+id/club_list_item_name"

@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "/Users/SC/Code/CSE110M240T12/NavigationDrawer1/app/build/intermediates/res/merged/debug/layout/drawer_list_item.xml",
+        "source": "/Users/SC/Code/CSE110M240T12/NavigationDrawer1/app/src/main/res/layout/drawer_list_item.xml"
+    },
+    {
+        "merged": "/Users/SC/Code/CSE110M240T12/NavigationDrawer1/app/build/intermediates/res/merged/debug/layout/activity_main.xml",
+        "source": "/Users/SC/Code/CSE110M240T12/NavigationDrawer1/app/src/main/res/layout/activity_main.xml"
+    },
+    {
+        "merged": "/Users/SC/Code/CSE110M240T12/NavigationDrawer1/app/build/intermediates/res/merged/debug/layout/fragment_planet.xml",
+        "source": "/Users/SC/Code/CSE110M240T12/NavigationDrawer1/app/src/main/res/layout/fragment_planet.xml"
+    }
+]

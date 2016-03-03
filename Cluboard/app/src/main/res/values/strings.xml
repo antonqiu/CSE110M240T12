@@ -26,22 +26,42 @@
     <string name="club_desc">Club Description</string>
     <string name="club_detail">Club Detail</string>
     <string name="title_activity_new_club">New Club</string>
-    <string name="title_activity_welcome">Clubs</string>
+    <string name="title_activity_home">Home</string>
     <string name="action_about">About</string>
     <string name="new_club_create_button">CREATE</string>
     <string name="action_create_club">CREATE CLUB</string>
     <string name="title_activity_setting">Setting</string>
     <string name="new_event_btn">+ New Event</string>
-    <string name="title_activity_new_event">NewEvent</string>
-    <string name="new_event_location">Event Location</string>
-    <string name="new_event_name">Event Name</string>
-    <string name="new_event_desc">Event Description</string>
+    <string name="title_activity_new_event">New Event</string>
+    <string name="new_event_location">Location</string>
+    <string name="new_event_name">Name</string>
+    <string name="new_event_desc">Description</string>
     <string name="new_event_creat_btn">Create Event</string>
     <string name="title_activity_my_bookmark">My Bookmark</string>
     <string name="title_activity_my_events">myEvents</string>
     <string name="hello_world">Hello world!</string>
-    <string name="event_date_label_set">Event date</string>
-    <string name="event_date_selected"></string>
-    <string name="event_time_label_set">Event time</string>
+    <string name="event_date_label_set">Event Date</string>
+    <string name="event_from_time_label_set">From</string>
+    <string name="event_to_time_label_set">To</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="recommendations">Recommendations</string>
+    <string name="upcoming_events">Upcoming Events</string>
+
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="action_websearch">Web search</string>
+    <string name="app_not_available">Sorry, there\'s no web browser available</string>
+    <string name="new_club_name">Club name</string>
+    <string name="new_club_desc">Description (e.g. full name)</string>
+    <string name="new_club_detail">Detail</string>
+
+
+    <string-array name="my_facebook_permissions">
+        <item>public_profile</item>
+        <item>email</item>
+    </string-array>
+
 
 </resources>
