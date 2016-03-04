@@ -53,8 +53,11 @@ week 9
    Implement the rest of UI pages: My Page II, creat_event, create_club (Hanchao Liu, Yimeng Gu, Zhiye Zhang, Xingda Jiang)
    Time estimate: 5 days
    Merge the UI design into the main project. i.e. replace the xml files. (Team)
+   Write unit and scenario tests covering 3 important aspects/scenarios of the app using the Espresso testing framework 
+   (Hanchao Liu, Yimeng Gu, Zhiye Zhang, Xingda Jiang) Time estimate: 5 days
 
 week 10 
-  Test each function
-  Fix bugs
-  TO BE UPDATED
+  Test each function and possible scenarios. (Team) Time estimate: 5 days
+  Fix all the bugs. (CSM, ZXY, QCT) Time estimate: 5 days
+  
+  
