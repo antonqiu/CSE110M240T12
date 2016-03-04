@@ -3,9 +3,12 @@ package com.cyruszhang.cluboard.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -18,6 +21,7 @@ import android.widget.TextView;
 import com.cyruszhang.cluboard.R;
 import com.cyruszhang.cluboard.SampleDispatchActivity;
 import com.cyruszhang.cluboard.adapter.EventQueryAdapter;
+import com.cyruszhang.cluboard.adapter.EventQueryRecyclerAdapter;
 import com.cyruszhang.cluboard.parse.Club;
 import com.cyruszhang.cluboard.parse.Event;
 import com.cyruszhang.cluboard.parse.User;
@@ -30,6 +34,8 @@ import com.parse.ParseQueryAdapter;
 import com.parse.ParseUser;
 
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class ClubDetail extends AppCompatActivity {
@@ -43,6 +49,8 @@ public class ClubDetail extends AppCompatActivity {
     private Club thisClub;
     private ParseObject thisClubBookmarkRelation;
     private ParseQueryAdapter<Event> eventQueryAdapter;
+    private RecyclerView eventRecyclerView;
+    EventQueryRecyclerAdapter eventRecyclerViewAdapter;
 
 
     @Override
@@ -57,17 +65,17 @@ public class ClubDetail extends AppCompatActivity {
 
         final TextView clubName = (TextView) this.findViewById(R.id.club_detail_name);
         final TextView clubDetail = (TextView) this.findViewById(R.id.club_detail_detail);
-        final Button createEventBtn = (Button) this.findViewById(R.id.new_event_btn);
+        final FloatingActionButton createEventBtn= (FloatingActionButton) this.findViewById(R.id.club_detail_new_event_button);
         // swipe refresh
-        swipeRefresh = (SwipeRefreshLayout) findViewById(R.id.club_detail_swiperefresh);
-        // start from the very start
-        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                Log.d(getClass().getSimpleName(), "refresh triggered");
-                refreshEventList();
-            }
-        });
+//        swipeRefresh = (SwipeRefreshLayout) findViewById(R.id.club_detail_swiperefresh);
+//        // start from the very start
+//        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                Log.d(getClass().getSimpleName(), "refresh triggered");
+//                refreshEventList();
+//            }
+//        });
 
         // normal intent starts
         if (thisClub == null) {
@@ -93,7 +101,7 @@ public class ClubDetail extends AppCompatActivity {
                                 if (clubAcl.getWriteAccess(currentUser)) {
                                     createEventBtn.setVisibility(View.VISIBLE);
                                 }
-                                swipeRefresh.setRefreshing(true);
+                                // swipeRefresh.setRefreshing(true);
                                 initBookmark();
                                 setupEventList();
                             }
@@ -218,7 +226,6 @@ public class ClubDetail extends AppCompatActivity {
     private void setupEventList() {
         // Get List View
         ListView eventList = (ListView) this.findViewById(R.id.event_list_view);
-
         // get all following relations
         ParseQuery<ParseObject> queryRelation = ParseQuery.getQuery("FollowingRelations");
         queryRelation.whereEqualTo("clubObject", thisClub);
@@ -233,25 +240,33 @@ public class ClubDetail extends AppCompatActivity {
                         query.include("following").include("followingUsers");
                         query.include("following").include("count");
                         query.orderByAscending("fromTime");
+                        Date rightNow = Calendar.getInstance().getTime();
+                        query.whereGreaterThanOrEqualTo("fromTime", rightNow);
                         Log.d("factory", "factory created");
                         return query;
                     }
                 };
-        Log.d(getClass().getSimpleName(), "factory created");
-        //set up initial list view
-        eventQueryAdapter = new EventQueryAdapter<>(this, factory, coordinatorLayout);
-        eventQueryAdapter.addOnQueryLoadListener(new ParseQueryAdapter.OnQueryLoadListener<Event>() {
-            @Override
-            public void onLoading() {
-            }
+//        Log.d(getClass().getSimpleName(), "factory created");
+//        //set up initial list view
+//        eventQueryAdapter = new EventQueryAdapter<>(this, factory, coordinatorLayout);
+//        eventQueryAdapter.addOnQueryLoadListener(new ParseQueryAdapter.OnQueryLoadListener<Event>() {
+//            @Override
+//            public void onLoading() {
+//            }
+//
+//            @Override
+//            public void onLoaded(List<Event> objects, Exception e) {
+//                swipeRefresh.setRefreshing(false);
+//            }
+//        });
+//        Log.d(getClass().getSimpleName(), "setting up adapter");
+//        eventList.setAdapter(eventQueryAdapter);
 
-            @Override
-            public void onLoaded(List<Event> objects, Exception e) {
-                swipeRefresh.setRefreshing(false);
-            }
-        });
-        Log.d(getClass().getSimpleName(), "setting up adapter");
-        eventList.setAdapter(eventQueryAdapter);
+        eventRecyclerView = (RecyclerView) findViewById(R.id.club_detail_event_recycler);
+        eventRecyclerViewAdapter = new EventQueryRecyclerAdapter(factory, true, coordinatorLayout);
+
+        eventRecyclerView.setAdapter(eventRecyclerViewAdapter);
+        eventRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     private void initBookmark() {

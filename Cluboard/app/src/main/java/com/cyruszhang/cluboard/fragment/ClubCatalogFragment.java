@@ -4,10 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -22,7 +22,7 @@ import android.widget.TextView;
 import com.cyruszhang.cluboard.R;
 import com.cyruszhang.cluboard.activity.ClubDetail;
 import com.cyruszhang.cluboard.activity.Home;
-import com.cyruszhang.cluboard.activity.Setting;
+import com.cyruszhang.cluboard.adapter.EventQueryRecyclerAdapter;
 import com.cyruszhang.cluboard.parse.Club;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
@@ -46,6 +46,8 @@ public class ClubCatalogFragment extends Fragment {
 
     SwipeRefreshLayout swipeRefresh;
     ParseQueryAdapter<Club> clubsQueryAdapter;
+    RecyclerView clubRecyclerView;
+    EventQueryRecyclerAdapter clubRecyclerViewAdapter;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -99,14 +101,14 @@ public class ClubCatalogFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         // swipe refresh
 
-        swipeRefresh = (SwipeRefreshLayout) view.findViewById(R.id.fragment_club_catablog_swiperefresh);
-        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                Log.d(getClass().getSimpleName(), "refresh triggered");
-                refreshClubList();
-            }
-        });
+//        swipeRefresh = (SwipeRefreshLayout) view.findViewById(R.id.fragment_club_catablog_swiperefresh);
+//        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                Log.d(getClass().getSimpleName(), "refresh triggered");
+//                refreshClubList();
+//            }
+//        });
 
         setupClubListview(view);
     }
@@ -182,54 +184,60 @@ public class ClubCatalogFragment extends Fragment {
                     }
                 };
 
-        clubsQueryAdapter = new ParseQueryAdapter<Club>(getContext(), factory) {
-            @Override
-            public View getItemView(Club object, View v, ViewGroup parent) {
-                // Local DataStore
+//        clubsQueryAdapter = new ParseQueryAdapter<Club>(getContext(), factory) {
+//            @Override
+//            public View getItemView(Club object, View v, ViewGroup parent) {
+//                // Local DataStore
+//
+//                if (v == null) {
+//                    v = View.inflate(getContext(), R.layout.club_list_item, null);
+//                }
+//                Log.d(getClass().getSimpleName(), "setting up item view");
+//                TextView clubName = (TextView) v.findViewById(R.id.club_list_item_name);
+//                TextView clubDetail = (TextView) v.findViewById(R.id.club_list_item_desc);
+//                clubName.setText(object.getClubName());
+//                clubDetail.setText(object.getClubDesc());
+//                return v;
+//            }
+//        };
 
-                if (v == null) {
-                    v = View.inflate(getContext(), R.layout.club_list_item, null);
-                }
-                Log.d(getClass().getSimpleName(), "setting up item view");
-                TextView clubName = (TextView) v.findViewById(R.id.club_list_item_name);
-                TextView clubDetail = (TextView) v.findViewById(R.id.club_list_item_desc);
-                clubName.setText(object.getClubName());
-                clubDetail.setText(object.getClubDesc());
-                return v;
-            }
-        };
+//        clubRecyclerViewAdapter = new EventQueryRecyclerAdapter(factory, true, );
     }
 
     private void setupClubListview(View view) {
-        clubsQueryAdapter.addOnQueryLoadListener(new ParseQueryAdapter.OnQueryLoadListener<Club>() {
-            @Override
-            public void onLoading() {
-                swipeRefresh.setRefreshing(true);
-            }
+//        clubsQueryAdapter.addOnQueryLoadListener(new ParseQueryAdapter.OnQueryLoadListener<Club>() {
+//            @Override
+//            public void onLoading() {
+//                swipeRefresh.setRefreshing(true);
+//            }
+//
+//            @Override
+//            public void onLoaded(List<Club> objects, Exception e) {
+//                swipeRefresh.setRefreshing(false);
+//            }
+//        });
 
-            @Override
-            public void onLoaded(List<Club> objects, Exception e) {
-                swipeRefresh.setRefreshing(false);
-            }
-        });
+//        ListView clubList = (ListView) view.findViewById(R.id.fragment_club_catalog_list);
+//        clubList.setAdapter(clubsQueryAdapter);
+//
+//        clubList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                final Club club = clubsQueryAdapter.getItem(position);
+//                Intent intent = new Intent(getActivity(), ClubDetail.class);
+//                intent.putExtra("OBJECT_ID", club.getObjectId());
+//                startActivity(intent);
+//            }
+//        });
 
-        ListView clubList = (ListView) view.findViewById(R.id.fragment_club_catablog_list);
-        clubList.setAdapter(clubsQueryAdapter);
-
-        clubList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                final Club club = clubsQueryAdapter.getItem(position);
-                Intent intent = new Intent(getActivity(), ClubDetail.class);
-                intent.putExtra("OBJECT_ID", club.getObjectId());
-                startActivity(intent);
-            }
-        });
+        clubRecyclerView = (RecyclerView) view.findViewById(R.id.fragment_club_catalog_recycler);
+        clubRecyclerView.setAdapter(clubRecyclerViewAdapter);
+        clubRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
     }
 
     private void refreshClubList() {
-        clubsQueryAdapter.loadObjects();
-        clubsQueryAdapter.notifyDataSetChanged();
-        swipeRefresh.setRefreshing(false);
+//        clubsQueryAdapter.loadObjects();
+//        clubsQueryAdapter.notifyDataSetChanged();
+//        swipeRefresh.setRefreshing(false);
     }
 }
