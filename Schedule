@@ -46,12 +46,13 @@ Week 8
    Time estimate: 3 days Status: Half-way done
 
 week 9
-   Push notification to user for the events they followed (ZXY, QCT) Time estimate: 5 days
+   Push notification to user for the events they followed (ZXY, QCT) 
+   Time estimate: 5 days, Status: Done
    Create sidebar based on the drawer provided by android studio. 
    sidebar elements: username, logout, setting:(change password,turn on/off notification), bookmarked club, followed event, My club.
-   (CSM) Time estimate: 4 days
+   (CSM) Time estimate: 4 days Status: In progress
    Implement the rest of UI pages: My Page II, creat_event, create_club (Hanchao Liu, Yimeng Gu, Zhiye Zhang, Xingda Jiang)
-   Time estimate: 5 days
+   Time estimate: 5 days, Status: Done
    Merge the UI design into the main project. i.e. replace the xml files. (Team) Status: Done
    Write unit and scenario tests covering 3 important aspects/scenarios of the app using the Espresso testing framework 
    (Hanchao Liu, Yimeng Gu, Zhiye Zhang, Xingda Jiang) Time estimate: 4 days 
@@ -61,5 +62,6 @@ week 10
   Test each function and possible scenarios. (Team) Time estimate: 5 days
   Resolve the back-end issues. (CSM, ZXY, QCT) Time estimate: 5 days
   Fix all the detected bugs. (Team) Time estimate: 6 days
-  
+  ...
+  Final Demo
   
