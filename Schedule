@@ -59,9 +59,10 @@ week 9
    Status: Half-way done. May need more test cases.
 
 week 10 
-  Test each function and possible scenarios. (Team) Time estimate: 5 days
-  Resolve the back-end issues. (CSM, ZXY, QCT) Time estimate: 5 days
-  Fix all the detected bugs. (Team) Time estimate: 6 days
+  Test each function and possible scenarios. (Hanchao Liu, Yimeng Gu, Zhiye Zhang, Xingda Jiang) Time estimate: 5 days
+  Resolve the back-end issues. (CSM, ZXY, QCT) Time estimate: 3 days
+  Implement the admin permission. (CSM, ZXY, QCT) Time estimate: 4 days
+  Fix all the detected bugs. (Team) Time estimate: 5 days
   ...
   Final Demo
   
