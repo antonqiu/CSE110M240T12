@@ -27,9 +27,13 @@ public class NewClub extends AppCompatActivity {
     EditText clubName;
     EditText clubDesc;
     EditText clubDetail;
+    EditText clubEmail;
+    EditText clubPhone;
     String clubNametxt;
     String clubDesctxt;
     String clubDetailtxt;
+    String clubEmailtxt;
+    String clubPhonetxt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +55,8 @@ public class NewClub extends AppCompatActivity {
         clubName = (EditText) findViewById(R.id.new_club_name);
         clubDesc = (EditText) findViewById(R.id.new_club_desc);
         clubDetail = (EditText) findViewById(R.id.new_club_detail);
+        clubEmail = (EditText) findViewById(R.id.new_club_email);
+        clubPhone = (EditText) findViewById(R.id.new_club_phone);
     }
 
     @Override
@@ -84,6 +90,8 @@ public class NewClub extends AppCompatActivity {
         clubNametxt = clubName.getText().toString();
         clubDesctxt = clubDesc.getText().toString();
         clubDetailtxt = clubDetail.getText().toString();
+        clubPhonetxt = clubPhone.getText().toString();
+        clubEmailtxt = clubEmail.getText().toString();
         //if user does not input name and description
         if(clubNametxt.equals("") || clubDesctxt.equals("")) {
             Toast.makeText(getApplicationContext(),
@@ -96,6 +104,8 @@ public class NewClub extends AppCompatActivity {
         newClub.setClubName(clubNametxt);
         newClub.setClubDesc(clubDesctxt);
         newClub.setClubDetail(clubDetailtxt);
+        newClub.setClubEmail(clubEmailtxt);
+        newClub.setClubPhone(clubPhonetxt);
         newClub.setOwner(ParseUser.getCurrentUser());
         final ParseObject newRelation = new ParseObject("BookmarkRelations");
         newRelation.put("clubObject", newClub);
