@@ -34,6 +34,10 @@ public class Event extends ParseObject {
         return (Club) getParseObject("club");
     }
 
+    public void deleteEvent() {
+        ParseObject.createWithoutData("Events", getObjectId()).deleteEventually();
+    }
+
     public void setFollowingRelations(ParseObject relation) {
         put("following", relation);
     }
