@@ -225,7 +225,7 @@ public class ClubDetail extends AppCompatActivity {
 
     private void setupEventList() {
         // Get List View
-        ListView eventList = (ListView) this.findViewById(R.id.event_list_view);
+        //ListView eventList = (ListView) this.findViewById(R.id.event_list_view);
         // get all following relations
         ParseQuery<ParseObject> queryRelation = ParseQuery.getQuery("FollowingRelations");
         queryRelation.whereEqualTo("clubObject", thisClub);

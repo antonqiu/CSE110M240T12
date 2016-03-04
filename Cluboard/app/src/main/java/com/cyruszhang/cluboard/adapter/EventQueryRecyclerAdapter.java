@@ -37,8 +37,8 @@ import java.util.concurrent.TimeUnit;
  */
 public class EventQueryRecyclerAdapter extends ParseRecyclerQueryAdapter<ParseObject, EventQueryRecyclerAdapter.ViewHolder> {
 
-    private Event myevent;
-    private ParseObject myFollowingRelation;
+    public Event myEvent;
+    public ParseObject myFollowingRelation;
     private Context context;
     private static final int WITHIN_THREE_DAYS = 0;
     private static final int MORE = 1;
@@ -70,15 +70,16 @@ public class EventQueryRecyclerAdapter extends ParseRecyclerQueryAdapter<ParseOb
         return new ViewHolder(contactView);
     }
 
+    @Override
     public void getParseObject(int position) {
-        myevent = (Event)getItem(position);
-        myFollowingRelation = myevent.getFollowingRelations();
+        myEvent = (Event)getItem(position);
+        myFollowingRelation = myEvent.getFollowingRelations();
     }
 
 
     public void onBindViewHolder(ViewHolder holder, int position) {
         getParseObject(position);
-        final Event thisEvent = myevent;
+        final Event thisEvent = myEvent;
         final TextView eventName = holder.eventName,
                 eventLocation = holder.eventLocation,
                 fromTime = holder.fromTime,
