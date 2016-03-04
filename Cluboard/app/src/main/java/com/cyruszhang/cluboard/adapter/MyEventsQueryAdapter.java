@@ -77,7 +77,9 @@ public class MyEventsQueryAdapter<T extends ParseObject> extends ParseQueryAdapt
         TextView fromTime; TextView toTime; TextView eventDate;
         TextView timeHeader;
         final ToggleButton followButton; final TextView eventCount;
+        //TOCOPY
         final ParseObject followRelation = object;
+        //TOCOPY
         final Event thisEvent = (Event) followRelation.getParseObject("eventObject");
 
         if (v == null) {

@@ -18,6 +18,7 @@ import android.widget.ToggleButton;
 
 import com.cyruszhang.cluboard.R;
 import com.cyruszhang.cluboard.adapter.EventQueryAdapter;
+import com.cyruszhang.cluboard.adapter.EventQueryRecyclerAdapter;
 import com.cyruszhang.cluboard.adapter.MyEventsQueryAdapter;
 import com.cyruszhang.cluboard.parse.Event;
 import com.cyruszhang.cluboard.parse.User;
@@ -34,6 +35,7 @@ public class MyEvents extends AppCompatActivity {
     ParseQueryAdapter<ParseObject> eventQueryAdapter;
     private CoordinatorLayout coordinatorLayout;
     private SwipeRefreshLayout swipeRefresh;
+    private EventQueryRecyclerAdapter eventQueryRecyclerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +101,13 @@ public class MyEvents extends AppCompatActivity {
 
         Log.d(getClass().getSimpleName(), "setting up adapter");
         eventList.setAdapter(eventQueryAdapter);
+
+        eventQueryRecyclerAdapter = new EventQueryRecyclerAdapter(factory, true, coordinatorLayout) {
+            @Override
+            public void onBindViewHolder(ViewHolder holder, int position) {
+                super.onBindViewHolder(holder, position);
+            }
+        };
     }
 
 

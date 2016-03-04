@@ -35,8 +35,10 @@ import java.util.concurrent.TimeUnit;
  * Created by AntonioQ on 3/3/16.
  *
  */
-public class EventQueryRecyclerAdapter extends ParseRecyclerQueryAdapter<Event, EventQueryRecyclerAdapter.ViewHolder> {
+public class EventQueryRecyclerAdapter extends ParseRecyclerQueryAdapter<ParseObject, EventQueryRecyclerAdapter.ViewHolder> {
 
+    private Event myevent;
+    private ParseObject myFollowingRelation;
     private Context context;
     private static final int WITHIN_THREE_DAYS = 0;
     private static final int MORE = 1;
@@ -68,9 +70,15 @@ public class EventQueryRecyclerAdapter extends ParseRecyclerQueryAdapter<Event, 
         return new ViewHolder(contactView);
     }
 
-    @Override
+    public void getParseObject(int position) {
+        myevent = (Event)getItem(position);
+        myFollowingRelation = myevent.getFollowingRelations();
+    }
+
+
     public void onBindViewHolder(ViewHolder holder, int position) {
-        final Event thisEvent = getItem(position);
+        getParseObject(position);
+        final Event thisEvent = myevent;
         final TextView eventName = holder.eventName,
                 eventLocation = holder.eventLocation,
                 fromTime = holder.fromTime,
@@ -109,7 +117,7 @@ public class EventQueryRecyclerAdapter extends ParseRecyclerQueryAdapter<Event, 
         } else timeHeader.setVisibility(View.GONE);
 
         // following count & following button init
-        final ParseObject followRelation = thisEvent.getFollowingRelations();
+        final ParseObject followRelation = myFollowingRelation;
         eventCount.setText(String.format("%d", followRelation.getInt("count")));
         ParseQuery<ParseObject> userQuery = followRelation.getRelation("followingUsers").getQuery();
         userQuery.whereEqualTo("objectId", ParseUser.getCurrentUser().getObjectId());
