@@ -2,36 +2,21 @@ package com.cyruszhang.cluboard.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.CompoundButton;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.ToggleButton;
 
 import com.cyruszhang.cluboard.R;
-import com.cyruszhang.cluboard.adapter.EventQueryAdapter;
 import com.cyruszhang.cluboard.adapter.EventQueryRecyclerAdapter;
-import com.cyruszhang.cluboard.adapter.MyEventsQueryAdapter;
 import com.cyruszhang.cluboard.parse.Event;
 import com.cyruszhang.cluboard.parse.User;
-import com.parse.CountCallback;
-import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
 import com.parse.ParseUser;
-
-import java.util.List;
 
 public class MyEvents extends AppCompatActivity {
     ParseQueryAdapter<ParseObject> eventQueryAdapter;
@@ -88,24 +73,7 @@ public class MyEvents extends AppCompatActivity {
                         return relationQuery;
                     }
                 };
-        /*
-        eventQueryAdapter = new MyEventsQueryAdapter<ParseObject>(this, factory, coordinatorLayout);
-        eventQueryAdapter.addOnQueryLoadListener(new ParseQueryAdapter.OnQueryLoadListener<ParseObject>() {
-            @Override
-            public void onLoading() {
-            }
 
-            @Override
-            public void onLoaded(List<ParseObject> objects, Exception e) {
-                swipeRefresh.setRefreshing(false);
-            }
-        });
-        Log.d(getClass().getSimpleName(), "setting up adapter");
-        eventList.setAdapter(eventQueryAdapter);
-
-
-        Log.d(getClass().getSimpleName(), "setting up adapter");
-        eventList.setAdapter(eventQueryAdapter); */
         //Use the following after change MyEvents page to recyclerApatper
         myEventsRecyclerView = (RecyclerView) findViewById(R.id.my_events_recycler);
         eventQueryRecyclerAdapter = new EventQueryRecyclerAdapter(factory, true, coordinatorLayout) {
