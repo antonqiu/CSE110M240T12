@@ -201,7 +201,7 @@ public class HomeFragment extends Fragment {
 //                        // only query on two keys to save time
 //                        query.selectKeys(Arrays.asList("name", "desc"));
                         query.whereContainedIn("clubID", list);
-                        query.orderByAscending("UpdatedAt");
+                        query.orderByDescending("updatedAt");
                         Log.d(getClass().getSimpleName(), "factory created");
                         return query;
                     }
