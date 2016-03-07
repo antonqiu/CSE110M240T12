@@ -1,11 +1,19 @@
 [
     {
+        "merged": "/Users/SC/Code/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/res/merged/androidTest/debug/layout-land/com_parse_ui_parse_signup_fragment.xml",
+        "source": "/Users/SC/Code/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/layout-land/com_parse_ui_parse_signup_fragment.xml"
+    },
+    {
         "merged": "/Users/AntonioQ/Dropbox/CSE110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/res/merged/androidTest/debug/layout-land/com_parse_ui_parse_login_fragment.xml",
         "source": "/Users/AntonioQ/Dropbox/CSE110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/layout-land/com_parse_ui_parse_login_fragment.xml"
     },
     {
         "merged": "/Users/AntonioQ/Dropbox/CSE110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/res/merged/androidTest/debug/layout-land/com_parse_ui_parse_login_help_fragment.xml",
         "source": "/Users/AntonioQ/Dropbox/CSE110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/layout-land/com_parse_ui_parse_login_help_fragment.xml"
+    },
+    {
+        "merged": "/Users/SC/Code/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/res/merged/androidTest/debug/layout-land/com_parse_ui_parse_login_fragment.xml",
+        "source": "/Users/SC/Code/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/layout-land/com_parse_ui_parse_login_fragment.xml"
     },
     {
         "merged": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/res/merged/androidTest/debug/layout-land/com_parse_ui_parse_login_help_fragment.xml",
@@ -18,6 +26,10 @@
     {
         "merged": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/res/merged/androidTest/debug/layout-land/com_parse_ui_parse_signup_fragment.xml",
         "source": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/layout-land/com_parse_ui_parse_signup_fragment.xml"
+    },
+    {
+        "merged": "/Users/SC/Code/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/res/merged/androidTest/debug/layout-land/com_parse_ui_parse_login_help_fragment.xml",
+        "source": "/Users/SC/Code/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/layout-land/com_parse_ui_parse_login_help_fragment.xml"
     },
     {
         "merged": "/Users/AntonioQ/Dropbox/CSE110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/res/merged/androidTest/debug/layout-land/com_parse_ui_parse_signup_fragment.xml",

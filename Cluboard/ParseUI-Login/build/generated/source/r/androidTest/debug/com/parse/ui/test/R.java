@@ -37,12 +37,13 @@ public final class R {
         public static final int com_parse_ui_xlarge_vertical_spacing=0x7f070006;
     }
     public static final class drawable {
-        public static final int com_parse_ui_app_logo=0x7f020000;
-        public static final int com_parse_ui_facebook_login_button_background_selector=0x7f020001;
-        public static final int com_parse_ui_facebook_login_logo=0x7f020002;
-        public static final int com_parse_ui_parse_login_button_background_selector=0x7f020003;
-        public static final int com_parse_ui_twitter_login_button_background_selector=0x7f020004;
-        public static final int com_parse_ui_twitter_login_logo=0x7f020005;
+        public static final int cluboard_logo=0x7f020000;
+        public static final int com_parse_ui_app_logo=0x7f020001;
+        public static final int com_parse_ui_facebook_login_button_background_selector=0x7f020002;
+        public static final int com_parse_ui_facebook_login_logo=0x7f020003;
+        public static final int com_parse_ui_parse_login_button_background_selector=0x7f020004;
+        public static final int com_parse_ui_twitter_login_button_background_selector=0x7f020005;
+        public static final int com_parse_ui_twitter_login_logo=0x7f020006;
     }
     public static final class id {
         public static final int app_logo=0x7f090000;
