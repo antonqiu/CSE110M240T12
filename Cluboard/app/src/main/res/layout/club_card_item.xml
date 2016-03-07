@@ -3,7 +3,7 @@
     android:id="@+id/card_view"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="16dp"
+    android:layout_marginBottom="4dp"
     card_view:cardCornerRadius="8dp"
     card_view:cardPreventCornerOverlap="false"
     card_view:cardUseCompatPadding="true">
@@ -11,18 +11,20 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryLight"
         android:gravity="center_vertical"
         android:orientation="vertical"
         android:minHeight="100dp" >
 
-        <!--<ImageView-->
-            <!--android:id="@+id/club_list_item_background"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:contentDescription="@string/action_settings"-->
-            <!--android:background="@color/colorPrimaryLight"-->
-            <!--android:scaleType="centerCrop" />-->
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:contentDescription="Club Icon"
+            android:foregroundGravity="center"
+            android:gravity="center"
+            android:src="@drawable/ic_circle_star" />
 
         <TextView
             android:id="@+id/club_list_item_name"
@@ -35,7 +37,8 @@
             android:textColor="@color/colorPrimaryText"
             android:textSize="@dimen/club_name_size"
             android:paddingLeft="16dp"
-            android:paddingRight="16dp"/>
+            android:paddingRight="16dp"
+            android:layout_below="@id/imageView"/>
 
         <TextView
             android:id="@+id/club_list_item_desc"

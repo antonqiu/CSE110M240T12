@@ -8,6 +8,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.cyruszhang.cluboard.R;
 import com.cyruszhang.cluboard.adapter.EventQueryRecyclerAdapter;
@@ -76,7 +79,17 @@ public class MyEvents extends AppCompatActivity {
 
         //Use the following after change MyEvents page to recyclerApatper
         myEventsRecyclerView = (RecyclerView) findViewById(R.id.my_events_recycler);
-        eventQueryRecyclerAdapter = new EventQueryRecyclerAdapter(factory, true) {
+        eventQueryRecyclerAdapter = new EventQueryRecyclerAdapter<ParseObject, EventQueryRecyclerAdapter.CardViewHolder>(factory, true) {
+            @Override
+            public CardViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+                context = parent.getContext();
+                LayoutInflater inflater = LayoutInflater.from(context);
+                // Inflate the custom layout
+                View contactView = inflater.inflate(R.layout.event_card_item, parent, false);
+                // Return a new holder instance
+                return new CardViewHolder(contactView);
+            }
+
             @Override
             public void getParseObject(int position) {
 

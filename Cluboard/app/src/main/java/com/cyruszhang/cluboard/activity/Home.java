@@ -26,7 +26,6 @@ import com.cyruszhang.cluboard.R;
 import com.cyruszhang.cluboard.SampleDispatchActivity;
 import com.cyruszhang.cluboard.fragment.ClubCatalogFragment;
 import com.cyruszhang.cluboard.fragment.HomeFragment;
-import com.cyruszhang.cluboard.fragment.SettingsFragment;
 import com.cyruszhang.cluboard.parse.Club;
 import com.parse.ParseInstallation;
 import com.parse.ParseQueryAdapter;
@@ -131,10 +130,7 @@ public class Home extends AppCompatActivity {
                 return true;
             case R.id.action_settings:
                 //go to setting page
-                Snackbar.make(coordinatorLayout,
-                        "You selected settings", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                Intent intent = new Intent(Home.this, Setting.class);
+                Intent intent = new Intent(Home.this, Settings.class);
                 startActivity(intent);
                 return true;
             case R.id.action_about:
@@ -226,8 +222,9 @@ public class Home extends AppCompatActivity {
             case R.id.nav_new_club:
                 startActivity(new Intent(Home.this, NewClub.class));
                 return;
-//            case R.id.nav_manage_clubs:
-//                break;
+            case R.id.nav_manage_clubs:
+                startActivity(new Intent(Home.this, ManageClubs.class));
+                return;
             case R.id.nav_setting:
                 intent = new Intent(Home.this, Settings.class);
                 startActivity(intent);

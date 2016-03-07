@@ -82,4 +82,6 @@
     <string name="dialog_title_change_password">Change password</string>
     <string name="old_password">Old password</string>
     <string name="new_password">New password</string>
+    <string name="title_activity_manage_clubs">Welcome</string>
+    <string name="my_clubs">My Clubs</string>
 </resources>

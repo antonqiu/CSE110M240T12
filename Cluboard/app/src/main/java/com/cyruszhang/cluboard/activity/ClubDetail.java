@@ -10,9 +10,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.cyruszhang.cluboard.R;
@@ -40,7 +42,7 @@ public class ClubDetail extends AppCompatActivity {
     private static final int IMAGE_VIEW_ID = View.generateViewId();
     private CoordinatorLayout coordinatorLayout;
     private Menu menu;
-//    private SwipeRefreshLayout swipeRefresh;
+    //    private SwipeRefreshLayout swipeRefresh;
     private Club thisClub;
     private ParseObject thisClubBookmarkRelation;
     private ParseQueryAdapter<Event> eventQueryAdapter;
@@ -60,7 +62,7 @@ public class ClubDetail extends AppCompatActivity {
 
         final TextView clubName = (TextView) this.findViewById(R.id.club_detail_name);
         final TextView clubDetail = (TextView) this.findViewById(R.id.club_detail_detail);
-        final FloatingActionButton createEventBtn= (FloatingActionButton) this.findViewById(R.id.club_detail_new_event_button);
+        final FloatingActionButton createEventBtn = (FloatingActionButton) this.findViewById(R.id.club_detail_new_event_button);
 
         // normal intent starts
         if (thisClub == null) {
@@ -213,7 +215,17 @@ public class ClubDetail extends AppCompatActivity {
                 };
 
         eventRecyclerView = (RecyclerView) findViewById(R.id.club_detail_event_recycler);
-        eventRecyclerViewAdapter = new EventQueryRecyclerAdapter(factory, true);
+        eventRecyclerViewAdapter = new EventQueryRecyclerAdapter<Event, EventQueryRecyclerAdapter.CardViewHolder>(factory, true) {
+            @Override
+            public CardViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+                context = parent.getContext();
+                LayoutInflater inflater = LayoutInflater.from(context);
+                // Inflate the custom layout
+                View contactView = inflater.inflate(R.layout.event_card_item, parent, false);
+                // Return a new holder instance
+                return new CardViewHolder(contactView);
+            }
+        };
 
         eventRecyclerView.setAdapter(eventRecyclerViewAdapter);
         eventRecyclerView.setLayoutManager(new LinearLayoutManager(this));

@@ -256,7 +256,17 @@ public class HomeFragment extends Fragment {
                         return query;
                     }
                 };
-        eventRecyclerViewAdapter = new EventQueryRecyclerAdapter(upcomingEventsFactory, true);
+        eventRecyclerViewAdapter = new EventQueryRecyclerAdapter<Event, EventQueryRecyclerAdapter.ListViewHolder>(upcomingEventsFactory, true) {
+            @Override
+            public ListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+                context = parent.getContext();
+                LayoutInflater inflater = LayoutInflater.from(context);
+                // Inflate the custom layout
+                View contactView = inflater.inflate(R.layout.event_list_item, parent, false);
+                // Return a new holder instance
+                return new ListViewHolder(contactView);
+            }
+        };
     }
 
     private void setupClubListview(View view) {
