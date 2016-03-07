@@ -48,7 +48,6 @@ public class ClubCatalogFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     SwipeRefreshLayout swipeRefresh;
-    ParseQueryAdapter<Club> clubsQueryAdapter;
     RecyclerView clubRecyclerView;
     ClubQueryRecyclerAdapter clubRecyclerViewAdapter;
 

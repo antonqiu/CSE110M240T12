@@ -80,27 +80,6 @@
                 android:layout_height="wrap_content" />
 
         </android.support.v4.widget.SwipeRefreshLayout>
-
-        <Button
-            android:id="@+id/my_bookmark"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignStart="@id/home_swiperefresh"
-            android:text="Bookmark"
-            android:textColor="@color/colorPrimary" />
-
-        <Button
-            android:id="@+id/my_events"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_toEndOf="@id/my_bookmark"
-            android:text="My events"
-            android:textColor="@color/colorPrimary" />
-
     </RelativeLayout>
 
 </FrameLayout>

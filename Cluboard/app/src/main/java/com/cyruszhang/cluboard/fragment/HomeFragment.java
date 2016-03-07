@@ -4,30 +4,23 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.cyruszhang.cluboard.R;
 import com.cyruszhang.cluboard.activity.ClubDetail;
 import com.cyruszhang.cluboard.activity.Home;
-import com.cyruszhang.cluboard.activity.MyBookmark;
-import com.cyruszhang.cluboard.activity.MyEvents;
 import com.cyruszhang.cluboard.adapter.ClubQueryRecyclerAdapter;
 import com.cyruszhang.cluboard.adapter.EventQueryRecyclerAdapter;
 import com.cyruszhang.cluboard.parse.Club;
@@ -41,7 +34,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -57,24 +49,18 @@ public class HomeFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    private OnFragmentInteractionListener mListener;
-
-    private DrawerLayout mDrawer;
-    private NavigationView nvDrawer;
-    private ActionBarDrawerToggle drawerToggle;
-
-    Button myEvents;
     SwipeRefreshLayout swipeRefresh;
     ParseQueryAdapter<Event> eventsQueryAdapter;
     RecyclerView recommendClubsRecyclerView;
     ClubQueryRecyclerAdapter recommendClubsQueryAdapter;
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
+    private OnFragmentInteractionListener mListener;
     private RecyclerView eventRecyclerView;
     private EventQueryRecyclerAdapter eventRecyclerViewAdapter;
+    private View savedView;
+    private Bundle savedState;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -101,6 +87,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
 
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
@@ -118,30 +105,15 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(final View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        savedView = view;
+        savedState = savedInstanceState;
 
         // swipe refresh
         swipeRefresh = (SwipeRefreshLayout) view.findViewById(R.id.home_swiperefresh);
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                Log.d(getClass().getSimpleName(), "refresh triggered");
-                refreshClubList();
-            }
-        });
-
-        myEvents = (Button) view.findViewById(R.id.my_events);
-        myEvents.setOnClickListener(new View.OnClickListener() {
-            //click and go to create club view
-            public void onClick(View arg0) {
-                Intent intent = new Intent(getActivity(), MyEvents.class);
-                startActivity(intent);
-            }
-        });
-        Button bookmark = (Button) view.findViewById(R.id.my_bookmark);
-        bookmark.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View arg0) {
-                Intent intent = new Intent(getActivity(), MyBookmark.class);
-                startActivity(intent);
+                refreshEventList();
             }
         });
 
@@ -151,10 +123,17 @@ public class HomeFragment extends Fragment {
             @Override
             public void done(Club object, ParseException e) {
                 int maxIndex = object.getNextIndex();
-                setupAdapter(maxIndex);
+                setupClubAdapter(maxIndex);
+                setupEventAdapter();
                 setupClubListview(view);
+                setupEventListview(view);
             }
         });
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
@@ -163,7 +142,7 @@ public class HomeFragment extends Fragment {
         switch (id) {
             case Home.MENU_ITEM_REFRESH:
                 swipeRefresh.setRefreshing(true);
-                refreshClubList();
+                refreshEventList();
                 break;
             default:
                 break;
@@ -195,23 +174,9 @@ public class HomeFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
-
-    private void setupAdapter(final int maxIndex) {
+    private void setupClubAdapter(final int maxIndex) {
         // random index generator
+
         Random ranGen = new Random();
         final ArrayList<Integer> list = new ArrayList<>();
         if (maxIndex < 6) {
@@ -236,24 +201,8 @@ public class HomeFragment extends Fragment {
 //                        // only query on two keys to save time
 //                        query.selectKeys(Arrays.asList("name", "desc"));
                         query.whereContainedIn("clubID", list);
+                        query.orderByAscending("UpdatedAt");
                         Log.d(getClass().getSimpleName(), "factory created");
-                        return query;
-                    }
-                };
-
-        ParseQueryAdapter.QueryFactory<Event> upcomingEventsFactory =
-                new ParseQueryAdapter.QueryFactory<Event>() {
-                    @Override
-                    public ParseQuery<Event> create() {
-                        ParseQuery<Event> query = Event.getQuery();
-                        // only query on two keys to save time
-                        query.selectKeys(Arrays.asList("objectId", "name", "following", "fromTime", "toTime", "desc", "location"));
-                        query.include("following").include("followingUsers");
-                        query.include("following").include("count");
-                        query.orderByAscending("fromTime");
-                        Date rightNow = Calendar.getInstance().getTime();
-                        query.whereGreaterThanOrEqualTo("fromTime", rightNow);
-                        Log.d("factory", "factory created");
                         return query;
                     }
                 };
@@ -288,7 +237,25 @@ public class HomeFragment extends Fragment {
                 });
             }
         };
+    }
 
+    private void setupEventAdapter() {
+        ParseQueryAdapter.QueryFactory<Event> upcomingEventsFactory =
+                new ParseQueryAdapter.QueryFactory<Event>() {
+                    @Override
+                    public ParseQuery<Event> create() {
+                        ParseQuery<Event> query = Event.getQuery();
+                        // only query on two keys to save time
+                        query.selectKeys(Arrays.asList("objectId", "name", "following", "fromTime", "toTime", "desc", "location"));
+                        query.include("following").include("followingUsers");
+                        query.include("following").include("count");
+                        query.orderByAscending("fromTime");
+                        Date rightNow = Calendar.getInstance().getTime();
+                        query.whereGreaterThanOrEqualTo("fromTime", rightNow);
+                        Log.d("factory", "factory created");
+                        return query;
+                    }
+                };
         eventRecyclerViewAdapter = new EventQueryRecyclerAdapter(upcomingEventsFactory, true);
     }
 
@@ -296,17 +263,33 @@ public class HomeFragment extends Fragment {
         recommendClubsRecyclerView = (RecyclerView) view.findViewById(R.id.fragment_home_recommend_club_recycler);
         recommendClubsRecyclerView.setAdapter(recommendClubsQueryAdapter);
         recommendClubsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
+    }
 
+    private void setupEventListview(View view) {
         eventRecyclerView = (RecyclerView) view.findViewById(R.id.fragment_home_upcoming_events_recycler);
         eventRecyclerView.setAdapter(eventRecyclerViewAdapter);
         eventRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
     }
 
-    private void refreshClubList() {
-        recommendClubsQueryAdapter.loadObjects();
-        recommendClubsQueryAdapter.notifyDataSetChanged();
+    private void refreshEventList() {
+        onViewCreated(savedView, savedState);
         eventRecyclerViewAdapter.loadObjects();
         eventRecyclerViewAdapter.notifyDataSetChanged();
         swipeRefresh.setRefreshing(false);
+    }
+
+    /**
+     * This interface must be implemented by activities that contain this
+     * fragment to allow an interaction in this fragment to be communicated
+     * to the activity and potentially other fragments contained in that
+     * activity.
+     * <p/>
+     * See the Android Training lesson <a href=
+     * "http://developer.android.com/training/basics/fragments/communicating.html"
+     * >Communicating with Other Fragments</a> for more information.
+     */
+    public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onFragmentInteraction(Uri uri);
     }
 }

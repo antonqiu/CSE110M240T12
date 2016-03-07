@@ -86,16 +86,6 @@ public class Home extends AppCompatActivity {
         ft.commit();
         // set checked
         nvDrawer.getMenu().getItem(0).setChecked(true);
-
-//        // add new club floating button
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.welcome_fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(Home.this, NewClub.class);
-//                startActivity(intent);
-//            }
-//        });
     }
 
     private ActionBarDrawerToggle setupDrawerToggle(Toolbar toolbar) {
@@ -227,10 +217,12 @@ public class Home extends AppCompatActivity {
             case R.id.nav_all_clubs:
                 fragmentClass = ClubCatalogFragment.class;
                 break;
-//            case R.id.nav_followed:
-//                break;
-//            case R.id.nav_bookmark:
-//                break;
+            case R.id.nav_followed:
+                startActivity(new Intent(Home.this, MyEvents.class));
+                return;
+            case R.id.nav_bookmark:
+                startActivity(new Intent(Home.this, MyBookmark.class));
+                return;
             case R.id.nav_new_club:
                 startActivity(new Intent(Home.this, NewClub.class));
                 return;
@@ -240,8 +232,9 @@ public class Home extends AppCompatActivity {
                 intent = new Intent(Home.this, Settings.class);
                 startActivity(intent);
                 return;
-//            case R.id.nav_logout:
-//                break;
+            case R.id.nav_logout:
+                logout();
+                return;
 //            case R.id.nav_about:
 //                return;
             default:

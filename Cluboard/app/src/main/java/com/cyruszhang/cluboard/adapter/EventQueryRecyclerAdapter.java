@@ -47,7 +47,6 @@ public class EventQueryRecyclerAdapter extends ParseRecyclerQueryAdapter<ParseOb
 
     public EventQueryRecyclerAdapter(ParseQueryAdapter.QueryFactory factory, boolean hasStableIds) {
         super(factory, hasStableIds);
-        this.coordinatorLayout = coordinatorLayout;
     }
 
     public EventQueryRecyclerAdapter(String className, boolean hasStableIds) {
@@ -57,6 +56,7 @@ public class EventQueryRecyclerAdapter extends ParseRecyclerQueryAdapter<ParseOb
     public EventQueryRecyclerAdapter(Class clazz, boolean hasStableIds) {
         super(clazz, hasStableIds);
     }
+
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
