@@ -78,7 +78,7 @@
                 android:singleLine="true"
                 android:layout_toEndOf="@id/event_list_item_time_date"
                 android:layout_alignParentTop="true"
-                android:layout_toStartOf="@+id/event_list_item_follow"
+                android:layout_alignParentEnd="true"
                 android:text="@string/club_name_demo"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="@dimen/club_name_size" />
@@ -94,7 +94,7 @@
                 android:fontFamily="sans-serif-thin"
                 android:text="@string/club_desc_demo"
                 android:textSize="@dimen/club_detail_size"
-                android:layout_toStartOf="@+id/event_list_item_follow"
+                android:layout_alignParentEnd="true"
                 android:layout_below="@+id/event_list_item_name"
                 android:layout_toEndOf="@id/event_list_item_time_date" />
 
@@ -105,8 +105,9 @@
                 android:gravity="start"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
-                android:maxLines="3"
-                android:fontFamily="sans-serif-thin"
+                android:paddingTop="8dp"
+                android:maxLines="7"
+                android:fontFamily="sans-serif-light"
                 android:text="@string/club_desc_demo"
                 android:textSize="@dimen/club_detail_size"
                 android:layout_toStartOf="@+id/event_list_item_follow"
