@@ -179,8 +179,9 @@ public class ClubCatalogFragment extends Fragment {
                     public ParseQuery<Club> create() {
                         ParseQuery<Club> query = Club.getQuery();
                         // only query on two keys to save time
-                        query.selectKeys(Arrays.asList("name", "desc"));
                         query.orderByDescending("createdAt");
+                        // skip property item
+                        query.whereNotEqualTo("clubID", 0);
                         Log.d(getClass().getSimpleName(), "factory created");
                         return query;
                     }
@@ -189,30 +190,6 @@ public class ClubCatalogFragment extends Fragment {
     }
 
     private void setupClubListview(View view) {
-//        clubsQueryAdapter.addOnQueryLoadListener(new ParseQueryAdapter.OnQueryLoadListener<Club>() {
-//            @Override
-//            public void onLoading() {
-//                swipeRefresh.setRefreshing(true);
-//            }
-//
-//            @Override
-//            public void onLoaded(List<Club> objects, Exception e) {
-//                swipeRefresh.setRefreshing(false);
-//            }
-//        });
-
-//        ListView clubList = (ListView) view.findViewById(R.id.fragment_club_catalog_list);
-//        clubList.setAdapter(clubsQueryAdapter);
-//
-//        clubList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                final Club club = clubsQueryAdapter.getItem(position);
-//                Intent intent = new Intent(getActivity(), ClubDetail.class);
-//                intent.putExtra("OBJECT_ID", club.getObjectId());
-//                startActivity(intent);
-//            }
-//        });
 
         clubRecyclerView = (RecyclerView) view.findViewById(R.id.fragment_club_catalog_recycler);
         clubRecyclerView.setAdapter(clubRecyclerViewAdapter);

@@ -43,8 +43,20 @@ public class Club extends ParseObject{
         put("desc", clubDesc);
     }
 
-    public String getClubID() {
-        return getString("clubID");
+    public int getClubID() {
+        return getInt("clubID");
+    }
+
+    public void setClubID(int id) {
+        put("clubID", id);
+    }
+
+    public int getNextIndex() {
+        return getInt("nextIndex");
+    }
+
+    public void setNextIndex(int id) {
+        put("nextIndex", id);
     }
 
     public void deleteClub() {
