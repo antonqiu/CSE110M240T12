@@ -16,25 +16,12 @@
         tools:context=".activity.Home"
         tools:showIn="@layout/activity_welcome" >
 
-        <GridView
-            android:id="@+id/home_recommend_grid"
-            android:layout_width="match_parent"
-            android:layout_height="240dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:numColumns="auto_fit"
-            android:columnWidth="90dp"
-            android:verticalSpacing="10dp"
-            android:horizontalSpacing="10dp"
-            android:stretchMode="columnWidth"
-            android:gravity="center" />
-
         <ImageView
             android:id="@+id/home_recommend_icon"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_alignParentStart="true"
-            android:layout_below="@id/home_recommend_grid"
+            android:layout_alignParentTop="true"
             android:layout_marginLeft="8dp"
             android:foregroundGravity="center"
             android:gravity="center"
@@ -44,18 +31,24 @@
             android:id="@+id/home_recommend_text"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
-            android:layout_above="@+id/home_swiperefresh"
+            android:layout_above="@+id/fragment_home_recommend_club_recycler"
             android:layout_toEndOf="@+id/home_recommend_icon"
             android:fontFamily="sans-serif-light"
             android:gravity="center_vertical"
             android:text="@string/recommendations"
             android:textSize="18sp" />
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/fragment_home_recommend_club_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/home_recommend_icon"/>
+
         <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/home_swiperefresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/home_recommend_icon">
+            android:layout_below="@id/fragment_home_recommend_club_recycler">
 
             <ListView
                 android:id="@+id/home_club_list_view"

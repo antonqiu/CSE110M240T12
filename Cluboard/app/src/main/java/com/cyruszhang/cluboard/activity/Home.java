@@ -26,6 +26,7 @@ import com.cyruszhang.cluboard.R;
 import com.cyruszhang.cluboard.SampleDispatchActivity;
 import com.cyruszhang.cluboard.fragment.ClubCatalogFragment;
 import com.cyruszhang.cluboard.fragment.HomeFragment;
+import com.cyruszhang.cluboard.fragment.SettingsFragment;
 import com.cyruszhang.cluboard.parse.Club;
 import com.parse.ParseInstallation;
 import com.parse.ParseQueryAdapter;
@@ -217,7 +218,7 @@ public class Home extends AppCompatActivity {
         // Create a new fragment and specify the planet to show based on
         // position
         Fragment fragment = null;
-
+        Intent intent;
         Class fragmentClass;
         switch (menuItem.getItemId()) {
             case R.id.nav_home:
@@ -235,8 +236,10 @@ public class Home extends AppCompatActivity {
                 return;
 //            case R.id.nav_manage_clubs:
 //                break;
-//            case R.id.nav_setting:
-//                break;
+            case R.id.nav_setting:
+                intent = new Intent(Home.this, Settings.class);
+                startActivity(intent);
+                return;
 //            case R.id.nav_logout:
 //                break;
 //            case R.id.nav_about:
@@ -255,6 +258,8 @@ public class Home extends AppCompatActivity {
             // Insert the fragment by replacing any existing fragment
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction transaction = fragmentManager.beginTransaction();
+            if (fragment == null)
+                Log.d(getClass().getSimpleName(), "null");
             transaction.replace(R.id.main_fragment_placeholder, fragment);
             //TODO: go back to one stack won't change the checked status
             // stack check

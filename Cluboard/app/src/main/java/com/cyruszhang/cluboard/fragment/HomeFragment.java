@@ -24,6 +24,7 @@ import com.cyruszhang.cluboard.activity.ClubDetail;
 import com.cyruszhang.cluboard.activity.Home;
 import com.cyruszhang.cluboard.activity.MyBookmark;
 import com.cyruszhang.cluboard.activity.MyEvents;
+import com.cyruszhang.cluboard.adapter.ClubQueryRecyclerAdapter;
 import com.cyruszhang.cluboard.parse.Club;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
@@ -58,6 +59,7 @@ public class HomeFragment extends Fragment {
     Button myEvents;
     SwipeRefreshLayout swipeRefresh;
     ParseQueryAdapter<Club> clubsQueryAdapter;
+    ClubQueryRecyclerAdapter recommendClubsQueryAdapter;
 
     public HomeFragment() {
         // Required empty public constructor
