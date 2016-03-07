@@ -213,7 +213,7 @@ public class ClubDetail extends AppCompatActivity {
                 };
 
         eventRecyclerView = (RecyclerView) findViewById(R.id.club_detail_event_recycler);
-        eventRecyclerViewAdapter = new EventQueryRecyclerAdapter(factory, true, coordinatorLayout);
+        eventRecyclerViewAdapter = new EventQueryRecyclerAdapter(factory, true);
 
         eventRecyclerView.setAdapter(eventRecyclerViewAdapter);
         eventRecyclerView.setLayoutManager(new LinearLayoutManager(this));

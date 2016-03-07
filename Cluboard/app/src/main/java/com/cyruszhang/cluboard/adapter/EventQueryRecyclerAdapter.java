@@ -45,7 +45,7 @@ public class EventQueryRecyclerAdapter extends ParseRecyclerQueryAdapter<ParseOb
     private CoordinatorLayout coordinatorLayout;
     Map<Integer, Event> headerSwitch = new HashMap<>(2);
 
-    public EventQueryRecyclerAdapter(ParseQueryAdapter.QueryFactory factory, boolean hasStableIds, CoordinatorLayout coordinatorLayout) {
+    public EventQueryRecyclerAdapter(ParseQueryAdapter.QueryFactory factory, boolean hasStableIds) {
         super(factory, hasStableIds);
         this.coordinatorLayout = coordinatorLayout;
     }
@@ -75,7 +75,7 @@ public class EventQueryRecyclerAdapter extends ParseRecyclerQueryAdapter<ParseOb
         myFollowingRelation = myEvent.getFollowingRelations();
     }
 
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, int position) {
         getParseObject(position);
         final Event thisEvent = myEvent;
         final TextView eventName = holder.eventName,
@@ -139,7 +139,7 @@ public class EventQueryRecyclerAdapter extends ParseRecyclerQueryAdapter<ParseOb
                             cancelNotification(thisEvent.getFromTime(), thisEvent.getCreatedAt());
                             Log.e("notification", "cancelNotification: after call function");
                             eventCount.setText(String.format("%d", currentCount - 1));
-                            Snackbar.make(coordinatorLayout,
+                            Snackbar.make(eventName,
                                     "You unfollowed this event", Snackbar.LENGTH_LONG)
                                     .setAction("Action", null).show();
                         } else {
@@ -150,7 +150,7 @@ public class EventQueryRecyclerAdapter extends ParseRecyclerQueryAdapter<ParseOb
                             scheduleNotification(thisEvent.getFromTime(), thisEvent.getCreatedAt());
                             Log.e("notification", "scheduleNotification: after call function");
                             eventCount.setText(String.format("%d", currentCount + 1));
-                            Snackbar.make(coordinatorLayout,
+                            Snackbar.make(eventName,
                                     "You followed this event", Snackbar.LENGTH_LONG)
                                     .setAction("Action", null).show();
                         }

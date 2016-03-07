@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cyruszhang.cluboard.R;
@@ -41,37 +42,6 @@ public abstract class ClubQueryRecyclerAdapter<T extends ParseObject, U extends 
         return null;
     }
 
-//    @Override
-//    public U onCreateViewHolder(ViewGroup parent, int viewType) {
-//        context = parent.getContext();
-//        LayoutInflater inflater = LayoutInflater.from(context);
-//
-//        // Inflate the custom layout
-//        View contactView = inflater.inflate(R.layout.club_list_item, parent, false);
-//
-//        // Return a new holder instance
-//        return new ListViewHolder(contactView);
-//    }
-
-//    @Override
-//    public void onBindViewHolder(U viewHolder, int position) {
-//        final Club thisClub = getThisClub(position);
-//        final U holder = viewHolder;
-//        final TextView clubName = holder.clubName,
-//                clubDetail =holder.clubDetail;
-//        clubName.setText(thisClub.getClubName());
-//        clubDetail.setText(thisClub.getClubDesc());
-//        holder.thisView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Context context = holder.thisView.getContext();
-//                Intent intent = new Intent(context, ClubDetail.class);
-//                intent.putExtra("OBJECT_ID", thisClub.getObjectId());
-//                context.startActivity(intent);
-//            }
-//        });
-//    }
-
     public static class ListViewHolder extends RecyclerView.ViewHolder {
         // Your holder should contain a member variable
         // for any view that will be set as you render a row
@@ -90,4 +60,21 @@ public abstract class ClubQueryRecyclerAdapter<T extends ParseObject, U extends 
             clubDetail = (TextView) v.findViewById(R.id.club_list_item_desc);
         }
     }
+
+    public static class GridViewHolder extends RecyclerView.ViewHolder {
+
+        public TextView clubName, clubDetail;
+        public ImageView bkg;
+        public View thisView;
+
+        public GridViewHolder(View v) {
+            super(v);
+            thisView = v;
+            // TODO: put all columns!
+            clubName = (TextView) v.findViewById(R.id.club_list_item_name);
+            clubDetail = (TextView) v.findViewById(R.id.club_list_item_desc);
+//            bkg = (ImageView) v.findViewById(R.id.club_list_item_background);
+        }
+    }
+
 }

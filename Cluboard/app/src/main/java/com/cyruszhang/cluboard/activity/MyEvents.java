@@ -76,7 +76,7 @@ public class MyEvents extends AppCompatActivity {
 
         //Use the following after change MyEvents page to recyclerApatper
         myEventsRecyclerView = (RecyclerView) findViewById(R.id.my_events_recycler);
-        eventQueryRecyclerAdapter = new EventQueryRecyclerAdapter(factory, true, coordinatorLayout) {
+        eventQueryRecyclerAdapter = new EventQueryRecyclerAdapter(factory, true) {
             @Override
             public void getParseObject(int position) {
 

@@ -4,12 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,7 +29,9 @@ import com.cyruszhang.cluboard.activity.Home;
 import com.cyruszhang.cluboard.activity.MyBookmark;
 import com.cyruszhang.cluboard.activity.MyEvents;
 import com.cyruszhang.cluboard.adapter.ClubQueryRecyclerAdapter;
+import com.cyruszhang.cluboard.adapter.EventQueryRecyclerAdapter;
 import com.cyruszhang.cluboard.parse.Club;
+import com.cyruszhang.cluboard.parse.Event;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -35,9 +39,10 @@ import com.parse.ParseQueryAdapter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -65,9 +70,11 @@ public class HomeFragment extends Fragment {
 
     Button myEvents;
     SwipeRefreshLayout swipeRefresh;
-    ParseQueryAdapter<Club> clubsQueryAdapter;
+    ParseQueryAdapter<Event> eventsQueryAdapter;
     RecyclerView recommendClubsRecyclerView;
     ClubQueryRecyclerAdapter recommendClubsQueryAdapter;
+    private RecyclerView eventRecyclerView;
+    private EventQueryRecyclerAdapter eventRecyclerViewAdapter;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -234,21 +241,22 @@ public class HomeFragment extends Fragment {
                     }
                 };
 
-        clubsQueryAdapter = new ParseQueryAdapter<Club>(getContext(), recommendClubsfactory) {
-            @Override
-            public View getItemView(Club object, View v, ViewGroup parent) {
-                // Local DataStore
-                if (v == null) {
-                    v = View.inflate(getContext(), R.layout.club_list_item, null);
-                }
-                Log.d(getClass().getSimpleName(), "setting up item view");
-                TextView clubName = (TextView) v.findViewById(R.id.club_list_item_name);
-                TextView clubDetail = (TextView) v.findViewById(R.id.club_list_item_desc);
-                clubName.setText(object.getClubName());
-                clubDetail.setText(object.getClubDesc());
-                return v;
-            }
-        };
+        ParseQueryAdapter.QueryFactory<Event> upcomingEventsFactory =
+                new ParseQueryAdapter.QueryFactory<Event>() {
+                    @Override
+                    public ParseQuery<Event> create() {
+                        ParseQuery<Event> query = Event.getQuery();
+                        // only query on two keys to save time
+                        query.selectKeys(Arrays.asList("objectId", "name", "following", "fromTime", "toTime", "desc", "location"));
+                        query.include("following").include("followingUsers");
+                        query.include("following").include("count");
+                        query.orderByAscending("fromTime");
+                        Date rightNow = Calendar.getInstance().getTime();
+                        query.whereGreaterThanOrEqualTo("fromTime", rightNow);
+                        Log.d("factory", "factory created");
+                        return query;
+                    }
+                };
 
         recommendClubsQueryAdapter = new ClubQueryRecyclerAdapter<Club, ClubQueryRecyclerAdapter.ListViewHolder>(recommendClubsfactory, true) {
             @Override
@@ -256,7 +264,7 @@ public class HomeFragment extends Fragment {
                 LayoutInflater inflater = LayoutInflater.from(getContext());
 
                 // Inflate the custom layout
-                View contactView = inflater.inflate(R.layout.club_list_item, parent, false);
+                View contactView = inflater.inflate(R.layout.club_card_item, parent, false);
 
                 // Return a new holder instance
                 return new ListViewHolder(contactView);
@@ -280,42 +288,25 @@ public class HomeFragment extends Fragment {
                 });
             }
         };
+
+        eventRecyclerViewAdapter = new EventQueryRecyclerAdapter(upcomingEventsFactory, true);
     }
 
     private void setupClubListview(View view) {
-        clubsQueryAdapter.addOnQueryLoadListener(new ParseQueryAdapter.OnQueryLoadListener<Club>() {
-            @Override
-            public void onLoading() {
-                swipeRefresh.setRefreshing(true);
-            }
-
-            @Override
-            public void onLoaded(List<Club> objects, Exception e) {
-                swipeRefresh.setRefreshing(false);
-            }
-        });
-
-        ListView clubList = (ListView) view.findViewById(R.id.home_club_list_view);
-        clubList.setAdapter(clubsQueryAdapter);
-
-        clubList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                final Club club = clubsQueryAdapter.getItem(position);
-                Intent intent = new Intent(getActivity(), ClubDetail.class);
-                intent.putExtra("OBJECT_ID", club.getObjectId());
-                startActivity(intent);
-            }
-        });
-
         recommendClubsRecyclerView = (RecyclerView) view.findViewById(R.id.fragment_home_recommend_club_recycler);
         recommendClubsRecyclerView.setAdapter(recommendClubsQueryAdapter);
         recommendClubsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
+
+        eventRecyclerView = (RecyclerView) view.findViewById(R.id.fragment_home_upcoming_events_recycler);
+        eventRecyclerView.setAdapter(eventRecyclerViewAdapter);
+        eventRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
     }
 
     private void refreshClubList() {
-        clubsQueryAdapter.loadObjects();
-        clubsQueryAdapter.notifyDataSetChanged();
+        recommendClubsQueryAdapter.loadObjects();
+        recommendClubsQueryAdapter.notifyDataSetChanged();
+        eventRecyclerViewAdapter.loadObjects();
+        eventRecyclerViewAdapter.notifyDataSetChanged();
         swipeRefresh.setRefreshing(false);
     }
 }
