@@ -39,7 +39,7 @@ import java.util.List;
 
 /**
  *  NEARLY IDENTICAL REPLACEMENT FOR ParseQueryAdapter ON ListView.
- *  REQUIRES THAT YOU SUBCLASS TO CREATE ViewHolder, onBindViewHolder(), and onCreateViewHolder
+ *  REQUIRES THAT YOU SUBCLASS TO CREATE ListViewHolder, onBindViewHolder(), and onCreateViewHolder
  *  AS ENFORCED BY THE RECYCLERVIEW PATTERN.
  *
  *  TESTED SUCCESSFULLY with RecyclerView v7:21.0.3

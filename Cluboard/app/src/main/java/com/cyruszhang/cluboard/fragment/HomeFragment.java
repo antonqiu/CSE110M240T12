@@ -9,6 +9,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -26,11 +28,16 @@ import com.cyruszhang.cluboard.activity.MyBookmark;
 import com.cyruszhang.cluboard.activity.MyEvents;
 import com.cyruszhang.cluboard.adapter.ClubQueryRecyclerAdapter;
 import com.cyruszhang.cluboard.parse.Club;
+import com.parse.GetCallback;
+import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,6 +66,7 @@ public class HomeFragment extends Fragment {
     Button myEvents;
     SwipeRefreshLayout swipeRefresh;
     ParseQueryAdapter<Club> clubsQueryAdapter;
+    RecyclerView recommendClubsRecyclerView;
     ClubQueryRecyclerAdapter recommendClubsQueryAdapter;
 
     public HomeFragment() {
@@ -91,7 +99,6 @@ public class HomeFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        setupAdapter();
     }
 
     @Override
@@ -102,7 +109,7 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(final View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         // swipe refresh
@@ -131,7 +138,16 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        setupClubListview(view);
+        ParseQuery<Club> query = Club.getQuery();
+        query.selectKeys(Arrays.asList("nextIndex"));
+        query.getFirstInBackground(new GetCallback<Club>() {
+            @Override
+            public void done(Club object, ParseException e) {
+                int maxIndex = object.getNextIndex();
+                setupAdapter(maxIndex);
+                setupClubListview(view);
+            }
+        });
     }
 
     @Override
@@ -187,24 +203,41 @@ public class HomeFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    private void setupAdapter() {
-        ParseQueryAdapter.QueryFactory<Club> factory =
+    private void setupAdapter(final int maxIndex) {
+        // random index generator
+        Random ranGen = new Random();
+        final ArrayList<Integer> list = new ArrayList<>();
+        if (maxIndex < 6) {
+            for (int i = 1; i <= maxIndex; i++) {
+                list.add(i);
+            }
+        } else {
+            for (int i = 0; i < 6; i++) {
+                int thisIndex = ranGen.nextInt(maxIndex) + 1;
+                if (list.contains(thisIndex)) {
+                    i--; continue;
+                } else {
+                    list.add(thisIndex);
+                }
+            }
+        }
+
+        ParseQueryAdapter.QueryFactory<Club> recommendClubsfactory =
                 new ParseQueryAdapter.QueryFactory<Club>() {
                     public ParseQuery<Club> create() {
                         ParseQuery<Club> query = Club.getQuery();
-                        // only query on two keys to save time
-                        query.selectKeys(Arrays.asList("name", "desc"));
-                        query.orderByDescending("createdAt");
+//                        // only query on two keys to save time
+//                        query.selectKeys(Arrays.asList("name", "desc"));
+                        query.whereContainedIn("clubID", list);
                         Log.d(getClass().getSimpleName(), "factory created");
                         return query;
                     }
                 };
 
-        clubsQueryAdapter = new ParseQueryAdapter<Club>(getContext(), factory) {
+        clubsQueryAdapter = new ParseQueryAdapter<Club>(getContext(), recommendClubsfactory) {
             @Override
             public View getItemView(Club object, View v, ViewGroup parent) {
                 // Local DataStore
-
                 if (v == null) {
                     v = View.inflate(getContext(), R.layout.club_list_item, null);
                 }
@@ -214,6 +247,37 @@ public class HomeFragment extends Fragment {
                 clubName.setText(object.getClubName());
                 clubDetail.setText(object.getClubDesc());
                 return v;
+            }
+        };
+
+        recommendClubsQueryAdapter = new ClubQueryRecyclerAdapter<Club, ClubQueryRecyclerAdapter.ListViewHolder>(recommendClubsfactory, true) {
+            @Override
+            public ListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+                LayoutInflater inflater = LayoutInflater.from(getContext());
+
+                // Inflate the custom layout
+                View contactView = inflater.inflate(R.layout.club_list_item, parent, false);
+
+                // Return a new holder instance
+                return new ListViewHolder(contactView);
+            }
+
+            @Override
+            public void onBindViewHolder(final ListViewHolder holder, int position) {
+                final Club thisClub = getThisClub(position);
+                final TextView clubName = holder.clubName,
+                        clubDetail = holder.clubDetail;
+                clubName.setText(thisClub.getClubName());
+                clubDetail.setText(thisClub.getClubDesc());
+                holder.thisView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Context context = holder.thisView.getContext();
+                        Intent intent = new Intent(context, ClubDetail.class);
+                        intent.putExtra("OBJECT_ID", thisClub.getObjectId());
+                        context.startActivity(intent);
+                    }
+                });
             }
         };
     }
@@ -243,6 +307,10 @@ public class HomeFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        recommendClubsRecyclerView = (RecyclerView) view.findViewById(R.id.fragment_home_recommend_club_recycler);
+        recommendClubsRecyclerView.setAdapter(recommendClubsQueryAdapter);
+        recommendClubsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
     }
 
     private void refreshClubList() {

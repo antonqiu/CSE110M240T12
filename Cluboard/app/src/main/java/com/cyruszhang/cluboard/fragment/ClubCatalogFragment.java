@@ -186,7 +186,36 @@ public class ClubCatalogFragment extends Fragment {
                         return query;
                     }
                 };
-        clubRecyclerViewAdapter = new ClubQueryRecyclerAdapter(factory, true);
+        clubRecyclerViewAdapter = new ClubQueryRecyclerAdapter<Club, ClubQueryRecyclerAdapter.ListViewHolder>(factory, true) {
+            @Override
+            public ListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+                LayoutInflater inflater = LayoutInflater.from(getContext());
+
+                // Inflate the custom layout
+                View contactView = inflater.inflate(R.layout.club_list_item, parent, false);
+
+                // Return a new holder instance
+                return new ListViewHolder(contactView);
+            }
+
+            @Override
+            public void onBindViewHolder(final ListViewHolder holder, int position) {
+                final Club thisClub = getThisClub(position);
+                final TextView clubName = holder.clubName,
+                        clubDetail = holder.clubDetail;
+                clubName.setText(thisClub.getClubName());
+                clubDetail.setText(thisClub.getClubDesc());
+                holder.thisView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Context context = holder.thisView.getContext();
+                        Intent intent = new Intent(context, ClubDetail.class);
+                        intent.putExtra("OBJECT_ID", thisClub.getObjectId());
+                        context.startActivity(intent);
+                    }
+                });
+            }
+        };
     }
 
     private void setupClubListview(View view) {

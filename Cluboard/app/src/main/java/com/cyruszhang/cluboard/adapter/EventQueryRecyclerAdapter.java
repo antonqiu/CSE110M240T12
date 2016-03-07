@@ -224,7 +224,7 @@ public class EventQueryRecyclerAdapter extends ParseRecyclerQueryAdapter<ParseOb
         // and does the view lookups to find each subview
         public ViewHolder(View v) {
             // Stores the itemView in a public final member variable that can be used
-            // to access the context from any ViewHolder instance.
+            // to access the context from any ListViewHolder instance.
             super(v);
 
             eventName = (TextView) v.findViewById(R.id.event_list_item_name);

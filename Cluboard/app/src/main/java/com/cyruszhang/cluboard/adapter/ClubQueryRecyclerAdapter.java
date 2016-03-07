@@ -18,7 +18,8 @@ import com.parse.ParseQueryAdapter;
 /**
  * Created by AntonioQ on 3/4/16.
  */
-public class ClubQueryRecyclerAdapter extends ParseRecyclerQueryAdapter<ParseObject, ClubQueryRecyclerAdapter.ViewHolder> {
+public abstract class ClubQueryRecyclerAdapter<T extends ParseObject, U extends RecyclerView.ViewHolder>
+        extends ParseRecyclerQueryAdapter<T, U> {
 
     private Context context;
     SwipeRefreshLayout swipeRefresh;
@@ -31,10 +32,6 @@ public class ClubQueryRecyclerAdapter extends ParseRecyclerQueryAdapter<ParseObj
         super(className, hasStableIds);
     }
 
-    public ClubQueryRecyclerAdapter(Class<ParseObject> clazz, boolean hasStableIds) {
-        super(clazz, hasStableIds);
-    }
-
     public Club getThisClub(int position) {
         return (Club) getItem(position);
     }
@@ -44,37 +41,38 @@ public class ClubQueryRecyclerAdapter extends ParseRecyclerQueryAdapter<ParseObj
         return null;
     }
 
-    @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        context = parent.getContext();
-        LayoutInflater inflater = LayoutInflater.from(context);
+//    @Override
+//    public U onCreateViewHolder(ViewGroup parent, int viewType) {
+//        context = parent.getContext();
+//        LayoutInflater inflater = LayoutInflater.from(context);
+//
+//        // Inflate the custom layout
+//        View contactView = inflater.inflate(R.layout.club_list_item, parent, false);
+//
+//        // Return a new holder instance
+//        return new ListViewHolder(contactView);
+//    }
 
-        // Inflate the custom layout
-        View contactView = inflater.inflate(R.layout.club_list_item, parent, false);
+//    @Override
+//    public void onBindViewHolder(U viewHolder, int position) {
+//        final Club thisClub = getThisClub(position);
+//        final U holder = viewHolder;
+//        final TextView clubName = holder.clubName,
+//                clubDetail =holder.clubDetail;
+//        clubName.setText(thisClub.getClubName());
+//        clubDetail.setText(thisClub.getClubDesc());
+//        holder.thisView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Context context = holder.thisView.getContext();
+//                Intent intent = new Intent(context, ClubDetail.class);
+//                intent.putExtra("OBJECT_ID", thisClub.getObjectId());
+//                context.startActivity(intent);
+//            }
+//        });
+//    }
 
-        // Return a new holder instance
-        return new ViewHolder(contactView);
-    }
-
-    @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
-        final Club thisClub = getThisClub(position);
-        final TextView clubName = holder.clubName,
-                clubDetail =holder.clubDetail;
-        clubName.setText(thisClub.getClubName());
-        clubDetail.setText(thisClub.getClubDesc());
-        holder.thisView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Context context = holder.thisView.getContext();
-                Intent intent = new Intent(context, ClubDetail.class);
-                intent.putExtra("OBJECT_ID", thisClub.getObjectId());
-                context.startActivity(intent);
-            }
-        });
-    }
-
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ListViewHolder extends RecyclerView.ViewHolder {
         // Your holder should contain a member variable
         // for any view that will be set as you render a row
         public TextView clubName, clubDetail;
@@ -82,9 +80,9 @@ public class ClubQueryRecyclerAdapter extends ParseRecyclerQueryAdapter<ParseObj
 
         // We also create a constructor that accepts the entire item row
         // and does the view lookups to find each subview
-        public ViewHolder(View v) {
+        public ListViewHolder(View v) {
             // Stores the itemView in a public final member variable that can be used
-            // to access the context from any ViewHolder instance.
+            // to access the context from any ListViewHolder instance.
             super(v);
             thisView = v;
             // TODO: put all columns!
