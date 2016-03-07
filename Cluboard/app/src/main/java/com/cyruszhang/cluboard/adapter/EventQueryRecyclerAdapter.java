@@ -70,12 +70,10 @@ public class EventQueryRecyclerAdapter extends ParseRecyclerQueryAdapter<ParseOb
         return new ViewHolder(contactView);
     }
 
-    @Override
     public void getParseObject(int position) {
         myEvent = (Event)getItem(position);
         myFollowingRelation = myEvent.getFollowingRelations();
     }
-
 
     public void onBindViewHolder(ViewHolder holder, int position) {
         getParseObject(position);

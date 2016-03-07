@@ -3,6 +3,7 @@ package com.cyruszhang.cluboard.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.cyruszhang.cluboard.R;
 import com.cyruszhang.cluboard.SampleDispatchActivity;
@@ -20,6 +22,7 @@ import com.cyruszhang.cluboard.parse.Club;
 import com.cyruszhang.cluboard.parse.Event;
 import com.cyruszhang.cluboard.parse.User;
 import com.parse.GetCallback;
+import com.parse.ParseACL;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -55,19 +58,9 @@ public class ClubDetail extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator);
 
-//        final TextView clubName = (TextView) this.findViewById(R.id.club_detail_name);
-//        final TextView clubDetail = (TextView) this.findViewById(R.id.club_detail_detail);
-//        final FloatingActionButton createEventBtn= (FloatingActionButton) this.findViewById(R.id.club_detail_new_event_button);
-        // swipe refresh
-//        swipeRefresh = (SwipeRefreshLayout) findViewById(R.id.club_detail_swiperefresh);
-//        // start from the very start
-//        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                Log.d(getClass().getSimpleName(), "refresh triggered");
-//                refreshEventList();
-//            }
-//        });
+        final TextView clubName = (TextView) this.findViewById(R.id.club_detail_name);
+        final TextView clubDetail = (TextView) this.findViewById(R.id.club_detail_detail);
+        final FloatingActionButton createEventBtn= (FloatingActionButton) this.findViewById(R.id.club_detail_new_event_button);
 
         // normal intent starts
         if (thisClub == null) {
@@ -84,16 +77,16 @@ public class ClubDetail extends AppCompatActivity {
                             public void done(ParseObject object, ParseException e) {
                                 thisClubBookmarkRelation = object;
                                 Log.d(getClass().getSimpleName(), "got club object" + thisClub.getClubName());
-//                                clubName.setText(thisClub.getClubName());
-//                                clubDetail.setText(thisClub.getClubDetail());
+                                clubName.setText(thisClub.getClubName());
+                                clubDetail.setText(thisClub.getClubDetail());
 
-//                                User currentUser = (User) ParseUser.getCurrentUser();
-//                                ParseACL clubAcl = thisClub.getACL();
-//                                //if user is owner, show create event button
-//                                if (clubAcl.getWriteAccess(currentUser)) {
-//                                    createEventBtn.setVisibility(View.VISIBLE);
-//                                }
-//                                // swipeRefresh.setRefreshing(true);
+                                User currentUser = (User) ParseUser.getCurrentUser();
+                                ParseACL clubAcl = thisClub.getACL();
+                                //if user is owner, show create event button
+                                if (clubAcl.getWriteAccess(currentUser)) {
+                                    createEventBtn.setVisibility(View.VISIBLE);
+                                }
+
                                 initBookmark();
                                 setupEventList();
                             }
@@ -105,22 +98,22 @@ public class ClubDetail extends AppCompatActivity {
             }
         }
 
-//        createEventBtn.setOnClickListener(new View.OnClickListener() {
-//            //click and go to create club view
-//            public void onClick(View arg0) {
-//                Intent intent = new Intent(ClubDetail.this, NewEvent.class);
-//                intent.putExtra("OBJECT_ID", getIntent().getStringExtra("OBJECT_ID"));
-//                startActivity(intent);
-//            }
-//        });
+        createEventBtn.setOnClickListener(new View.OnClickListener() {
+            //click and go to create club view
+            public void onClick(View arg0) {
+                Intent intent = new Intent(ClubDetail.this, NewEvent.class);
+                intent.putExtra("OBJECT_ID", getIntent().getStringExtra("OBJECT_ID"));
+                startActivity(intent);
+            }
+        });
 
     }
 
-//    @Override
-//    protected void onRestart() {
-//        refreshEventList();
-//        super.onRestart();
-//    }
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        refreshEventList();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -244,7 +237,7 @@ public class ClubDetail extends AppCompatActivity {
     }
 
     private void refreshEventList() {
+        eventRecyclerViewAdapter.loadObjects();
         eventRecyclerViewAdapter.notifyDataSetChanged();
-//        swipeRefresh.setRefreshing(false);
     }
 }

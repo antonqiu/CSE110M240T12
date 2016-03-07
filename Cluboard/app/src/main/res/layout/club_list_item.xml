@@ -6,7 +6,8 @@
     android:minHeight="72dp"
     android:orientation="vertical"
     android:paddingBottom="8dp"
-    android:paddingTop="8dp">
+    android:paddingTop="8dp"
+    android:background="?android:attr/selectableItemBackground" >
 
 
     <ImageView
