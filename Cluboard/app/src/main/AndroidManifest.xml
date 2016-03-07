@@ -160,10 +160,6 @@
                 android:name="com.parse.ui.ParseLoginActivity.TWITTER_LOGIN_ENABLED"
                 android:value="false" />
         </activity>
-        <activity
-            android:name=".activity.Settings"
-            android:label="@string/title_activity_settings"
-            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

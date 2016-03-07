@@ -2,7 +2,6 @@ package com.cyruszhang.cluboard.activity;
 
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
@@ -233,8 +232,7 @@ public class Home extends AppCompatActivity {
 //            case R.id.nav_bookmark:
 //                break;
             case R.id.nav_new_club:
-                intent = new Intent(Home.this, NewClub.class);
-                startActivity(intent);
+                startActivity(new Intent(Home.this, NewClub.class));
                 return;
 //            case R.id.nav_manage_clubs:
 //                break;
@@ -245,7 +243,7 @@ public class Home extends AppCompatActivity {
 //            case R.id.nav_logout:
 //                break;
 //            case R.id.nav_about:
-//                break;
+//                return;
             default:
                 fragmentClass = HomeFragment.class;
         }

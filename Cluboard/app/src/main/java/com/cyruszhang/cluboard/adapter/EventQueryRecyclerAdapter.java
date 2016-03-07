@@ -6,7 +6,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -22,7 +24,6 @@ import com.parse.ParseQueryAdapter;
 import com.parse.ParseUser;
 
 import java.text.DateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -31,70 +32,66 @@ import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Created by Xinyuan Zhang on 2/27/16.
+ * Created by AntonioQ on 3/3/16.
+ *
  */
-public class MyEventsQueryAdapter<T extends ParseObject> extends ParseQueryAdapter<T>{
+public class EventQueryRecyclerAdapter extends ParseRecyclerQueryAdapter<ParseObject, EventQueryRecyclerAdapter.ViewHolder> {
 
+    public Event myEvent;
+    public ParseObject myFollowingRelation;
+    private Context context;
     private static final int WITHIN_THREE_DAYS = 0;
     private static final int MORE = 1;
     private CoordinatorLayout coordinatorLayout;
     Map<Integer, Event> headerSwitch = new HashMap<>(2);
 
-    public MyEventsQueryAdapter(Context context, QueryFactory<T> queryFactory, CoordinatorLayout c) {
-        super(context, queryFactory);
-        this.coordinatorLayout = c;
-//        headerSwitch.put(WITHIN_THREE_DAYS, null);
-//        headerSwitch.put(MORE, null);
+    public EventQueryRecyclerAdapter(ParseQueryAdapter.QueryFactory factory, boolean hasStableIds, CoordinatorLayout coordinatorLayout) {
+        super(factory, hasStableIds);
+        this.coordinatorLayout = coordinatorLayout;
     }
 
-    public MyEventsQueryAdapter(Context context, QueryFactory<T> queryFactory, int itemViewResource) {
-        super(context, queryFactory, itemViewResource);
+    public EventQueryRecyclerAdapter(String className, boolean hasStableIds) {
+        super(className, hasStableIds);
     }
 
-    public MyEventsQueryAdapter(Context context, Class<? extends ParseObject> clazz) {
-        super(context, clazz);
-    }
-
-    public MyEventsQueryAdapter(Context context, String className) {
-        super(context, className);
-    }
-
-    public MyEventsQueryAdapter(Context context, Class<? extends ParseObject> clazz, int itemViewResource) {
-        super(context, clazz, itemViewResource);
-    }
-
-    public MyEventsQueryAdapter(Context context, String className, int itemViewResource) {
-        super(context, className, itemViewResource);
-    }
-
-    public MyEventsQueryAdapter(Context context, QueryFactory<T> queryFactory) {
-        super(context, queryFactory);
+    public EventQueryRecyclerAdapter(Class clazz, boolean hasStableIds) {
+        super(clazz, hasStableIds);
     }
 
     @Override
-    public View getItemView(T object, View v, ViewGroup parent) {
-        TextView eventName; TextView eventLocation;
-        TextView fromTime; TextView toTime; TextView eventDate;
-        TextView timeHeader;
-        final ToggleButton followButton; final TextView eventCount;
-        final ParseObject followRelation = object;
-        final Event thisEvent = (Event) followRelation.getParseObject("eventObject");
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        context = parent.getContext();
+        LayoutInflater inflater = LayoutInflater.from(context);
 
-        if (v == null) {
-            Log.d(getClass().getSimpleName(), "inflating item view");
-            v = View.inflate(getContext(), R.layout.event_list_item, null);
-        }
-        Log.d(getClass().getSimpleName(), "setting up item view");
-        eventName = (TextView) v.findViewById(R.id.event_list_item_name);
-        eventLocation = (TextView) v.findViewById(R.id.event_list_item_location);
+        // Inflate the custom layout
+        View contactView = inflater.inflate(R.layout.event_list_item, parent, false);
+
+        // Return a new holder instance
+        return new ViewHolder(contactView);
+    }
+
+    public void getParseObject(int position) {
+        myEvent = (Event)getItem(position);
+        myFollowingRelation = myEvent.getFollowingRelations();
+    }
+
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        getParseObject(position);
+        final Event thisEvent = myEvent;
+        final TextView eventName = holder.eventName,
+                eventLocation = holder.eventLocation,
+                fromTime = holder.fromTime,
+                toTime = holder.toTime,
+                eventDate = holder.eventDate,
+                timeHeader = holder.timeHeader,
+                eventCount = holder.eventCount;
+        final ToggleButton followButton = holder.followButton;
+
+        // set event basic info
         eventName.setText(thisEvent.getEventName());
         eventLocation.setText(thisEvent.getEventLocation());
 
         // date time setup
-        eventDate = (TextView) v.findViewById(R.id.event_list_item_time_date);
-        fromTime = (TextView) v.findViewById(R.id.event_list_item_time_from);
-        toTime = (TextView) v.findViewById(R.id.event_list_item_time_to);
-
         DateFormat formatter = DateFormat.getTimeInstance(DateFormat.SHORT);
         formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
         fromTime.setText(formatter.format(thisEvent.getFromTime()));
@@ -103,7 +100,6 @@ public class MyEventsQueryAdapter<T extends ParseObject> extends ParseQueryAdapt
         eventDate.setText(formatter.format(thisEvent.getFromTime()));
 
         // header
-        timeHeader = (TextView) v.findViewById(R.id.event_list_item_header);
         Calendar startTime = Calendar.getInstance(); startTime.setTime(thisEvent.getFromTime());
         Calendar threeDaysCal = Calendar.getInstance();
         threeDaysCal.set(Calendar.DAY_OF_MONTH, threeDaysCal.get(Calendar.DAY_OF_MONTH) + 2);
@@ -119,13 +115,8 @@ public class MyEventsQueryAdapter<T extends ParseObject> extends ParseQueryAdapt
             headerSwitch.put(MORE, thisEvent);
         } else timeHeader.setVisibility(View.GONE);
 
-        // date
-
-
         // following count & following button init
-        followButton = (ToggleButton) v.findViewById(R.id.event_list_item_follow);
-        eventCount = (TextView) v.findViewById(R.id.event_list_item_count);
-        //followRelation = thisEvent.getFollowingRelations();
+        final ParseObject followRelation = myFollowingRelation;
         eventCount.setText(String.format("%d", followRelation.getInt("count")));
         ParseQuery<ParseObject> userQuery = followRelation.getRelation("followingUsers").getQuery();
         userQuery.whereEqualTo("objectId", ParseUser.getCurrentUser().getObjectId());
@@ -167,33 +158,25 @@ public class MyEventsQueryAdapter<T extends ParseObject> extends ParseQueryAdapt
                 });
             }
         });
-        return v;
-    }
-
-    @Override
-    public void notifyDataSetChanged() {
-        // reset header
-        headerSwitch.clear();;
-        super.notifyDataSetChanged();
     }
 
     private void scheduleNotification(Date startTime, Date id) {
-        //notify 30 mins before event start time
+        //TODO: notify 30 mins before event start time
         final long TIME_AHEAD = TimeUnit.MINUTES.toMillis(30);
 
         //if event start time is in the past or less then 30mins in future, do not schedule an alarm
         //if(startTime.getTime()-TIME_AHEAD <= System.currentTimeMillis()) return;
         Log.e("notification", "scheduleNotification: enter function");
-        AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
+        AlarmManager alarmManager = (AlarmManager)  context.getSystemService(Context.ALARM_SERVICE);
 
         Intent notificationIntent = new Intent("android.media.action.DISPLAY_NOTIFICATION");
         notificationIntent.addCategory("android.intent.category.DEFAULT");
         int eventID = (int)(id.getTime()/1000);
-        PendingIntent broadcast = PendingIntent.getBroadcast(getContext(), eventID, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent broadcast = PendingIntent.getBroadcast(context, eventID, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.SECOND, 5);
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), broadcast);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), broadcast);
         /*
         long eventTime = date.getTime();
         long alarmTime = eventTime-TIME_AHEAD;
@@ -209,12 +192,12 @@ public class MyEventsQueryAdapter<T extends ParseObject> extends ParseQueryAdapt
         //if event start time is in the past or less then 30mins in future, no need to cancel an alarm
         //if(startTime.getTime()-TIME_AHEAD <= System.currentTimeMillis()) return;
         Log.e("notification", "cancelNotification: enter cancel function");
-        AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
         Intent notificationIntent = new Intent("android.media.action.DISPLAY_NOTIFICATION");
         notificationIntent.addCategory("android.intent.category.DEFAULT");
         int eventID = (int)(id.getTime()/1000);
-        PendingIntent broadcast = PendingIntent.getBroadcast(getContext(), eventID, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent broadcast = PendingIntent.getBroadcast(context, eventID, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         // If the alarm has been set, cancel it.
         if(alarmManager != null) {
             alarmManager.cancel(broadcast);
@@ -228,4 +211,30 @@ public class MyEventsQueryAdapter<T extends ParseObject> extends ParseQueryAdapt
 
     }
 
+    // Provide a direct reference to each of the views within a data item
+    // Used to cache the views within the item layout for fast access
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        // Your holder should contain a member variable
+        // for any view that will be set as you render a row
+        public TextView eventName, eventLocation, fromTime,
+                toTime, eventDate, timeHeader, eventCount;
+        public ToggleButton followButton;
+
+        // We also create a constructor that accepts the entire item row
+        // and does the view lookups to find each subview
+        public ViewHolder(View v) {
+            // Stores the itemView in a public final member variable that can be used
+            // to access the context from any ViewHolder instance.
+            super(v);
+
+            eventName = (TextView) v.findViewById(R.id.event_list_item_name);
+            eventLocation = (TextView) v.findViewById(R.id.event_list_item_location);
+            eventDate = (TextView) v.findViewById(R.id.event_list_item_time_date);
+            fromTime = (TextView) v.findViewById(R.id.event_list_item_time_from);
+            toTime = (TextView) v.findViewById(R.id.event_list_item_time_to);
+            timeHeader = (TextView) v.findViewById(R.id.event_list_item_header);
+            followButton = (ToggleButton) v.findViewById(R.id.event_list_item_follow);
+            eventCount = (TextView) v.findViewById(R.id.event_list_item_count);
+        }
+    }
 }

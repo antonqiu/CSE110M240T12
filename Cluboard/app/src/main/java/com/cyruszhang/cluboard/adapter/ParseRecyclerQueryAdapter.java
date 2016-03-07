@@ -54,7 +54,7 @@ public abstract class ParseRecyclerQueryAdapter<T extends ParseObject, U extends
     private final QueryFactory<T> mFactory;
     private final boolean hasStableIds;
     private final List<T> mItems;
-
+    //Get both event and followingrelation
     // PRIMARY CONSTRUCTOR
     public ParseRecyclerQueryAdapter(final QueryFactory<T> factory, final boolean hasStableIds) {
         mFactory = factory;

@@ -11,14 +11,7 @@
                     "endOffset": 119
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 2,
-                        "startColumn": 4,
-                        "startOffset": 55,
-                        "endColumn": 68,
-                        "endOffset": 119
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
@@ -30,14 +23,7 @@
                     "endOffset": 194
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 3,
-                        "startColumn": 4,
-                        "startOffset": 124,
-                        "endColumn": 74,
-                        "endOffset": 194
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
@@ -49,14 +35,7 @@
                     "endOffset": 268
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 4,
-                        "startColumn": 4,
-                        "startOffset": 199,
-                        "endColumn": 73,
-                        "endOffset": 268
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
@@ -64,8 +43,8 @@
                     "startLine": 5,
                     "startColumn": 4,
                     "startOffset": 273,
-                    "endColumn": 67,
-                    "endOffset": 336
+                    "endColumn": 65,
+                    "endOffset": 334
                 },
                 "from": {
                     "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
@@ -73,8 +52,8 @@
                         "startLine": 5,
                         "startColumn": 4,
                         "startOffset": 273,
-                        "endColumn": 67,
-                        "endOffset": 336
+                        "endColumn": 65,
+                        "endOffset": 334
                     }
                 }
             },
@@ -82,18 +61,18 @@
                 "to": {
                     "startLine": 6,
                     "startColumn": 4,
-                    "startOffset": 341,
-                    "endColumn": 73,
-                    "endOffset": 410
+                    "startOffset": 339,
+                    "endColumn": 71,
+                    "endOffset": 406
                 },
                 "from": {
                     "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
                     "position": {
                         "startLine": 6,
                         "startColumn": 4,
-                        "startOffset": 341,
-                        "endColumn": 73,
-                        "endOffset": 410
+                        "startOffset": 339,
+                        "endColumn": 71,
+                        "endOffset": 406
                     }
                 }
             },
@@ -101,18 +80,18 @@
                 "to": {
                     "startLine": 7,
                     "startColumn": 4,
-                    "startOffset": 415,
-                    "endColumn": 72,
-                    "endOffset": 483
+                    "startOffset": 411,
+                    "endColumn": 70,
+                    "endOffset": 477
                 },
                 "from": {
                     "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
                     "position": {
                         "startLine": 7,
                         "startColumn": 4,
-                        "startOffset": 415,
-                        "endColumn": 72,
-                        "endOffset": 483
+                        "startOffset": 411,
+                        "endColumn": 70,
+                        "endOffset": 477
                     }
                 }
             },
@@ -120,1380 +99,870 @@
                 "to": {
                     "startLine": 8,
                     "startColumn": 4,
-                    "startOffset": 488,
+                    "startOffset": 482,
                     "endColumn": 84,
-                    "endOffset": 568
+                    "endOffset": 562
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 8,
-                        "startColumn": 4,
-                        "startOffset": 488,
-                        "endColumn": 84,
-                        "endOffset": 568
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 9,
                     "startColumn": 4,
-                    "startOffset": 573,
+                    "startOffset": 567,
                     "endColumn": 76,
-                    "endOffset": 645
+                    "endOffset": 639
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 9,
-                        "startColumn": 4,
-                        "startOffset": 573,
-                        "endColumn": 76,
-                        "endOffset": 645
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 10,
                     "startColumn": 4,
-                    "startOffset": 650,
+                    "startOffset": 644,
                     "endColumn": 82,
-                    "endOffset": 728
+                    "endOffset": 722
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 10,
-                        "startColumn": 4,
-                        "startOffset": 650,
-                        "endColumn": 82,
-                        "endOffset": 728
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 11,
                     "startColumn": 4,
-                    "startOffset": 733,
+                    "startOffset": 727,
                     "endColumn": 81,
-                    "endOffset": 810
+                    "endOffset": 804
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 11,
-                        "startColumn": 4,
-                        "startOffset": 733,
-                        "endColumn": 81,
-                        "endOffset": 810
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 12,
                     "startColumn": 4,
-                    "startOffset": 815,
+                    "startOffset": 809,
                     "endColumn": 68,
-                    "endOffset": 879
+                    "endOffset": 873
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 12,
-                        "startColumn": 4,
-                        "startOffset": 815,
-                        "endColumn": 68,
-                        "endOffset": 879
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 13,
                     "startColumn": 4,
-                    "startOffset": 884,
+                    "startOffset": 878,
                     "endColumn": 67,
-                    "endOffset": 947
+                    "endOffset": 941
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 13,
-                        "startColumn": 4,
-                        "startOffset": 884,
-                        "endColumn": 67,
-                        "endOffset": 947
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 14,
                     "startColumn": 4,
-                    "startOffset": 952,
+                    "startOffset": 946,
                     "endColumn": 73,
-                    "endOffset": 1021
+                    "endOffset": 1015
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 14,
-                        "startColumn": 4,
-                        "startOffset": 952,
-                        "endColumn": 73,
-                        "endOffset": 1021
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 15,
                     "startColumn": 4,
-                    "startOffset": 1026,
+                    "startOffset": 1020,
                     "endColumn": 72,
-                    "endOffset": 1094
+                    "endOffset": 1088
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 15,
-                        "startColumn": 4,
-                        "startOffset": 1026,
-                        "endColumn": 72,
-                        "endOffset": 1094
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 16,
                     "startColumn": 4,
-                    "startOffset": 1099,
+                    "startOffset": 1093,
                     "endColumn": 61,
-                    "endOffset": 1156
+                    "endOffset": 1150
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 16,
-                        "startColumn": 4,
-                        "startOffset": 1099,
-                        "endColumn": 61,
-                        "endOffset": 1156
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 17,
                     "startColumn": 4,
-                    "startOffset": 1161,
+                    "startOffset": 1155,
                     "endColumn": 66,
-                    "endOffset": 1223
+                    "endOffset": 1217
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 17,
-                        "startColumn": 4,
-                        "startOffset": 1161,
-                        "endColumn": 66,
-                        "endOffset": 1223
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 18,
                     "startColumn": 4,
-                    "startOffset": 1228,
+                    "startOffset": 1222,
                     "endColumn": 67,
-                    "endOffset": 1291
+                    "endOffset": 1285
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 18,
-                        "startColumn": 4,
-                        "startOffset": 1228,
-                        "endColumn": 67,
-                        "endOffset": 1291
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 19,
                     "startColumn": 4,
-                    "startOffset": 1296,
+                    "startOffset": 1290,
                     "endColumn": 65,
-                    "endOffset": 1357
+                    "endOffset": 1351
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 19,
-                        "startColumn": 4,
-                        "startOffset": 1296,
-                        "endColumn": 65,
-                        "endOffset": 1357
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 20,
                     "startColumn": 4,
-                    "startOffset": 1362,
+                    "startOffset": 1356,
                     "endColumn": 59,
-                    "endOffset": 1417
+                    "endOffset": 1411
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 20,
-                        "startColumn": 4,
-                        "startOffset": 1362,
-                        "endColumn": 59,
-                        "endOffset": 1417
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 21,
                     "startColumn": 4,
-                    "startOffset": 1422,
+                    "startOffset": 1416,
                     "endColumn": 60,
-                    "endOffset": 1478
+                    "endOffset": 1472
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 21,
-                        "startColumn": 4,
-                        "startOffset": 1422,
-                        "endColumn": 60,
-                        "endOffset": 1478
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 22,
                     "startColumn": 4,
-                    "startOffset": 1483,
+                    "startOffset": 1477,
                     "endColumn": 67,
-                    "endOffset": 1546
+                    "endOffset": 1540
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 22,
-                        "startColumn": 4,
-                        "startOffset": 1483,
-                        "endColumn": 67,
-                        "endOffset": 1546
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 23,
                     "startColumn": 4,
-                    "startOffset": 1551,
+                    "startOffset": 1545,
                     "endLine": 26,
                     "endColumn": 14,
-                    "endOffset": 1783
+                    "endOffset": 1777
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 23,
-                        "startColumn": 4,
-                        "startOffset": 1551,
-                        "endLine": 26,
-                        "endColumn": 14,
-                        "endOffset": 1783
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 27,
                     "startColumn": 4,
-                    "startOffset": 1788,
+                    "startOffset": 1782,
                     "endColumn": 86,
-                    "endOffset": 1870
+                    "endOffset": 1864
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 27,
-                        "startColumn": 4,
-                        "startOffset": 1788,
-                        "endColumn": 86,
-                        "endOffset": 1870
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 28,
                     "startColumn": 4,
-                    "startOffset": 1875,
+                    "startOffset": 1869,
                     "endColumn": 83,
-                    "endOffset": 1954
+                    "endOffset": 1948
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 28,
-                        "startColumn": 4,
-                        "startOffset": 1875,
-                        "endColumn": 83,
-                        "endOffset": 1954
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 29,
                     "startColumn": 4,
-                    "startOffset": 1959,
+                    "startOffset": 1953,
                     "endColumn": 63,
-                    "endOffset": 2018
+                    "endOffset": 2012
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 29,
-                        "startColumn": 4,
-                        "startOffset": 1959,
-                        "endColumn": 63,
-                        "endOffset": 2018
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 30,
                     "startColumn": 4,
-                    "startOffset": 2023,
+                    "startOffset": 2017,
                     "endColumn": 117,
-                    "endOffset": 2136
+                    "endOffset": 2130
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 30,
-                        "startColumn": 4,
-                        "startOffset": 2023,
-                        "endColumn": 117,
-                        "endOffset": 2136
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 31,
                     "startColumn": 4,
-                    "startOffset": 2141,
+                    "startOffset": 2135,
                     "endColumn": 89,
-                    "endOffset": 2226
+                    "endOffset": 2220
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 31,
-                        "startColumn": 4,
-                        "startOffset": 2141,
-                        "endColumn": 89,
-                        "endOffset": 2226
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 32,
                     "startColumn": 4,
-                    "startOffset": 2231,
+                    "startOffset": 2225,
                     "endColumn": 90,
-                    "endOffset": 2317
+                    "endOffset": 2311
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 32,
-                        "startColumn": 4,
-                        "startOffset": 2231,
-                        "endColumn": 90,
-                        "endOffset": 2317
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 33,
                     "startColumn": 4,
-                    "startOffset": 2322,
+                    "startOffset": 2316,
                     "endColumn": 92,
-                    "endOffset": 2410
+                    "endOffset": 2404
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 33,
-                        "startColumn": 4,
-                        "startOffset": 2322,
-                        "endColumn": 92,
-                        "endOffset": 2410
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 34,
                     "startColumn": 4,
-                    "startOffset": 2415,
+                    "startOffset": 2409,
                     "endColumn": 110,
-                    "endOffset": 2521
+                    "endOffset": 2515
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 34,
-                        "startColumn": 4,
-                        "startOffset": 2415,
-                        "endColumn": 110,
-                        "endOffset": 2521
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 35,
                     "startColumn": 4,
-                    "startOffset": 2526,
+                    "startOffset": 2520,
                     "endColumn": 99,
-                    "endOffset": 2621
+                    "endOffset": 2615
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 35,
-                        "startColumn": 4,
-                        "startOffset": 2526,
-                        "endColumn": 99,
-                        "endOffset": 2621
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 36,
                     "startColumn": 4,
-                    "startOffset": 2626,
+                    "startOffset": 2620,
                     "endColumn": 122,
-                    "endOffset": 2744
+                    "endOffset": 2738
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 36,
-                        "startColumn": 4,
-                        "startOffset": 2626,
-                        "endColumn": 122,
-                        "endOffset": 2744
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 37,
                     "startColumn": 4,
-                    "startOffset": 2749,
+                    "startOffset": 2743,
                     "endColumn": 74,
-                    "endOffset": 2819
+                    "endOffset": 2813
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 37,
-                        "startColumn": 4,
-                        "startOffset": 2749,
-                        "endColumn": 74,
-                        "endOffset": 2819
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 38,
                     "startColumn": 4,
-                    "startOffset": 2824,
+                    "startOffset": 2818,
                     "endColumn": 133,
-                    "endOffset": 2953
+                    "endOffset": 2947
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 38,
-                        "startColumn": 4,
-                        "startOffset": 2824,
-                        "endColumn": 133,
-                        "endOffset": 2953
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 39,
                     "startColumn": 4,
-                    "startOffset": 2958,
+                    "startOffset": 2952,
                     "endColumn": 106,
-                    "endOffset": 3060
+                    "endOffset": 3054
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 39,
-                        "startColumn": 4,
-                        "startOffset": 2958,
-                        "endColumn": 106,
-                        "endOffset": 3060
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 40,
                     "startColumn": 4,
-                    "startOffset": 3065,
+                    "startOffset": 3059,
                     "endColumn": 90,
-                    "endOffset": 3151
+                    "endOffset": 3145
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 40,
-                        "startColumn": 4,
-                        "startOffset": 3065,
-                        "endColumn": 90,
-                        "endOffset": 3151
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 41,
                     "startColumn": 4,
-                    "startOffset": 3156,
+                    "startOffset": 3150,
                     "endColumn": 78,
-                    "endOffset": 3230
+                    "endOffset": 3224
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 41,
-                        "startColumn": 4,
-                        "startOffset": 3156,
-                        "endColumn": 78,
-                        "endOffset": 3230
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 42,
                     "startColumn": 4,
-                    "startOffset": 3235,
+                    "startOffset": 3229,
                     "endColumn": 124,
-                    "endOffset": 3355
+                    "endOffset": 3349
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 42,
-                        "startColumn": 4,
-                        "startOffset": 3235,
-                        "endColumn": 124,
-                        "endOffset": 3355
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 43,
                     "startColumn": 4,
-                    "startOffset": 3360,
+                    "startOffset": 3354,
                     "endColumn": 140,
-                    "endOffset": 3496
+                    "endOffset": 3490
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 43,
-                        "startColumn": 4,
-                        "startOffset": 3360,
-                        "endColumn": 140,
-                        "endOffset": 3496
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 44,
                     "startColumn": 4,
-                    "startOffset": 3501,
+                    "startOffset": 3495,
                     "endColumn": 137,
-                    "endOffset": 3634
+                    "endOffset": 3628
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 44,
-                        "startColumn": 4,
-                        "startOffset": 3501,
-                        "endColumn": 137,
-                        "endOffset": 3634
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 45,
                     "startColumn": 4,
-                    "startOffset": 3639,
+                    "startOffset": 3633,
                     "endColumn": 166,
-                    "endOffset": 3801
+                    "endOffset": 3795
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 45,
-                        "startColumn": 4,
-                        "startOffset": 3639,
-                        "endColumn": 166,
-                        "endOffset": 3801
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 46,
                     "startColumn": 4,
-                    "startOffset": 3806,
+                    "startOffset": 3800,
                     "endColumn": 113,
-                    "endOffset": 3915
+                    "endOffset": 3909
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 46,
-                        "startColumn": 4,
-                        "startOffset": 3806,
-                        "endColumn": 113,
-                        "endOffset": 3915
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 47,
                     "startColumn": 4,
-                    "startOffset": 3920,
+                    "startOffset": 3914,
                     "endColumn": 152,
-                    "endOffset": 4068
+                    "endOffset": 4062
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 47,
-                        "startColumn": 4,
-                        "startOffset": 3920,
-                        "endColumn": 152,
-                        "endOffset": 4068
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 48,
                     "startColumn": 4,
-                    "startOffset": 4073,
+                    "startOffset": 4067,
                     "endColumn": 110,
-                    "endOffset": 4179
+                    "endOffset": 4173
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 48,
-                        "startColumn": 4,
-                        "startOffset": 4073,
-                        "endColumn": 110,
-                        "endOffset": 4179
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 49,
                     "startColumn": 4,
-                    "startOffset": 4184,
+                    "startOffset": 4178,
                     "endColumn": 120,
-                    "endOffset": 4300
+                    "endOffset": 4294
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 49,
-                        "startColumn": 4,
-                        "startOffset": 4184,
-                        "endColumn": 120,
-                        "endOffset": 4300
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 50,
                     "startColumn": 4,
-                    "startOffset": 4305,
+                    "startOffset": 4299,
                     "endColumn": 114,
-                    "endOffset": 4415
+                    "endOffset": 4409
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 50,
-                        "startColumn": 4,
-                        "startOffset": 4305,
-                        "endColumn": 114,
-                        "endOffset": 4415
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 51,
                     "startColumn": 4,
-                    "startOffset": 4420,
+                    "startOffset": 4414,
                     "endColumn": 112,
-                    "endOffset": 4528
+                    "endOffset": 4522
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 51,
-                        "startColumn": 4,
-                        "startOffset": 4420,
-                        "endColumn": 112,
-                        "endOffset": 4528
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 52,
                     "startColumn": 4,
-                    "startOffset": 4533,
+                    "startOffset": 4527,
                     "endColumn": 114,
-                    "endOffset": 4643
+                    "endOffset": 4637
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 52,
-                        "startColumn": 4,
-                        "startOffset": 4533,
-                        "endColumn": 114,
-                        "endOffset": 4643
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 53,
                     "startColumn": 4,
-                    "startOffset": 4648,
+                    "startOffset": 4642,
                     "endColumn": 125,
-                    "endOffset": 4769
+                    "endOffset": 4763
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 53,
-                        "startColumn": 4,
-                        "startOffset": 4648,
-                        "endColumn": 125,
-                        "endOffset": 4769
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 54,
                     "startColumn": 4,
-                    "startOffset": 4774,
+                    "startOffset": 4768,
                     "endColumn": 109,
-                    "endOffset": 4879
+                    "endOffset": 4873
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 54,
-                        "startColumn": 4,
-                        "startOffset": 4774,
-                        "endColumn": 109,
-                        "endOffset": 4879
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 55,
                     "startColumn": 4,
-                    "startOffset": 4884,
+                    "startOffset": 4878,
                     "endColumn": 119,
-                    "endOffset": 4999
+                    "endOffset": 4993
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 55,
-                        "startColumn": 4,
-                        "startOffset": 4884,
-                        "endColumn": 119,
-                        "endOffset": 4999
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 56,
                     "startColumn": 4,
-                    "startOffset": 5004,
+                    "startOffset": 4998,
                     "endColumn": 111,
-                    "endOffset": 5111
+                    "endOffset": 5105
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 56,
-                        "startColumn": 4,
-                        "startOffset": 5004,
-                        "endColumn": 111,
-                        "endOffset": 5111
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 57,
                     "startColumn": 4,
-                    "startOffset": 5116,
+                    "startOffset": 5110,
                     "endColumn": 150,
-                    "endOffset": 5262
+                    "endOffset": 5256
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 57,
-                        "startColumn": 4,
-                        "startOffset": 5116,
-                        "endColumn": 150,
-                        "endOffset": 5262
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 58,
                     "startColumn": 4,
-                    "startOffset": 5267,
+                    "startOffset": 5261,
                     "endColumn": 70,
-                    "endOffset": 5333
+                    "endOffset": 5327
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 58,
-                        "startColumn": 4,
-                        "startOffset": 5267,
-                        "endColumn": 70,
-                        "endOffset": 5333
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 59,
                     "startColumn": 4,
-                    "startOffset": 5338,
+                    "startOffset": 5332,
                     "endColumn": 113,
-                    "endOffset": 5447
+                    "endOffset": 5441
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 59,
-                        "startColumn": 4,
-                        "startOffset": 5338,
-                        "endColumn": 113,
-                        "endOffset": 5447
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 60,
                     "startColumn": 4,
-                    "startOffset": 5452,
+                    "startOffset": 5446,
                     "endColumn": 61,
-                    "endOffset": 5509
+                    "endOffset": 5503
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 60,
-                        "startColumn": 4,
-                        "startOffset": 5452,
-                        "endColumn": 61,
-                        "endOffset": 5509
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 61,
                     "startColumn": 4,
-                    "startOffset": 5514,
+                    "startOffset": 5508,
                     "endColumn": 79,
-                    "endOffset": 5589
+                    "endOffset": 5583
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 61,
-                        "startColumn": 4,
-                        "startOffset": 5514,
-                        "endColumn": 79,
-                        "endOffset": 5589
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 62,
                     "startColumn": 4,
-                    "startOffset": 5594,
+                    "startOffset": 5588,
                     "endColumn": 77,
-                    "endOffset": 5667
+                    "endOffset": 5661
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 62,
-                        "startColumn": 4,
-                        "startOffset": 5594,
-                        "endColumn": 77,
-                        "endOffset": 5667
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 63,
                     "startColumn": 4,
-                    "startOffset": 5672,
+                    "startOffset": 5666,
                     "endColumn": 85,
-                    "endOffset": 5753
+                    "endOffset": 5747
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 63,
-                        "startColumn": 4,
-                        "startOffset": 5672,
-                        "endColumn": 85,
-                        "endOffset": 5753
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 64,
                     "startColumn": 4,
-                    "startOffset": 5758,
+                    "startOffset": 5752,
                     "endColumn": 85,
-                    "endOffset": 5839
+                    "endOffset": 5833
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 64,
-                        "startColumn": 4,
-                        "startOffset": 5758,
-                        "endColumn": 85,
-                        "endOffset": 5839
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 65,
                     "startColumn": 4,
-                    "startOffset": 5844,
+                    "startOffset": 5838,
                     "endColumn": 72,
-                    "endOffset": 5912
+                    "endOffset": 5906
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 65,
-                        "startColumn": 4,
-                        "startOffset": 5844,
-                        "endColumn": 72,
-                        "endOffset": 5912
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 66,
                     "startColumn": 4,
-                    "startOffset": 5917,
+                    "startOffset": 5911,
                     "endColumn": 114,
-                    "endOffset": 6027
+                    "endOffset": 6021
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 66,
-                        "startColumn": 4,
-                        "startOffset": 5917,
-                        "endColumn": 114,
-                        "endOffset": 6027
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 67,
                     "startColumn": 4,
-                    "startOffset": 6032,
+                    "startOffset": 6026,
                     "endColumn": 129,
-                    "endOffset": 6157
+                    "endOffset": 6151
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 67,
-                        "startColumn": 4,
-                        "startOffset": 6032,
-                        "endColumn": 129,
-                        "endOffset": 6157
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 68,
                     "startColumn": 4,
-                    "startOffset": 6162,
+                    "startOffset": 6156,
                     "endColumn": 74,
-                    "endOffset": 6232
+                    "endOffset": 6226
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 68,
-                        "startColumn": 4,
-                        "startOffset": 6162,
-                        "endColumn": 74,
-                        "endOffset": 6232
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 69,
                     "startColumn": 4,
-                    "startOffset": 6237,
+                    "startOffset": 6231,
                     "endColumn": 69,
-                    "endOffset": 6302
+                    "endOffset": 6296
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 69,
-                        "startColumn": 4,
-                        "startOffset": 6237,
-                        "endColumn": 69,
-                        "endOffset": 6302
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 70,
                     "startColumn": 4,
-                    "startOffset": 6307,
+                    "startOffset": 6301,
                     "endColumn": 72,
-                    "endOffset": 6375
+                    "endOffset": 6369
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 70,
-                        "startColumn": 4,
-                        "startOffset": 6307,
-                        "endColumn": 72,
-                        "endOffset": 6375
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 71,
                     "startColumn": 4,
-                    "startOffset": 6380,
+                    "startOffset": 6374,
                     "endColumn": 93,
-                    "endOffset": 6469
+                    "endOffset": 6463
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 71,
-                        "startColumn": 4,
-                        "startOffset": 6380,
-                        "endColumn": 93,
-                        "endOffset": 6469
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 72,
                     "startColumn": 4,
-                    "startOffset": 6474,
+                    "startOffset": 6468,
                     "endColumn": 110,
-                    "endOffset": 6580
+                    "endOffset": 6574
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 72,
-                        "startColumn": 4,
-                        "startOffset": 6474,
-                        "endColumn": 110,
-                        "endOffset": 6580
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 73,
                     "startColumn": 4,
-                    "startOffset": 6585,
+                    "startOffset": 6579,
                     "endColumn": 87,
-                    "endOffset": 6668
+                    "endOffset": 6662
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 73,
-                        "startColumn": 4,
-                        "startOffset": 6585,
-                        "endColumn": 87,
-                        "endOffset": 6668
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 74,
                     "startColumn": 4,
-                    "startOffset": 6673,
+                    "startOffset": 6667,
                     "endColumn": 88,
-                    "endOffset": 6757
+                    "endOffset": 6751
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 74,
-                        "startColumn": 4,
-                        "startOffset": 6673,
-                        "endColumn": 88,
-                        "endOffset": 6757
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 75,
                     "startColumn": 4,
-                    "startOffset": 6762,
+                    "startOffset": 6756,
                     "endColumn": 69,
-                    "endOffset": 6827
+                    "endOffset": 6821
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 75,
-                        "startColumn": 4,
-                        "startOffset": 6762,
-                        "endColumn": 69,
-                        "endOffset": 6827
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 76,
                     "startColumn": 4,
-                    "startOffset": 6832,
+                    "startOffset": 6826,
                     "endColumn": 118,
-                    "endOffset": 6946
+                    "endOffset": 6940
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 76,
-                        "startColumn": 4,
-                        "startOffset": 6832,
-                        "endColumn": 118,
-                        "endOffset": 6946
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 77,
                     "startColumn": 4,
-                    "startOffset": 6951,
+                    "startOffset": 6945,
                     "endColumn": 32,
-                    "endOffset": 6979
+                    "endOffset": 6973
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 77,
-                        "startColumn": 4,
-                        "startOffset": 6951,
-                        "endColumn": 32,
-                        "endOffset": 6979
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 78,
                     "startColumn": 4,
-                    "startOffset": 6984,
+                    "startOffset": 6978,
                     "endLine": 86,
                     "endColumn": 12,
-                    "endOffset": 7458
+                    "endOffset": 7452
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 78,
-                        "startColumn": 4,
-                        "startOffset": 6984,
-                        "endLine": 86,
-                        "endColumn": 12,
-                        "endOffset": 7458
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 87,
                     "startColumn": 4,
-                    "startOffset": 7463,
+                    "startOffset": 7457,
                     "endLine": 90,
                     "endColumn": 12,
-                    "endOffset": 7662
+                    "endOffset": 7656
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 87,
-                        "startColumn": 4,
-                        "startOffset": 7463,
-                        "endLine": 90,
-                        "endColumn": 12,
-                        "endOffset": 7662
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 91,
                     "startColumn": 4,
-                    "startOffset": 7667,
+                    "startOffset": 7661,
                     "endLine": 93,
                     "endColumn": 12,
-                    "endOffset": 7808
+                    "endOffset": 7802
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 91,
-                        "startColumn": 4,
-                        "startOffset": 7667,
-                        "endLine": 93,
-                        "endColumn": 12,
-                        "endOffset": 7808
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 94,
                     "startColumn": 4,
-                    "startOffset": 7813,
+                    "startOffset": 7807,
                     "endLine": 102,
                     "endColumn": 12,
-                    "endOffset": 8362
+                    "endOffset": 8356
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 94,
-                        "startColumn": 4,
-                        "startOffset": 7813,
-                        "endLine": 102,
-                        "endColumn": 12,
-                        "endOffset": 8362
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 103,
                     "startColumn": 4,
-                    "startOffset": 8367,
+                    "startOffset": 8361,
                     "endLine": 106,
                     "endColumn": 12,
-                    "endOffset": 8597
+                    "endOffset": 8591
                 },
                 "from": {
-                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml",
-                    "position": {
-                        "startLine": 103,
-                        "startColumn": 4,
-                        "startOffset": 8367,
-                        "endLine": 106,
-                        "endColumn": 12,
-                        "endOffset": 8597
-                    }
+                    "file": "/Users/zhangxinyuan/Desktop/cse110/CSE110M240T12/Cluboard/ParseUI-Login/build/intermediates/bundles/debug/res/values/values.xml"
                 }
             }
         ]
