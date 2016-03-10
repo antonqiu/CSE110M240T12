@@ -1,5 +1,4 @@
 package com.cyruszhang.cluboard;
-
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 
@@ -23,26 +22,27 @@ import android.support.test.espresso.intent.rule.IntentsTestRule;
 import static android.support.test.espresso.intent.Intents.intended;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.toPackage;
 
-
+/**
+ * Created by Zhiye Zhang on 2016/3/10 0010.
+ *//*
 @RunWith(AndroidJUnit4.class)
-public class LoginTest {
+public class MyBookmarkTest {
+
+
 
     @Rule
     public IntentsTestRule<Login> mActivityRule = new IntentsTestRule<>(Login.class);
 
+
     @Test
-    public void logintest(){
-
-        onView(withId(R.id.Users_password)).perform(typeText("123456"));
-        onView(withId(R.id.Users_username)).perform(typeText("xinyuan"));
-        closeSoftKeyboard();
-
-        onView(withId(R.id.login_button)).perform(click());
-
-        intended(toPackage("com.cyruszhang.cluboard.activity.Home"));
+    public void mybookmarktest(){
+        onView(withId(R.id.book)).perform(click());
+        intended(toPackage("com.cyruszhang.cluboard.activity.MyBookmark"));
 
 
     }
 
 
-}
+
+
+}*/
