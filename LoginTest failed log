@@ -1,0 +1,91 @@
+
+Testing started at 8:19 PM ...
+Target device: Nexus_4_API_23 [emulator-5554]
+No apk changes detected since last installation, skipping installation of C:\Users\Yimeng\Documents\CSE110M240T12\Cluboard\app\build\outputs\apk\app-debug.apk
+Force stopping package: com.cyruszhang.cluboard
+DEVICE SHELL COMMAND: am force-stop com.cyruszhang.cluboard
+No apk changes detected since last installation, skipping installation of C:\Users\Yimeng\Documents\CSE110M240T12\Cluboard\app\build\outputs\apk\app-debug-androidTest-unaligned.apk
+Force stopping package: com.cyruszhang.cluboard.test
+DEVICE SHELL COMMAND: am force-stop com.cyruszhang.cluboard.test
+Running tests
+Test running started
+android.support.test.espresso.NoMatchingViewException: No views in hierarchy found matching: with id: com.cyruszhang.cluboard:id/Users_password
+
+View Hierarchy:
++>DecorView{id=-1, visibility=VISIBLE, width=768, height=1280, has-focus=true, has-focusable=true, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=0.0, child-count=3}
+|
++->LinearLayout{id=-1, visibility=VISIBLE, width=768, height=1184, has-focus=true, has-focusable=true, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=0.0, child-count=2}
+|
++-->ViewStub{id=16909225, res-name=action_mode_bar_stub, visibility=GONE, width=0, height=0, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=true, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=0.0}
+|
++-->FrameLayout{id=16908290, res-name=content, visibility=VISIBLE, width=768, height=1136, has-focus=true, has-focusable=true, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=48.0, child-count=1}
+|
++--->LinearLayout{id=-1, visibility=VISIBLE, width=768, height=1136, has-focus=true, has-focusable=true, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=0.0, child-count=2}
+|
++---->ImageView{id=2131689636, res-name=app_logo, desc=Logo, visibility=VISIBLE, width=704, height=415, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=32.0, y=32.0}
+|
++---->LinearLayout{id=-1, visibility=VISIBLE, width=704, height=657, has-focus=true, has-focusable=true, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=32.0, y=447.0, child-count=3}
+|
++----->LinearLayout{id=2131689637, res-name=parse_login, visibility=VISIBLE, width=704, height=470, has-focus=true, has-focusable=true, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=37.0, child-count=4}
+|
++------>EditText{id=2131689638, res-name=login_username_input, visibility=VISIBLE, width=704, height=91, has-focus=true, has-focusable=true, has-window-focus=true, is-clickable=true, is-enabled=true, is-focused=true, is-focusable=true, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=true, editor-info=[inputType=0x20 imeOptions=0x8000005 privateImeOptions=null actionLabel=null actionId=0 initialSelStart=0 initialSelEnd=0 initialCapsMode=0x0 hintText=Email label=null packageName=null fieldId=0 fieldName=null extras=null ], x=0.0, y=0.0, text=, hint=Email, input-type=32, ime-target=true, has-links=false}
+|
++------>EditText{id=2131689639, res-name=login_password_input, visibility=VISIBLE, width=704, height=91, has-focus=false, has-focusable=true, has-window-focus=true, is-clickable=true, is-enabled=true, is-focused=false, is-focusable=true, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=true, editor-info=[inputType=0x81 imeOptions=0xc000005 privateImeOptions=null actionLabel=null actionId=0 initialSelStart=0 initialSelEnd=0 initialCapsMode=0x0 hintText=Password label=null packageName=null fieldId=0 fieldName=null extras=null ], x=0.0, y=107.0, text=, hint=Password, input-type=129, ime-target=false, has-links=false}
+|
++------>LinearLayout{id=2131689640, res-name=parse_buttons, visibility=VISIBLE, width=704, height=96, has-focus=false, has-focusable=true, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=246.0, child-count=2}
+|
++------->Button{id=2131689641, res-name=parse_login_button, visibility=VISIBLE, width=352, height=96, has-focus=false, has-focusable=true, has-window-focus=true, is-clickable=true, is-enabled=true, is-focused=false, is-focusable=true, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=0.0, text=Log in, input-type=0, ime-target=false, has-links=false}
+|
++------->Button{id=2131689642, res-name=parse_signup_button, visibility=VISIBLE, width=336, height=96, has-focus=false, has-focusable=true, has-window-focus=true, is-clickable=true, is-enabled=true, is-focused=false, is-focusable=true, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=368.0, y=0.0, text=Sign up, input-type=0, ime-target=false, has-links=false}
+|
++------>Button{id=2131689643, res-name=parse_login_help, visibility=VISIBLE, width=241, height=96, has-focus=false, has-focusable=true, has-window-focus=true, is-clickable=true, is-enabled=true, is-focused=false, is-focusable=true, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=231.0, y=358.0, text=Forgot password, input-type=0, ime-target=false, has-links=false}
+|
++----->Button{id=2131689647, res-name=facebook_login, visibility=VISIBLE, width=704, height=96, has-focus=false, has-focusable=true, has-window-focus=true, is-clickable=true, is-enabled=true, is-focused=false, is-focusable=true, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=523.0, text=Log in with Facebook, input-type=0, ime-target=false, has-links=false}
+|
++----->Button{id=2131689648, res-name=twitter_login, visibility=GONE, width=0, height=0, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=true, is-enabled=true, is-focused=false, is-focusable=true, is-layout-requested=true, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=0.0, text=Log in with Twitter, input-type=0, ime-target=false, has-links=false}
+|
++->View{id=16908336, res-name=navigationBarBackground, visibility=VISIBLE, width=768, height=96, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=1184.0}
+|
++->View{id=16908335, res-name=statusBarBackground, visibility=VISIBLE, width=768, height=48, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=0.0}
+|
+at dalvik.system.VMStack.getThreadStackTrace(Native Method)
+at java.lang.Thread.getStackTrace(Thread.java:580)
+at android.support.test.espresso.base.DefaultFailureHandler.getUserFriendlyError(DefaultFailureHandler.java:82)
+at android.support.test.espresso.base.DefaultFailureHandler.handle(DefaultFailureHandler.java:53)
+at android.support.test.espresso.ViewInteraction.runSynchronouslyOnUiThread(ViewInteraction.java:184)
+at android.support.test.espresso.ViewInteraction.doPerform(ViewInteraction.java:115)
+at android.support.test.espresso.ViewInteraction.perform(ViewInteraction.java:87)
+at com.cyruszhang.cluboard.LoginTest.logintest(LoginTest.java:39)
+at java.lang.reflect.Method.invoke(Native Method)
+at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+at android.support.test.internal.statement.UiThreadStatement.evaluate(UiThreadStatement.java:55)
+at android.support.test.rule.ActivityTestRule$ActivityStatement.evaluate(ActivityTestRule.java:257)
+at org.junit.rules.RunRules.evaluate(RunRules.java:20)
+at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+at org.junit.runners.Suite.runChild(Suite.java:128)
+at org.junit.runners.Suite.runChild(Suite.java:27)
+at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+at org.junit.runner.JUnitCore.run(JUnitCore.java:137)
+at org.junit.runner.JUnitCore.run(JUnitCore.java:115)
+at android.support.test.internal.runner.TestExecutor.execute(TestExecutor.java:54)
+at android.support.test.runner.AndroidJUnitRunner.onStart(AndroidJUnitRunner.java:240)
+at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1879)
+
+Finish
+
