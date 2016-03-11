@@ -1,18 +1,3 @@
-1.	Given that I am logged in and I am on the homepage
-When I tap on search and type events that I am interested in
-   Then a list of such events appears
-
-2.	Given that I am logged in as a common user 
-When slide to the side bar and tap on “My Page”
-Then I see My Page and there is no create club button
-
-3.	Given that I am logged in and is in My Page
-When I slide to the side bar and tap on “Homepage”
-Then the homepage appears
-
-4.	Given that I am logged in as a club leader
-When I tap on “My Profile”
-Then I see my profile page with create club and events button
 
 5.	Given that I am logged in 
 When I tap in a club or event page and I click on the follow button
