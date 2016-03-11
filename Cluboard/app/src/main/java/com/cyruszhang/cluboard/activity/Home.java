@@ -23,7 +23,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.cyruszhang.cluboard.R;
-import com.cyruszhang.cluboard.SampleDispatchActivity;
+import com.cyruszhang.cluboard.MainActivity;
 import com.cyruszhang.cluboard.fragment.ClubCatalogFragment;
 import com.cyruszhang.cluboard.fragment.HomeFragment;
 import com.cyruszhang.cluboard.parse.Club;
@@ -152,7 +152,7 @@ public class Home extends AppCompatActivity {
         ParseUser.logOut();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             Intent intentLogout = new Intent(Home.this,
-                    SampleDispatchActivity.class);
+                    MainActivity.class);
             intentLogout.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK
                     | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intentLogout);
@@ -264,5 +264,11 @@ public class Home extends AppCompatActivity {
         }
         setTitle(menuItem.getTitle());
         mDrawer.closeDrawers();
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+
     }
 }
