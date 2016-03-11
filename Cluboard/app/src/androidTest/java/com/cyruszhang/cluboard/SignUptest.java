@@ -9,6 +9,7 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.cyruszhang.cluboard.activity.Login;
+import com.parse.ui.ParseLoginActivity;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -30,7 +31,7 @@ import static android.support.test.espresso.intent.matcher.IntentMatchers.toPack
 @RunWith(AndroidJUnit4.class)
 public class SignUptest {
     @Rule
-    public IntentsTestRule<Login> mActivityRule = new IntentsTestRule<>(Login.class);
+    public IntentsTestRule<MainActivity> mActivityRule = new IntentsTestRule<>(MainActivity.class);
 
     @Test
     public void signuptest(){

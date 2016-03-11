@@ -18,7 +18,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.cyruszhang.cluboard.R;
-import com.cyruszhang.cluboard.SampleDispatchActivity;
+import com.cyruszhang.cluboard.MainActivity;
 import com.cyruszhang.cluboard.adapter.EventQueryRecyclerAdapter;
 import com.cyruszhang.cluboard.parse.Club;
 import com.cyruszhang.cluboard.parse.Event;
@@ -157,7 +157,7 @@ public class ClubDetail extends AppCompatActivity {
             case MENU_ITEM_LOGOUT:
                 // Logout current user
                 ParseUser.logOut();
-                Intent intent = new Intent(ClubDetail.this, SampleDispatchActivity.class);
+                Intent intent = new Intent(ClubDetail.this, MainActivity.class);
                 startActivity(intent);
                 Snackbar.make(coordinatorLayout,
                         "You are logged out", Snackbar.LENGTH_LONG)
