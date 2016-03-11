@@ -11,12 +11,16 @@ import android.support.test.espresso.util.HumanReadables;
 import android.support.test.espresso.util.TreeIterables;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.cyruszhang.cluboard.activity.Home;
 import com.cyruszhang.cluboard.activity.Login;
 import com.cyruszhang.cluboard.activity.NewClub;
+import com.cyruszhang.cluboard.activity.NewEvent;
 
+import org.hamcrest.BaseMatcher;
+import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.junit.Before;
 import org.junit.Rule;
@@ -27,6 +31,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.TimeoutException;
 
+import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.typeText;
@@ -40,6 +45,8 @@ import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
 import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.not;
 /**
  * Created by SC on 3/10/16.
@@ -53,13 +60,14 @@ public class HomeTest {
 
     @Before
     public void initValidString() {
-        Random ranGen = new Random();
-        mStringToBetyped = String.valueOf(ranGen.nextInt(900000) + 100000);
     }
 
 
     @Test
-    public void newClubTest(){
+    public void a_newClubTest(){
+        Random ranGen = new Random();
+        mStringToBetyped = String.valueOf(ranGen.nextInt(900000) + 100000);
+
         Intents.init();
         onView(withContentDescription("Open navigation drawer")).perform(click());
 
@@ -78,11 +86,13 @@ public class HomeTest {
         onView(withText("CREATE")).perform(click());
 
         // All Clubs -> Demo
-        for (double i = 0.000001; i < 100000000; i *= 3.14) { i /= 3.13;}
+        onView(isRoot()).perform(waitId(R.id.manage_clubs_edit_button, 2000));
         onView(withText("All Clubs")).perform(click());
+        onView(isRoot()).perform(waitId(R.id.manage_clubs_edit_button, 2000));
         onView(withText(mStringToBetyped)).perform(click());
 
-        onView(isRoot()).perform(waitId(R.id.club_detail_new_event_button, 10000));
+        onView(isRoot()).perform(waitId(R.id.club_detail_new_event_button, 20000));
+        onView(isRoot()).perform(waitId(R.id.manage_clubs_edit_button, 3000));
         onView(withId(R.id.club_detail_new_event_button)).perform(click());
         inputEventInfo();
         onView(withText("CREATE")).perform(click());
@@ -90,47 +100,21 @@ public class HomeTest {
         Intents.release();
     }
 
-//    @Test
-//    public void myBookMarkButtonTest(){
-//        Intents.init();
-//
-//        onView(withContentDescription("Open navigation drawer")).perform(click());
-//
-//        onView(withText("Bookmarked Clubs")).perform(click());
-//
-//        hasComponent("MyBookmark");
-//
-//        Intents.release();
-//
-//    }
-//
-//    @Test
-//    public void myEventsButtonTest(){
-//        Intents.init();
-//
-//        onView(withContentDescription("Open navigation drawer")).perform(click());
-//
-//        onView(withText("Followed Events")).perform(click());
-//
-//        hasComponent("MyEvents");
-//
-//        Intents.release();
-//
-//    }
-//
-//    @Test
-//    public void settingsButtonTest(){
-//        Intents.init();
-//
-//        onView(withContentDescription("Open navigation drawer")).perform(click());
-//
-//        onView(withText("Setting")).perform(click());
-//
-//        hasComponent("Settings");
-//
-//        Intents.release();
-//
-//    }
+    @Test
+    public void b_bookmarkClub() {
+        onView(withContentDescription("Open navigation drawer")).perform(click());
+        onView(withText("All Clubs")).perform(click());
+        onView(isRoot()).perform(waitId(R.id.manage_clubs_edit_button, 2000));
+        onView(withText(mStringToBetyped)).perform(click());
+
+        // wait
+        onView(isRoot()).perform(waitId(R.id.manage_clubs_edit_button, 2000));
+        onView(isRoot()).perform(waitId(R.id.club_detail_new_event_button, 10000));
+
+        // bookmark it
+        onView(isRoot()).perform(waitId(R.id.manage_clubs_edit_button, 2000));
+        onData(allOf(instanceOf(MenuItem.class), withTitle("Add Bookmark"))).perform(click());
+    }
 
     public void inputInfo() {
         onView(withId(R.id.new_club_name)).perform(typeText(mStringToBetyped), ViewActions.closeSoftKeyboard());
@@ -141,6 +125,7 @@ public class HomeTest {
     }
 
     void inputEventInfo() {
+        onView(isRoot()).perform(waitId(R.id.new_event_name, 20000));
         onView(withId(R.id.new_event_name)).perform(typeText(mStringToBetyped), ViewActions.closeSoftKeyboard());
         onView(withId(R.id.new_event_location)).perform(typeText("location"), ViewActions.closeSoftKeyboard());
         onView(withId(R.id.new_event_desc)).perform(typeText("desc"), ViewActions.closeSoftKeyboard());
@@ -178,14 +163,29 @@ public class HomeTest {
                 while (System.currentTimeMillis() < endTime);
 
                 // timeout happens
-                throw new PerformException.Builder()
-                        .withActionDescription(this.getDescription())
-                        .withViewDescription(HumanReadables.describe(view))
-                        .withCause(new TimeoutException())
-                        .build();
+//                throw new PerformException.Builder()
+//                        .withActionDescription(this.getDescription())
+//                        .withViewDescription(HumanReadables.describe(view))
+//                        .withCause(new TimeoutException())
+//                        .build();
             }
         };
     }
+
+    static MenuItemTitleMatcher withTitle(String title) {
+        return new MenuItemTitleMatcher(title);
+    }
+
+    static class MenuItemTitleMatcher extends BaseMatcher<Object> {
+        private final String title;
+        public MenuItemTitleMatcher(String title) { this.title = title; }
+
+        @Override public boolean matches(Object o) {
+            if (o instanceof MenuItem) {
+                return ((MenuItem) o).getTitle().equals(title);
+            }
+            return false;
+        }
+        @Override public void describeTo(Description description) { }
+    }
 }
-
-
