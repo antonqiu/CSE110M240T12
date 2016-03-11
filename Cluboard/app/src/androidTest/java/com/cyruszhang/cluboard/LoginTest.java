@@ -62,28 +62,17 @@ public class LoginTest {
         closeSoftKeyboard();
         onView(withId(com.parse.ui.R.id.parse_login_button)).perform(click());
 
-        onView(isRoot()).perform(waitId(R.id.home_upcoming_event_icon, 10000));
+        onView(isRoot()).perform(waitId(R.id.parse_login_button, 3000));
         intended(hasComponent(Home.class.getName()));
         onView(withContentDescription("Open navigation drawer")).perform(click());
         onView(withText("Logout")).perform(click());
-        intended(hasComponent("MainActivity"));
+        onView(isRoot()).perform(waitId(R.id.parse_login_button, 3000));
+        intended(hasComponent(MainActivity.class.getName()));
         Intents.release();
     }
 
-/*
 
-
-
-    @Test
-    public void testLogout() {
-        intended(hasComponent(Home.class.getName()));
-        onView(withContentDescription("Open navigation drawer")).perform(click());
-        onView(withText("Logout")).perform(click());
-        intended(hasComponent("MainActivity"));
-        Intents.release();
-
-    }*/
-    /** Perform action of waiting for a specific view id. */
+    
     public static ViewAction waitId(final int viewId, final long millis) {
         return new ViewAction() {
             @Override
@@ -114,13 +103,6 @@ public class LoginTest {
                     uiController.loopMainThreadForAtLeast(50);
                 }
                 while (System.currentTimeMillis() < endTime);
-
-                // timeout happens
-                throw new PerformException.Builder()
-                        .withActionDescription(this.getDescription())
-                        .withViewDescription(HumanReadables.describe(view))
-                        .withCause(new TimeoutException())
-                        .build();
             }
         };
     }
