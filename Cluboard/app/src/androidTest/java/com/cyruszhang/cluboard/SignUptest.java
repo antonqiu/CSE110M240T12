@@ -37,10 +37,10 @@ public class SignUptest {
 
 
 
-        onView(withId(R.id.register_button)).perform(click());
+        onView(withId(R.id.parse_signup_button)).perform(click());
 
-        intended(toPackage("com.cyruszhang.cluboard.activity.Login"));
-
+      //  intended(toPackage("com.cyruszhang.cluboard.activity.Login"));
+        intended(toPackage("com.parse.ui"));
 
     }
 

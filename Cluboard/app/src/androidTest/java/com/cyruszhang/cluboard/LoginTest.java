@@ -6,6 +6,7 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.cyruszhang.cluboard.activity.Login;
+import com.parse.ui.ParseLoginFragment;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -33,13 +34,13 @@ public class LoginTest {
     @Test
     public void logintest(){
 
-        onView(withId(R.id.Users_password)).perform(typeText("123456"));
-        onView(withId(R.id.Users_username)).perform(typeText("xinyuan"));
+        onView(withId(R.id.login_password_input)).perform(typeText("123456"));
+        onView(withId(R.id.login_username_input)).perform(typeText("xinyuan"));
         closeSoftKeyboard();
 
-        onView(withId(R.id.login_button)).perform(click());
+        onView(withId(R.id.parse_login_button)).perform(click());
 
-        intended(toPackage("com.cyruszhang.cluboard.activity.Home"));
+        intended(toPackage("com.cyruszhang.cluboard.activity.Cluboard"));
 
 
     }

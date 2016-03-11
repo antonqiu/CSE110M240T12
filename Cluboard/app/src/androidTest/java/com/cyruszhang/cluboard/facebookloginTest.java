@@ -1,9 +1,11 @@
-package com.cyruszhang.cluboard;
+
 
 /**
  * Created by Zhiye Zhang on 2016/3/10 0010.
  */
 
+
+package com.cyruszhang.cluboard;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -11,6 +13,7 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.cyruszhang.cluboard.activity.Login;
+import com.parse.ui.ParseLoginFragment;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -36,11 +39,11 @@ public class facebookloginTest {
     public IntentsTestRule<Login> mActivityRule = new IntentsTestRule<>(Login.class);
 
     @Test
-    public void forgetpasswordtest(){
+    public void facebooklogintest(){
 
 
 
-        onView(withId(R.id.fb_login_button)).perform(click());
+        onView(withId(R.id.facebook_login)).perform(click());
 
         intended(toPackage("com.cyruszhang.cluboard.activity.Login"));
 
