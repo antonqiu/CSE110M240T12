@@ -56,7 +56,7 @@ public class HomeTest {
 
     @Rule
     public ActivityTestRule<Home> mActivityRule = new ActivityTestRule<>(Home.class);
-    private String mStringToBetyped;
+    private static String mStringToBetyped;
 
     @Before
     public void initValidString() {
@@ -112,8 +112,10 @@ public class HomeTest {
         onView(isRoot()).perform(waitId(R.id.club_detail_new_event_button, 10000));
 
         // bookmark it
+        onView(isRoot()).perform(waitId(R.id.event_list_item_follow, 20000));
         onView(isRoot()).perform(waitId(R.id.manage_clubs_edit_button, 2000));
-        onData(allOf(instanceOf(MenuItem.class), withTitle("Add Bookmark"))).perform(click());
+        onView(withId(R.id.event_list_item_follow)).perform(click());
+        onView(isRoot()).perform(waitId(R.id.manage_clubs_edit_button, 2000));
     }
 
     public void inputInfo() {

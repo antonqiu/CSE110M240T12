@@ -207,7 +207,9 @@ public class ClubDetail extends AppCompatActivity {
                         query.include("following").include("followingUsers");
                         query.include("following").include("count");
                         query.orderByAscending("fromTime");
-                        Date rightNow = Calendar.getInstance().getTime();
+                        Calendar rightNowCal = Calendar.getInstance();
+                        rightNowCal.add(Calendar.DATE, -1);
+                        Date rightNow = rightNowCal.getTime();
                         query.whereGreaterThanOrEqualTo("fromTime", rightNow);
                         Log.d("factory", "factory created");
                         return query;
