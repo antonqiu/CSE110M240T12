@@ -1,0 +1,32 @@
+
+5.	Given that I am logged in 
+When I tap in a club or event page and I click on the follow button
+Then the club or event is added to My Page
+
+6.	Given that I am logged in
+When I tap on an event
+Then the event page appears with description, time, and location of the event in it
+
+7.	Given that I am logged in
+When I tap on a club 
+Then the club page appears with description, detail, and its events in it
+
+8.	Given that I am logged in as a leader
+When I am in My page and tap on the create club button
+Then the create club page shows up and let me type in club name, description, detail, and contact information
+When I click on create club button
+Then a confirmation appears, the club is created and shows up in My Page
+
+9.	Given that I am logged in as a leader
+When I am in My page and tap on the create event button
+Then the create event page shows up and let me type in event name, time, location, and description
+When I click on create event button
+Then a confirmation appears, the event is created and shows up in My Page
+
+10.	Given that I am logged in
+When I slide the page to the right side
+Then the side bar shows up with username, logout and setting button.
+
+11.	 Given that I am logged in and have sidebar shown on the screen
+    When I press the logout button
+    Then I am logged out and the login page shows up
