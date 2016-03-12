@@ -28,9 +28,9 @@ public class AlarmReceiver extends BroadcastReceiver{
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
 
-        Notification notification = builder.setContentTitle("Cluboard Notification")
-                .setContentText("You have an upcoming events in 30mins")
-                .setTicker("New Message Alert!")
+        Notification notification = builder.setContentTitle("Cluboard")
+                .setContentText("You have an upcoming event in 30mins")
+                .setTicker("Cluboard: upcoming event")
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentIntent(pendingIntent).build();
 

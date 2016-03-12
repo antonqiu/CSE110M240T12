@@ -3,9 +3,11 @@ package com.cyruszhang.cluboard;
 import android.support.test.espresso.UiController;
 import android.support.test.espresso.ViewAction;
 import android.support.test.espresso.contrib.RecyclerViewActions;
+import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.espresso.util.TreeIterables;
 import android.support.test.rule.ActivityTestRule;
 import android.view.View;
+import android.widget.TimePicker;
 
 import com.cyruszhang.cluboard.activity.ClubDetail;
 
@@ -87,4 +89,6 @@ public class FollowTest {
             }
         };
     }
+
+
 }

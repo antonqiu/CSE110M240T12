@@ -273,13 +273,12 @@ public abstract class EventQueryRecyclerAdapter<T extends ParseObject, U extends
         PendingIntent broadcast = PendingIntent.getBroadcast(context, eventID, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.SECOND, 5);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), broadcast);
-        /*
-        long eventTime = date.getTime();
+        //cal.add(Calendar.SECOND, 5);
+        //alarmManager.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), broadcast);
+
+        long eventTime = startTime.getTime();
         long alarmTime = eventTime-TIME_AHEAD;
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime, broadcast);
-        */
+        alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime, broadcast);
         Log.e("notification", "scheduleNotification: scheduled a notification");
     }
 

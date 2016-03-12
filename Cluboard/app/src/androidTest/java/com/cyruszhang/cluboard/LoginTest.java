@@ -1,25 +1,15 @@
 package com.cyruszhang.cluboard;
 
-import android.content.Context;
-import android.content.Intent;
-import android.support.test.InstrumentationRegistry;
-
-import android.support.test.espresso.Espresso;
-import android.support.test.espresso.PerformException;
 import android.support.test.espresso.UiController;
 import android.support.test.espresso.ViewAction;
 import android.support.test.espresso.intent.Intents;
-import android.support.test.espresso.util.HumanReadables;
 import android.support.test.espresso.util.TreeIterables;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.cyruszhang.cluboard.activity.Home;
-import com.cyruszhang.cluboard.activity.Login;
-import com.parse.ui.ParseLoginFragment;
 
 import org.hamcrest.Matcher;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,7 +17,6 @@ import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasAction;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
@@ -36,14 +25,10 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.Espresso.closeSoftKeyboard;
-import android.support.test.espresso.intent.rule.IntentsTestRule;
-import android.util.Log;
+
 import android.view.View;
 
-import java.util.concurrent.TimeoutException;
-
 import static android.support.test.espresso.intent.Intents.intended;
-import static android.support.test.espresso.intent.matcher.IntentMatchers.toPackage;
 
 
 @RunWith(AndroidJUnit4.class)

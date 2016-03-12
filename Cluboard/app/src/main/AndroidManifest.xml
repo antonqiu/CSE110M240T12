@@ -55,7 +55,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.Login" />
         <activity
             android:name=".activity.Home"
             android:label="@string/title_activity_home"
@@ -72,15 +71,6 @@
         <activity
             android:name=".activity.NewClub"
             android:label="@string/title_activity_new_club"
-            android:parentActivityName=".activity.Home"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.Home" />
-        </activity>
-        <activity
-            android:name=".activity.Setting"
-            android:label="@string/title_activity_setting"
             android:parentActivityName=".activity.Home"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
