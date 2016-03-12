@@ -15,7 +15,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 
+import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasAction;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent;
@@ -49,7 +51,8 @@ public class LoginTest {
 
         onView(isRoot()).perform(waitId(R.id.parse_login_button, 3000));
         intended(hasComponent(Home.class.getName()));
-        onView(withContentDescription("Open navigation drawer")).perform(click());
+        openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
+//        onView(withContentDescription("Open navigation drawer")).perform(click());
         onView(withText("Logout")).perform(click());
         onView(isRoot()).perform(waitId(R.id.parse_login_button, 3000));
         intended(hasComponent(MainActivity.class.getName()));

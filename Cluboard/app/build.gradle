@@ -37,7 +37,7 @@ dependencies {
     compile 'com.google.code.gson:gson:2.5'
 
     // dependencies for scenario test
-    androidTestCompile 'com.android.support:support-annotations:23.2.0'
+    androidTestCompile 'com.android.support:support-annotations:23.2.+'
     androidTestCompile 'com.android.support.test:runner:0.4.1'
     androidTestCompile 'com.android.support.test:rules:0.4.1'
 
