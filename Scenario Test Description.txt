@@ -4,9 +4,9 @@ Please Log out the APP first and run the following test IN ORDER.
 Given that I am logged out
 When I type in my username and password and click login
 Then I should enter into the home page
-When I slide the page to the right side
-Then the sidebar shows up
-When I click on logout button in the sidebar
+When I click on the option menu on the top left
+Then the options including setting, logout shows up
+When I click on logout button
 Then I logged out and go to the login page
 
 2.	Create Club & Create Event Test (The test will first do login)
