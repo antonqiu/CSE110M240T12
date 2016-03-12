@@ -55,7 +55,7 @@ import static org.hamcrest.Matchers.not;
 public class HomeTest {
 
     @Rule
-    public ActivityTestRule<Home> mActivityRule = new ActivityTestRule<>(Home.class);
+    public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(MainActivity.class);
     private static String mStringToBetyped;
 
     @Before
@@ -99,7 +99,7 @@ public class HomeTest {
 
         Intents.release();
     }
-
+    /*
     @Test
     public void b_bookmarkClub() {
         onView(withContentDescription("Open navigation drawer")).perform(click());
@@ -117,7 +117,7 @@ public class HomeTest {
         onView(withId(R.id.event_list_item_follow)).perform(click());
         onView(isRoot()).perform(waitId(R.id.manage_clubs_edit_button, 2000));
     }
-
+*/
     public void inputInfo() {
         onView(withId(R.id.new_club_name)).perform(typeText(mStringToBetyped), ViewActions.closeSoftKeyboard());
         onView(withId(R.id.new_club_desc)).perform(typeText("Demo"), ViewActions.closeSoftKeyboard());
