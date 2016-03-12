@@ -7,6 +7,8 @@ import android.support.test.espresso.util.TreeIterables;
 import android.support.test.rule.ActivityTestRule;
 import android.view.View;
 
+import com.cyruszhang.cluboard.activity.ClubDetail;
+
 import org.hamcrest.Matcher;
 import org.junit.Rule;
 import org.junit.Test;
@@ -26,19 +28,21 @@ public class FollowTest {
     public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(MainActivity.class);
 
     @Test
-    public void b_bookmarkClub() {
+    public void followEvent() {
         onView(withContentDescription("Open navigation drawer")).perform(click());
         onView(withText("All Clubs")).perform(click());
         onView(isRoot()).perform(waitId(R.id.manage_clubs_edit_button, 2000));
-        //onView(withText(mStringToBetyped)).perform(click());
+
         onView(withId(R.id.fragment_club_catalog_recycler)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
         // wait
         onView(isRoot()).perform(waitId(R.id.manage_clubs_edit_button, 2000));
         onView(isRoot()).perform(waitId(R.id.club_detail_new_event_button, 10000));
-
-        // bookmark it
-        onView(isRoot()).perform(waitId(R.id.event_list_item_follow, 20000));
+        //bookmark club
+        onView(withId(ClubDetail.MENU_ITEM_BOOKMARK)).perform(click());
         onView(isRoot()).perform(waitId(R.id.manage_clubs_edit_button, 2000));
+        // follow event
+        onView(isRoot()).perform(waitId(R.id.event_list_item_follow, 20000));
+        //onView(isRoot()).perform(waitId(R.id.manage_clubs_edit_button, 2000));
         onView(withId(R.id.event_list_item_follow)).perform(click());
         onView(isRoot()).perform(waitId(R.id.manage_clubs_edit_button, 2000));
     }

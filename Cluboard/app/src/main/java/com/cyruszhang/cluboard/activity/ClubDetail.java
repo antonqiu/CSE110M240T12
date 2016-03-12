@@ -37,8 +37,8 @@ import java.util.Date;
 
 public class ClubDetail extends AppCompatActivity {
     private static final int MENU_ITEM_LOGOUT = 1001;
-    private static final int MENU_ITEM_BOOKMARK = 1002;
-    private static final int MENU_ITEM_REFRESH = 1003;
+    public static final int MENU_ITEM_BOOKMARK = 1002;
+    public static final int MENU_ITEM_REFRESH = 1003;
     private static final int IMAGE_VIEW_ID = View.generateViewId();
     private CoordinatorLayout coordinatorLayout;
     private Menu menu;

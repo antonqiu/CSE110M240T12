@@ -14,6 +14,7 @@ import android.support.test.runner.AndroidJUnit4;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.cyruszhang.cluboard.activity.ClubDetail;
 import com.cyruszhang.cluboard.activity.Home;
 import com.cyruszhang.cluboard.activity.Login;
 import com.cyruszhang.cluboard.activity.NewClub;
@@ -31,6 +32,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.TimeoutException;
 
+import static android.support.test.espresso.Espresso.closeSoftKeyboard;
 import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -52,7 +54,7 @@ import static org.hamcrest.Matchers.not;
  * Created by SC on 3/10/16.
  */
 @RunWith(AndroidJUnit4.class)
-public class HomeTest {
+public class CreateTest {
 
     @Rule
     public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(MainActivity.class);
@@ -65,6 +67,12 @@ public class HomeTest {
 
     @Test
     public void a_newClubTest(){
+        onView(withId(com.parse.ui.R.id.login_username_input)).perform(typeText("xinyuan"));
+        closeSoftKeyboard();
+        onView(withId(com.parse.ui.R.id.login_password_input)).perform(typeText("123456"));
+        closeSoftKeyboard();
+        onView(withId(com.parse.ui.R.id.parse_login_button)).perform(click());
+        onView(isRoot()).perform(waitId(R.id.parse_login_button, 3000));
         Random ranGen = new Random();
         mStringToBetyped = String.valueOf(ranGen.nextInt(900000) + 100000);
 
@@ -96,28 +104,11 @@ public class HomeTest {
         onView(withId(R.id.club_detail_new_event_button)).perform(click());
         inputEventInfo();
         onView(withText("CREATE")).perform(click());
-
+        onView(withId(ClubDetail.MENU_ITEM_REFRESH)).perform(click());
+        onView(isRoot()).perform(waitId(R.id.manage_clubs_edit_button, 2000));
         Intents.release();
     }
-    /*
-    @Test
-    public void b_bookmarkClub() {
-        onView(withContentDescription("Open navigation drawer")).perform(click());
-        onView(withText("All Clubs")).perform(click());
-        onView(isRoot()).perform(waitId(R.id.manage_clubs_edit_button, 2000));
-        onView(withText(mStringToBetyped)).perform(click());
 
-        // wait
-        onView(isRoot()).perform(waitId(R.id.manage_clubs_edit_button, 2000));
-        onView(isRoot()).perform(waitId(R.id.club_detail_new_event_button, 10000));
-
-        // bookmark it
-        onView(isRoot()).perform(waitId(R.id.event_list_item_follow, 20000));
-        onView(isRoot()).perform(waitId(R.id.manage_clubs_edit_button, 2000));
-        onView(withId(R.id.event_list_item_follow)).perform(click());
-        onView(isRoot()).perform(waitId(R.id.manage_clubs_edit_button, 2000));
-    }
-*/
     public void inputInfo() {
         onView(withId(R.id.new_club_name)).perform(typeText(mStringToBetyped), ViewActions.closeSoftKeyboard());
         onView(withId(R.id.new_club_desc)).perform(typeText("Demo"), ViewActions.closeSoftKeyboard());
