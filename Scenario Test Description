@@ -34,5 +34,7 @@ When I click on All Clubs button
 Then a page with a list of all clubs shows up
 When I click on first club in the list
 Then the page shows up with this club's detail information and events  
-When I click on the follow button in one of this club's events,
+When I click on the bookmark button on the top
+Then the bookmark button is checked and a message shows up saying "You bookmarked this club" 
+When I click on the follow button on one of this club's events,
 Then the follow button is checked and a message shows up saying "You followed this event"
