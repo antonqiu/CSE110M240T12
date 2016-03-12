@@ -93,7 +93,7 @@ public class CreateTest {
         // All Clubs -> Demo
         onView(isRoot()).perform(waitId(R.id.manage_clubs_edit_button, 2000));
         onView(withText("All Clubs")).perform(click());
-        onView(isRoot()).perform(waitId(R.id.manage_clubs_edit_button, 2000));
+        onView(isRoot()).perform(waitId(ClubDetail.MENU_ITEM_REFRESH, 5000));
         onView(withText(mStringToBetyped)).perform(click());
 
         onView(isRoot()).perform(waitId(R.id.club_detail_new_event_button, 20000));
@@ -102,6 +102,7 @@ public class CreateTest {
         inputEventInfo();
         onView(withText("CREATE")).perform(click());
         onView(isRoot()).perform(waitId(R.id.club_detail_new_event_button, 20000));
+        onView(isRoot()).perform(waitId(R.id.manage_clubs_edit_button, 2000));
         onView(withId(ClubDetail.MENU_ITEM_REFRESH)).perform(click());
         onView(isRoot()).perform(waitId(R.id.manage_clubs_edit_button, 2000));
         Intents.release();

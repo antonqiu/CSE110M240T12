@@ -39,14 +39,15 @@ public class FollowTest {
         // wait
         onView(isRoot()).perform(waitId(R.id.manage_clubs_edit_button, 2000));
         onView(isRoot()).perform(waitId(R.id.club_detail_new_event_button, 10000));
-        //bookmark club
-        onView(withId(ClubDetail.MENU_ITEM_BOOKMARK)).perform(click());
-        onView(isRoot()).perform(waitId(R.id.manage_clubs_edit_button, 2000));
         // follow event
+        onView(isRoot()).perform(waitId(R.id.manage_clubs_edit_button, 2000));
         onView(isRoot()).perform(waitId(R.id.event_list_item_follow, 20000));
         //onView(isRoot()).perform(waitId(R.id.manage_clubs_edit_button, 2000));
         onView(withId(R.id.event_list_item_follow)).perform(click());
-        onView(isRoot()).perform(waitId(R.id.manage_clubs_edit_button, 2000));
+        //bookmark club
+        onView(isRoot()).perform(waitId(R.id.manage_clubs_edit_button, 3000));
+        onView(withId(ClubDetail.MENU_ITEM_BOOKMARK)).perform(click());
+        onView(isRoot()).perform(waitId(R.id.manage_clubs_edit_button, 3000));
     }
 
     public static ViewAction waitId(final int viewId, final long millis) {
