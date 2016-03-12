@@ -50,6 +50,7 @@ public class LoginTest {
         onView(withId(com.parse.ui.R.id.parse_login_button)).perform(click());
 
         onView(isRoot()).perform(waitId(R.id.parse_login_button, 3000));
+//        onView(isRoot()).perform(waitId(R.id.home_recommend_icon, 10000));
         intended(hasComponent(Home.class.getName()));
         openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
 //        onView(withContentDescription("Open navigation drawer")).perform(click());
