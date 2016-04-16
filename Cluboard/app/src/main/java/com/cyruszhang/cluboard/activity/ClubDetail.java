@@ -3,21 +3,23 @@ package com.cyruszhang.cluboard.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ListView;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.cyruszhang.cluboard.R;
-import com.cyruszhang.cluboard.SampleDispatchActivity;
-import com.cyruszhang.cluboard.adapter.EventQueryAdapter;
+import com.cyruszhang.cluboard.MainActivity;
+import com.cyruszhang.cluboard.adapter.EventQueryRecyclerAdapter;
 import com.cyruszhang.cluboard.parse.Club;
 import com.cyruszhang.cluboard.parse.Event;
 import com.cyruszhang.cluboard.parse.User;
@@ -30,19 +32,22 @@ import com.parse.ParseQueryAdapter;
 import com.parse.ParseUser;
 
 import java.util.Arrays;
-import java.util.List;
+import java.util.Calendar;
+import java.util.Date;
 
 public class ClubDetail extends AppCompatActivity {
     private static final int MENU_ITEM_LOGOUT = 1001;
-    private static final int MENU_ITEM_BOOKMARK = 1002;
-    private static final int MENU_ITEM_REFRESH = 1003;
+    public static final int MENU_ITEM_BOOKMARK = 1002;
+    public static final int MENU_ITEM_REFRESH = 1003;
     private static final int IMAGE_VIEW_ID = View.generateViewId();
     private CoordinatorLayout coordinatorLayout;
     private Menu menu;
-    private SwipeRefreshLayout swipeRefresh;
+    //    private SwipeRefreshLayout swipeRefresh;
     private Club thisClub;
     private ParseObject thisClubBookmarkRelation;
     private ParseQueryAdapter<Event> eventQueryAdapter;
+    private RecyclerView eventRecyclerView;
+    private EventQueryRecyclerAdapter eventRecyclerViewAdapter;
 
 
     @Override
@@ -57,17 +62,7 @@ public class ClubDetail extends AppCompatActivity {
 
         final TextView clubName = (TextView) this.findViewById(R.id.club_detail_name);
         final TextView clubDetail = (TextView) this.findViewById(R.id.club_detail_detail);
-        final Button createEventBtn = (Button) this.findViewById(R.id.new_event_btn);
-        // swipe refresh
-        swipeRefresh = (SwipeRefreshLayout) findViewById(R.id.club_detail_swiperefresh);
-        // start from the very start
-        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                Log.d(getClass().getSimpleName(), "refresh triggered");
-                refreshEventList();
-            }
-        });
+        final FloatingActionButton createEventBtn = (FloatingActionButton) this.findViewById(R.id.club_detail_new_event_button);
 
         // normal intent starts
         if (thisClub == null) {
@@ -93,7 +88,7 @@ public class ClubDetail extends AppCompatActivity {
                                 if (clubAcl.getWriteAccess(currentUser)) {
                                     createEventBtn.setVisibility(View.VISIBLE);
                                 }
-                                swipeRefresh.setRefreshing(true);
+
                                 initBookmark();
                                 setupEventList();
                             }
@@ -104,21 +99,6 @@ public class ClubDetail extends AppCompatActivity {
                 Log.d(getClass().getSimpleName(), "fetch failed" + thisClub.getClubName());
             }
         }
-
-        //Testing notification
-        /*
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-
-        Intent notificationIntent = new Intent("android.media.action.DISPLAY_NOTIFICATION");
-        notificationIntent.addCategory("android.intent.category.DEFAULT");
-
-        PendingIntent broadcast = PendingIntent.getBroadcast(this, 100, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.SECOND, 15);
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), broadcast);
-        */
-        //ENDING test notification
 
         createEventBtn.setOnClickListener(new View.OnClickListener() {
             //click and go to create club view
@@ -131,11 +111,11 @@ public class ClubDetail extends AppCompatActivity {
 
     }
 
-//    @Override
-//    protected void onRestart() {
-//        refreshEventList();
-//        super.onRestart();
-//    }
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        refreshEventList();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -177,7 +157,7 @@ public class ClubDetail extends AppCompatActivity {
             case MENU_ITEM_LOGOUT:
                 // Logout current user
                 ParseUser.logOut();
-                Intent intent = new Intent(ClubDetail.this, SampleDispatchActivity.class);
+                Intent intent = new Intent(ClubDetail.this, MainActivity.class);
                 startActivity(intent);
                 Snackbar.make(coordinatorLayout,
                         "You are logged out", Snackbar.LENGTH_LONG)
@@ -201,7 +181,7 @@ public class ClubDetail extends AppCompatActivity {
                 }
                 break;
             case MENU_ITEM_REFRESH:
-                swipeRefresh.setRefreshing(true);
+//                swipeRefresh.setRefreshing(true);
                 refreshEventList();
                 break;
             // back button behavior customization
@@ -216,12 +196,6 @@ public class ClubDetail extends AppCompatActivity {
     }
 
     private void setupEventList() {
-        // Get List View
-        ListView eventList = (ListView) this.findViewById(R.id.event_list_view);
-
-        // get all following relations
-        ParseQuery<ParseObject> queryRelation = ParseQuery.getQuery("FollowingRelations");
-        queryRelation.whereEqualTo("clubObject", thisClub);
 
         ParseQueryAdapter.QueryFactory<Event> factory =
                 new ParseQueryAdapter.QueryFactory<Event>() {
@@ -233,25 +207,30 @@ public class ClubDetail extends AppCompatActivity {
                         query.include("following").include("followingUsers");
                         query.include("following").include("count");
                         query.orderByAscending("fromTime");
+                        Calendar rightNowCal = Calendar.getInstance();
+                        rightNowCal.add(Calendar.DATE, -1);
+                        Date rightNow = rightNowCal.getTime();
+                        query.whereGreaterThanOrEqualTo("fromTime", rightNow);
                         Log.d("factory", "factory created");
                         return query;
                     }
                 };
-        Log.d(getClass().getSimpleName(), "factory created");
-        //set up initial list view
-        eventQueryAdapter = new EventQueryAdapter<>(this, factory, coordinatorLayout);
-        eventQueryAdapter.addOnQueryLoadListener(new ParseQueryAdapter.OnQueryLoadListener<Event>() {
-            @Override
-            public void onLoading() {
-            }
 
+        eventRecyclerView = (RecyclerView) findViewById(R.id.club_detail_event_recycler);
+        eventRecyclerViewAdapter = new EventQueryRecyclerAdapter<Event, EventQueryRecyclerAdapter.CardViewHolder>(factory, true) {
             @Override
-            public void onLoaded(List<Event> objects, Exception e) {
-                swipeRefresh.setRefreshing(false);
+            public CardViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+                context = parent.getContext();
+                LayoutInflater inflater = LayoutInflater.from(context);
+                // Inflate the custom layout
+                View contactView = inflater.inflate(R.layout.event_card_item, parent, false);
+                // Return a new holder instance
+                return new CardViewHolder(contactView);
             }
-        });
-        Log.d(getClass().getSimpleName(), "setting up adapter");
-        eventList.setAdapter(eventQueryAdapter);
+        };
+
+        eventRecyclerView.setAdapter(eventRecyclerViewAdapter);
+        eventRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     private void initBookmark() {
@@ -272,9 +251,7 @@ public class ClubDetail extends AppCompatActivity {
     }
 
     private void refreshEventList() {
-        eventQueryAdapter.loadObjects();
-        eventQueryAdapter.notifyDataSetChanged();
-        swipeRefresh.setRefreshing(false);
+        eventRecyclerViewAdapter.loadObjects();
+        eventRecyclerViewAdapter.notifyDataSetChanged();
     }
-
 }

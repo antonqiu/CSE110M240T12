@@ -1,0 +1,40 @@
+Please Log out the APP first and run the following test IN ORDER.
+
+1.	Login/Logout Test
+Given that I am logged out
+When I type in my username and password and click login
+Then I should enter into the home page
+When I click on the option menu on the top left
+Then the options including setting, logout shows up
+When I click on logout button
+Then I logged out and go to the login page
+
+2.	Create Club & Create Event Test (The test will first do login)
+Given that I am logged in  
+When I slide the page to the right side
+Then the sidebar shows up
+When I click on new club button
+Then the create club page shows up and asks me to type in club name, description, detail, and contact information
+When I did not fill some information and click on create
+Then the app shows warning that ask me to fill the information
+When I fill all information and click on create
+Then my club shows up in All Clubs list
+When I click on my club
+Then I goes to my club detail page
+When I click on create event button
+Then the create club page shows up and let me type in description, time, and location of the event
+When I fill all information and click on create
+Then the event shows up in my club page
+
+3. Follow Event Test (Since we do not logout in test 2, we do not have to do login again in this test)
+Given that I am logged in
+When I slide the page to the right side
+Then the sidebar shows up
+When I click on All Clubs button 
+Then a page with a list of all clubs shows up
+When I click on first club in the list
+Then the page shows up with this club's detail information and events  
+When I click on the bookmark button on the top
+Then the bookmark button is checked and a message shows up saying "You bookmarked this club" 
+When I click on the follow button on one of this club's events,
+Then the follow button is checked and a message shows up saying "You followed this event"

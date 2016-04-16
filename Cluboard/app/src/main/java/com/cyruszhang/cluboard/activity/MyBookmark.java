@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.cyruszhang.cluboard.MainActivity;
 import com.cyruszhang.cluboard.R;
 import com.cyruszhang.cluboard.parse.Club;
 import com.cyruszhang.cluboard.parse.User;
@@ -42,14 +43,14 @@ public class MyBookmark extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
         setupClubList();
     }
 
@@ -79,7 +80,7 @@ public class MyBookmark extends AppCompatActivity {
                 Snackbar.make(coordinatorLayout,
                         "You selected settings", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-                Intent intent = new Intent(MyBookmark.this, Setting.class);
+                Intent intent = new Intent(MyBookmark.this, Settings.class);
                 startActivity(intent);
 
                 return true;
@@ -90,7 +91,7 @@ public class MyBookmark extends AppCompatActivity {
             case MENU_ITEM_LOGOUT:
                 // Logout current user
                 ParseUser.logOut();
-                intent = new Intent(MyBookmark.this, Login.class);
+                intent = new Intent(MyBookmark.this, MainActivity.class);
                 startActivity(intent);
                 Snackbar.make(coordinatorLayout,
                         "You are logged out", Snackbar.LENGTH_LONG)

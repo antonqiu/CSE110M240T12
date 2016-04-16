@@ -4,32 +4,37 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.cyruszhang.cluboard.R;
 import com.cyruszhang.cluboard.activity.ClubDetail;
 import com.cyruszhang.cluboard.activity.Home;
-import com.cyruszhang.cluboard.activity.MyBookmark;
-import com.cyruszhang.cluboard.activity.MyEvents;
+import com.cyruszhang.cluboard.adapter.ClubQueryRecyclerAdapter;
+import com.cyruszhang.cluboard.adapter.EventQueryRecyclerAdapter;
 import com.cyruszhang.cluboard.parse.Club;
+import com.cyruszhang.cluboard.parse.Event;
+import com.parse.GetCallback;
+import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Random;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -44,20 +49,18 @@ public class HomeFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    SwipeRefreshLayout swipeRefresh;
+    ParseQueryAdapter<Event> eventsQueryAdapter;
+    RecyclerView recommendClubsRecyclerView;
+    ClubQueryRecyclerAdapter recommendClubsQueryAdapter;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
     private OnFragmentInteractionListener mListener;
-
-    private DrawerLayout mDrawer;
-    private NavigationView nvDrawer;
-    private ActionBarDrawerToggle drawerToggle;
-
-    Button myEvents;
-    SwipeRefreshLayout swipeRefresh;
-    ParseQueryAdapter<Club> clubsQueryAdapter;
+    private RecyclerView eventRecyclerView;
+    private EventQueryRecyclerAdapter eventRecyclerViewAdapter;
+    private View savedView;
+    private Bundle savedState;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -84,12 +87,12 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
 
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        setupAdapter();
     }
 
     @Override
@@ -100,36 +103,37 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(final View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        savedView = view;
+        savedState = savedInstanceState;
 
         // swipe refresh
         swipeRefresh = (SwipeRefreshLayout) view.findViewById(R.id.home_swiperefresh);
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                Log.d(getClass().getSimpleName(), "refresh triggered");
-                refreshClubList();
+                refreshEventList();
             }
         });
 
-        myEvents = (Button) view.findViewById(R.id.my_events);
-        myEvents.setOnClickListener(new View.OnClickListener() {
-            //click and go to create club view
-            public void onClick(View arg0) {
-                Intent intent = new Intent(getActivity(), MyEvents.class);
-                startActivity(intent);
+        ParseQuery<Club> query = Club.getQuery();
+        query.selectKeys(Arrays.asList("nextIndex"));
+        query.getFirstInBackground(new GetCallback<Club>() {
+            @Override
+            public void done(Club object, ParseException e) {
+                int maxIndex = object.getNextIndex();
+                setupClubAdapter(maxIndex);
+                setupEventAdapter();
+                setupClubListview(view);
+                setupEventListview(view);
             }
         });
-        Button bookmark = (Button) view.findViewById(R.id.my_bookmark);
-        bookmark.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View arg0) {
-                Intent intent = new Intent(getActivity(), MyBookmark.class);
-                startActivity(intent);
-            }
-        });
+    }
 
-        setupClubListview(view);
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
@@ -138,7 +142,7 @@ public class HomeFragment extends Fragment {
         switch (id) {
             case Home.MENU_ITEM_REFRESH:
                 swipeRefresh.setRefreshing(true);
-                refreshClubList();
+                refreshEventList();
                 break;
             default:
                 break;
@@ -170,6 +174,120 @@ public class HomeFragment extends Fragment {
         mListener = null;
     }
 
+    private void setupClubAdapter(final int maxIndex) {
+        // random index generator
+
+        Random ranGen = new Random();
+        final ArrayList<Integer> list = new ArrayList<>();
+        if (maxIndex < 6) {
+            for (int i = 1; i <= maxIndex; i++) {
+                list.add(i);
+            }
+        } else {
+            for (int i = 0; i < 6; i++) {
+                int thisIndex = ranGen.nextInt(maxIndex) + 1;
+                if (list.contains(thisIndex)) {
+                    i--; continue;
+                } else {
+                    list.add(thisIndex);
+                }
+            }
+        }
+
+        ParseQueryAdapter.QueryFactory<Club> recommendClubsfactory =
+                new ParseQueryAdapter.QueryFactory<Club>() {
+                    public ParseQuery<Club> create() {
+                        ParseQuery<Club> query = Club.getQuery();
+//                        // only query on two keys to save time
+//                        query.selectKeys(Arrays.asList("name", "desc"));
+                        query.whereContainedIn("clubID", list);
+                        query.orderByDescending("updatedAt");
+                        Log.d(getClass().getSimpleName(), "factory created");
+                        return query;
+                    }
+                };
+
+        recommendClubsQueryAdapter = new ClubQueryRecyclerAdapter<Club, ClubQueryRecyclerAdapter.ListViewHolder>(recommendClubsfactory, true) {
+            @Override
+            public ListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+                LayoutInflater inflater = LayoutInflater.from(getContext());
+
+                // Inflate the custom layout
+                View contactView = inflater.inflate(R.layout.club_card_item, parent, false);
+
+                // Return a new holder instance
+                return new ListViewHolder(contactView);
+            }
+
+            @Override
+            public void onBindViewHolder(final ListViewHolder holder, int position) {
+                final Club thisClub = getThisClub(position);
+                final TextView clubName = holder.clubName,
+                        clubDetail = holder.clubDetail;
+                clubName.setText(thisClub.getClubName());
+                clubDetail.setText(thisClub.getClubDesc());
+                holder.thisView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Context context = holder.thisView.getContext();
+                        Intent intent = new Intent(context, ClubDetail.class);
+                        intent.putExtra("OBJECT_ID", thisClub.getObjectId());
+                        context.startActivity(intent);
+                    }
+                });
+            }
+        };
+    }
+
+    private void setupEventAdapter() {
+        ParseQueryAdapter.QueryFactory<Event> upcomingEventsFactory =
+                new ParseQueryAdapter.QueryFactory<Event>() {
+                    @Override
+                    public ParseQuery<Event> create() {
+                        ParseQuery<Event> query = Event.getQuery();
+                        // only query on two keys to save time
+                        query.selectKeys(Arrays.asList("objectId", "name", "following", "fromTime", "toTime", "desc", "location"));
+                        query.include("following").include("followingUsers");
+                        query.include("following").include("count");
+                        query.orderByAscending("fromTime");
+                        Date rightNow = Calendar.getInstance().getTime();
+                        query.whereGreaterThanOrEqualTo("fromTime", rightNow);
+                        Log.d("factory", "factory created");
+                        return query;
+                    }
+                };
+        eventRecyclerViewAdapter = new EventQueryRecyclerAdapter<Event, EventQueryRecyclerAdapter.ListViewHolder>(upcomingEventsFactory, true) {
+            @Override
+            public ListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+                context = parent.getContext();
+                LayoutInflater inflater = LayoutInflater.from(context);
+                // Inflate the custom layout
+                View contactView = inflater.inflate(R.layout.event_list_item, parent, false);
+                // Return a new holder instance
+                return new ListViewHolder(contactView);
+            }
+        };
+    }
+
+    private void setupClubListview(View view) {
+        recommendClubsRecyclerView = (RecyclerView) view.findViewById(R.id.fragment_home_recommend_club_recycler);
+        recommendClubsRecyclerView.setAdapter(recommendClubsQueryAdapter);
+        recommendClubsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
+    }
+
+    private void setupEventListview(View view) {
+        eventRecyclerView = (RecyclerView) view.findViewById(R.id.fragment_home_upcoming_events_recycler);
+        eventRecyclerView.setAdapter(eventRecyclerViewAdapter);
+        eventRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+    }
+
+    private void refreshEventList() {
+        onViewCreated(savedView, savedState);
+        eventRecyclerViewAdapter.loadObjects();
+        eventRecyclerViewAdapter.notifyDataSetChanged();
+        swipeRefresh.setRefreshing(false);
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -183,69 +301,5 @@ public class HomeFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
-    }
-
-    private void setupAdapter() {
-        ParseQueryAdapter.QueryFactory<Club> factory =
-                new ParseQueryAdapter.QueryFactory<Club>() {
-                    public ParseQuery<Club> create() {
-                        ParseQuery<Club> query = Club.getQuery();
-                        // only query on two keys to save time
-                        query.selectKeys(Arrays.asList("name", "desc"));
-                        query.orderByDescending("createdAt");
-                        Log.d(getClass().getSimpleName(), "factory created");
-                        return query;
-                    }
-                };
-
-        clubsQueryAdapter = new ParseQueryAdapter<Club>(getContext(), factory) {
-            @Override
-            public View getItemView(Club object, View v, ViewGroup parent) {
-                // Local DataStore
-
-                if (v == null) {
-                    v = View.inflate(getContext(), R.layout.club_list_item, null);
-                }
-                Log.d(getClass().getSimpleName(), "setting up item view");
-                TextView clubName = (TextView) v.findViewById(R.id.club_list_item_name);
-                TextView clubDetail = (TextView) v.findViewById(R.id.club_list_item_desc);
-                clubName.setText(object.getClubName());
-                clubDetail.setText(object.getClubDesc());
-                return v;
-            }
-        };
-    }
-
-    private void setupClubListview(View view) {
-        clubsQueryAdapter.addOnQueryLoadListener(new ParseQueryAdapter.OnQueryLoadListener<Club>() {
-            @Override
-            public void onLoading() {
-                swipeRefresh.setRefreshing(true);
-            }
-
-            @Override
-            public void onLoaded(List<Club> objects, Exception e) {
-                swipeRefresh.setRefreshing(false);
-            }
-        });
-
-        ListView clubList = (ListView) view.findViewById(R.id.home_club_list_view);
-        clubList.setAdapter(clubsQueryAdapter);
-
-        clubList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                final Club club = clubsQueryAdapter.getItem(position);
-                Intent intent = new Intent(getActivity(), ClubDetail.class);
-                intent.putExtra("OBJECT_ID", club.getObjectId());
-                startActivity(intent);
-            }
-        });
-    }
-
-    private void refreshClubList() {
-        clubsQueryAdapter.loadObjects();
-        clubsQueryAdapter.notifyDataSetChanged();
-        swipeRefresh.setRefreshing(false);
     }
 }

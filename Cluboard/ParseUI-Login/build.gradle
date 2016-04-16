@@ -30,9 +30,9 @@ dependencies {
     compile rootProject.ext.androidSupport
     compile rootProject.ext.parse
 
-    provided rootProject.ext.facebookSDK
-    provided rootProject.ext.parseFacebookUtils
-    provided rootProject.ext.parseTwitterUtils
+    compile rootProject.ext.facebookSDK
+    compile rootProject.ext.parseFacebookUtils
+    compile rootProject.ext.parseTwitterUtils
 }
 
 android {

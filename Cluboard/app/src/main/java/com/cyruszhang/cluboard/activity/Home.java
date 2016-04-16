@@ -2,7 +2,6 @@ package com.cyruszhang.cluboard.activity;
 
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
@@ -24,7 +23,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.cyruszhang.cluboard.R;
-import com.cyruszhang.cluboard.SampleDispatchActivity;
+import com.cyruszhang.cluboard.MainActivity;
 import com.cyruszhang.cluboard.fragment.ClubCatalogFragment;
 import com.cyruszhang.cluboard.fragment.HomeFragment;
 import com.cyruszhang.cluboard.parse.Club;
@@ -86,16 +85,6 @@ public class Home extends AppCompatActivity {
         ft.commit();
         // set checked
         nvDrawer.getMenu().getItem(0).setChecked(true);
-
-//        // add new club floating button
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.welcome_fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(Home.this, NewClub.class);
-//                startActivity(intent);
-//            }
-//        });
     }
 
     private ActionBarDrawerToggle setupDrawerToggle(Toolbar toolbar) {
@@ -141,10 +130,7 @@ public class Home extends AppCompatActivity {
                 return true;
             case R.id.action_settings:
                 //go to setting page
-                Snackbar.make(coordinatorLayout,
-                        "You selected settings", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                Intent intent = new Intent(Home.this, Setting.class);
+                Intent intent = new Intent(Home.this, Settings.class);
                 startActivity(intent);
                 return true;
             case R.id.action_about:
@@ -166,7 +152,7 @@ public class Home extends AppCompatActivity {
         ParseUser.logOut();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             Intent intentLogout = new Intent(Home.this,
-                    SampleDispatchActivity.class);
+                    MainActivity.class);
             intentLogout.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK
                     | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intentLogout);
@@ -218,7 +204,7 @@ public class Home extends AppCompatActivity {
         // Create a new fragment and specify the planet to show based on
         // position
         Fragment fragment = null;
-
+        Intent intent;
         Class fragmentClass;
         switch (menuItem.getItemId()) {
             case R.id.nav_home:
@@ -227,22 +213,27 @@ public class Home extends AppCompatActivity {
             case R.id.nav_all_clubs:
                 fragmentClass = ClubCatalogFragment.class;
                 break;
-//            case R.id.nav_followed:
-//                break;
-//            case R.id.nav_bookmark:
-//                break;
+            case R.id.nav_followed:
+                startActivity(new Intent(Home.this, MyEvents.class));
+                return;
+            case R.id.nav_bookmark:
+                startActivity(new Intent(Home.this, MyBookmark.class));
+                return;
             case R.id.nav_new_club:
-                Intent intent = new Intent(Home.this, NewClub.class);
+                startActivity(new Intent(Home.this, NewClub.class));
+                return;
+            case R.id.nav_manage_clubs:
+                startActivity(new Intent(Home.this, ManageClubs.class));
+                return;
+            case R.id.nav_setting:
+                intent = new Intent(Home.this, Settings.class);
                 startActivity(intent);
                 return;
-//            case R.id.nav_manage_clubs:
-//                break;
-//            case R.id.nav_setting:
-//                break;
-//            case R.id.nav_logout:
-//                break;
+            case R.id.nav_logout:
+                logout();
+                return;
 //            case R.id.nav_about:
-//                break;
+//                return;
             default:
                 fragmentClass = HomeFragment.class;
         }
@@ -257,6 +248,8 @@ public class Home extends AppCompatActivity {
             // Insert the fragment by replacing any existing fragment
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction transaction = fragmentManager.beginTransaction();
+            if (fragment == null)
+                Log.d(getClass().getSimpleName(), "null");
             transaction.replace(R.id.main_fragment_placeholder, fragment);
             //TODO: go back to one stack won't change the checked status
             // stack check
@@ -271,5 +264,11 @@ public class Home extends AppCompatActivity {
         }
         setTitle(menuItem.getTitle());
         mDrawer.closeDrawers();
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+
     }
 }

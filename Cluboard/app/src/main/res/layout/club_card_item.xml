@@ -1,0 +1,55 @@
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="4dp"
+    card_view:cardCornerRadius="8dp"
+    card_view:cardPreventCornerOverlap="false"
+    card_view:cardUseCompatPadding="true">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:minHeight="100dp" >
+
+        <!--<ImageView-->
+            <!--android:id="@+id/imageView"-->
+            <!--android:layout_width="40dp"-->
+            <!--android:layout_height="40dp"-->
+            <!--android:contentDescription="Club Icon"-->
+            <!--android:layout_centerInParent="false"-->
+            <!--android:src="@drawable/ic_circle_star"-->
+            <!--android:layout_alignParentTop="true"-->
+            <!--android:layout_alignParentStart="true" />-->
+
+        <TextView
+            android:id="@+id/club_list_item_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center"
+            android:maxLines="3"
+            android:text="@string/club_name_demo"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="14dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp" />
+
+        <TextView
+            android:id="@+id/club_list_item_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:maxLines="2"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:fontFamily="sans-serif-thin"
+            android:text="@string/club_desc_demo"
+            android:textSize="12dp"
+            android:layout_below="@+id/club_list_item_name" />
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

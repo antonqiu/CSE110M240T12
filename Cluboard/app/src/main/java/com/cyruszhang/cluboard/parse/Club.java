@@ -43,8 +43,24 @@ public class Club extends ParseObject{
         put("desc", clubDesc);
     }
 
-    public String getClubID() {
-        return getString("clubID");
+    public int getClubID() {
+        return getInt("clubID");
+    }
+
+    public void setClubID(int id) {
+        put("clubID", id);
+    }
+
+    public int getNextIndex() {
+        return getInt("nextIndex");
+    }
+
+    public void setNextIndex(int id) {
+        put("nextIndex", id);
+    }
+
+    public void deleteClub() {
+        ParseObject.createWithoutData("Clubs", getObjectId()).deleteEventually();
     }
 
     public void setClubDetail(String clubDetail) {
@@ -59,6 +75,12 @@ public class Club extends ParseObject{
 
     public void setClubEmail(String clubEmail) {
         put("email", clubEmail);
+    }
+
+    public String getClubPhone() {return getString("phone"); }
+
+    public void setClubPhone(String clubPhone) {
+        put("phone", clubPhone);
     }
 
     public String getClubWeb() {return getString("web"); }

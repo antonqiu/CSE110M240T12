@@ -23,9 +23,11 @@ package com.parse.ui;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -34,6 +36,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
@@ -46,12 +49,16 @@ import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.parse.twitter.Twitter;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
  * Fragment for the user login screen.
  */
 public class ParseLoginFragment extends ParseLoginFragmentBase {
+  String fbName;
+  String fbEmail;
+  String fbPicUrl;
 
   public interface ParseLoginFragmentListener {
     public void onSignUpClicked(String username, String password);
@@ -257,40 +264,70 @@ public class ParseLoginFragment extends ParseLoginFragmentBase {
                   e.toString());
         }
       } else if (user.isNew()) {
-        GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(),
-            new GraphRequest.GraphJSONObjectCallback() {
-              @Override
-              public void onCompleted(JSONObject fbUser,
-                                      GraphResponse response) {
-                  /*
-                    If we were able to successfully retrieve the Facebook
-                    user's name, let's set it on the fullName field.
-                  */
-                ParseUser parseUser = ParseUser.getCurrentUser();
-                if (fbUser != null && parseUser != null
-                        && fbUser.optString("name").length() > 0) {
-                  parseUser.put(USER_OBJECT_NAME_FIELD, fbUser.optString("name"));
-                  parseUser.saveInBackground(new SaveCallback() {
-                    @Override
-                    public void done(ParseException e) {
-                      if (e != null) {
-                        debugLog(getString(
-                                R.string.com_parse_ui_login_warning_facebook_login_user_update_failed) +
-                                e.toString());
-                      }
-                      loginSuccess();
-                    }
-                  });
-                }
-                loginSuccess();
-              }
-            }
-        ).executeAsync();
+        getUserDetailsFromFB();
+        loginSuccess();
+
+
       } else {
         loginSuccess();
       }
     }
   };
+
+  private void getUserDetailsFromFB() {
+    GraphRequest request = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+      @Override
+      public void onCompleted(JSONObject object, GraphResponse response) {
+        try {
+          fbName = object.getString("name");
+        }
+        catch (JSONException e) {
+          e.printStackTrace();
+        }
+        try {
+          fbEmail = object.getString("email");
+        }
+        catch(JSONException e) {
+          e.printStackTrace();
+        }
+        try {
+          fbPicUrl = object.getJSONObject("picture").getJSONObject("data").getString("url");
+                    /*Log.e("IMAGE", "URL is: "+fbPicUrl);
+                    fbPic = getFacebookProfilePicture(fbPicUrl);
+                    if(fbPic == null) {
+
+                        Log.e("IMAGE", "bitMap is null");
+                    }*/
+
+        }
+        catch(JSONException e) {
+          e.printStackTrace();
+        }
+        saveNewFBUser();
+      }
+    });
+    Bundle parameter = new Bundle();
+    parameter.putString("fields", "name, email, picture");
+    request.setParameters(parameter);
+    request.executeAsync();
+  }
+
+  private void saveNewFBUser() {
+
+    ParseUser currentUser = ParseUser.getCurrentUser();
+    currentUser.setUsername(fbName);
+    currentUser.setEmail(fbEmail);
+    currentUser.put("imageUrl", fbPicUrl);
+    // Convert it to byte
+
+    //currentUser.put("profilepic", file);
+    currentUser.saveInBackground(new SaveCallback() {
+      @Override
+      public void done(ParseException e) {
+
+      }
+    });
+  }
 
   private void setUpFacebookLogin() {
     facebookLoginButton.setVisibility(View.VISIBLE);

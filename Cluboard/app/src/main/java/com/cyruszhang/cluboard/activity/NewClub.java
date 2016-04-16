@@ -12,12 +12,16 @@ import android.widget.Toast;
 
 import com.cyruszhang.cluboard.R;
 import com.cyruszhang.cluboard.parse.Club;
+import com.parse.GetCallback;
 import com.parse.ParseACL;
 import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseRole;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
+
+import java.util.Arrays;
 
 public class NewClub extends AppCompatActivity {
     private static final int MENU_ITEM_CREATE = 1002;
@@ -27,9 +31,13 @@ public class NewClub extends AppCompatActivity {
     EditText clubName;
     EditText clubDesc;
     EditText clubDetail;
+    EditText clubEmail;
+    EditText clubPhone;
     String clubNametxt;
     String clubDesctxt;
     String clubDetailtxt;
+    String clubEmailtxt;
+    String clubPhonetxt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +59,8 @@ public class NewClub extends AppCompatActivity {
         clubName = (EditText) findViewById(R.id.new_club_name);
         clubDesc = (EditText) findViewById(R.id.new_club_desc);
         clubDetail = (EditText) findViewById(R.id.new_club_detail);
+        clubEmail = (EditText) findViewById(R.id.new_club_email);
+        clubPhone = (EditText) findViewById(R.id.new_club_phone);
     }
 
     @Override
@@ -84,6 +94,8 @@ public class NewClub extends AppCompatActivity {
         clubNametxt = clubName.getText().toString();
         clubDesctxt = clubDesc.getText().toString();
         clubDetailtxt = clubDetail.getText().toString();
+        clubPhonetxt = clubPhone.getText().toString();
+        clubEmailtxt = clubEmail.getText().toString();
         //if user does not input name and description
         if(clubNametxt.equals("") || clubDesctxt.equals("")) {
             Toast.makeText(getApplicationContext(),
@@ -96,7 +108,11 @@ public class NewClub extends AppCompatActivity {
         newClub.setClubName(clubNametxt);
         newClub.setClubDesc(clubDesctxt);
         newClub.setClubDetail(clubDetailtxt);
+        newClub.setClubEmail(clubEmailtxt);
+        newClub.setClubPhone(clubPhonetxt);
         newClub.setOwner(ParseUser.getCurrentUser());
+
+        // relation
         final ParseObject newRelation = new ParseObject("BookmarkRelations");
         newRelation.put("clubObject", newClub);
         ParseACL relationACL = new ParseACL();
@@ -110,12 +126,31 @@ public class NewClub extends AppCompatActivity {
                 if (e == null) {
                     newClub.setBookmarkRelations(newRelation);
                     Log.d("NewClub", "relation should be added");
-                    newClub.saveInBackground(new SaveCallback() {
-                        @Override
-                        public void done(ParseException e) {
-                            Log.d("NewClub", "this event was saved");
 
-                            finish();
+                    // clubID: could impact performance a lot
+                    ParseQuery<Club> clubQuery = Club.getQuery();
+                    clubQuery.selectKeys(Arrays.asList("clubID"));
+                    clubQuery.getFirstInBackground(new GetCallback<Club>() {
+                        @Override
+                        public void done(Club object, ParseException e) {
+                            final Club property = object;
+                            if (e == null) {
+                                property.increment("nextIndex");
+                                property.saveInBackground(new SaveCallback() {
+                                    @Override
+                                    public void done(ParseException e) {
+                                        int index = property.getNextIndex();
+                                        newClub.setClubID(index);
+                                        newClub.saveInBackground(new SaveCallback() {
+                                            @Override
+                                            public void done(ParseException e) {
+                                                Log.d("NewClub", "this event was saved");
+                                                finish();
+                                            }
+                                        });
+                                    }
+                                });
+                            }
                         }
                     });
                 }

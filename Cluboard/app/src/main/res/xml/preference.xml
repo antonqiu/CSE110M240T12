@@ -1,0 +1,26 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="@string/title_first_section">
+
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/title_second_section">
+        <CheckBoxPreference
+            android:key="checkbox_preference"
+            android:title="@string/title_checkbox_preference" />
+
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/title_third_section">
+        <Preference
+            android:key="pref_change_password"
+            android:summary="@string/pref_summary_change_password"
+            android:title="@string/pref_title_change_password" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

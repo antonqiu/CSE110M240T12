@@ -1,0 +1,1 @@
+Since the gradle for the android studio has been updated and we cannot set up our project correctly with the latest version. We decide to temporarily put our espresso file in a doc/txt file for you to check. We will update the projects according to those files later in the day or on the weekends. Thanks

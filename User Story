@@ -8,10 +8,10 @@ Priority 1 Estimate Time: 1 day  Status: Done
 Priority 3 (optional) Time: 5 days Status: Done
 
 4. As a student, I want to get notifications about upcoming events so that I don't miss them.
-Priority 2  Time: 7 days Status: In progress
+Priority 2  Time: 7 days Status: Done
 
 5 As a student, I want to search different events by tags so that I can find events that I'm interested in more efficiently.
-Priority 4 (optional) Time: 7 days Status: Pending (client doesn't want this function anymore)
+Priority 4 (optional) Time: 7 days Status: Abortion (client doesn't want this function anymore)
 
 6. As an organization leader, I want to share introduction and history of our group so that others can get to know about us well.
 Priority 1 Estimate Time: 2 days  Status: Done
@@ -20,15 +20,12 @@ Priority 1 Estimate Time: 2 days  Status: Done
 Priority 1 Estimate Time: 3 days  Status: Done
 
 8. As an organization leader, I want to send out reminders of the events so that the participants don't miss out. (feature)
-Priority 3 Estimate Time: 5 days  Status: In progress
+Priority 3 Estimate Time: 5 days  Status: Done
 
-9. As an organization leader, I want to give different administration rights to others so that they can help me manage the events.
-Priority 3 Estimate Time: 3 day  Status: In progress
+9. As an organization leader, I want to attach tags to my events so that people who have certain interests can find us easily.
+Priority 4 (optinal) Status: Done
 
-10. As an organization leader, I want to attach tags to my events so that people who have certain interests can find us easily.
-Priority 4 (optinal) Pending
-
-11. As an organization leader, I want to know how many are following the event so that we can estimate how many people will come to the event.
+10. As an organization leader, I want to know how many are following the event so that we can estimate how many people will come to the event.
 Priority 2
 Estimate Time: 5 days  Status: Done
 
